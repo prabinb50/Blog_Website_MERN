@@ -60,9 +60,6 @@ export default function ContactUsPage() {
 
   return (
     <div className="bg-gray-50">
-      {/* Header section with navigation */}
-      <SecondNavbar />
-
       <div className="bg-[#f6f2ff]">
         {/* Breadcrumb navigation */}
         <div className="flex items-center justify-center pt-20">

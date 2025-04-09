@@ -19,9 +19,6 @@ export default function BlogPage() {
   return (
     <div>
 
-        {/* call second navbar section */}
-      <SecondNavbar />
-
       <div className="bg-[#f6f2ff] space-y-4">
         {/* Breadcrumb navigation */}
         <div className="flex items-center justify-center pt-20">

@@ -5,7 +5,6 @@ import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 export default function SinglePostPage() {
   return (
     <div className="w-7/12 mx-auto  p-6">
-      <SecondNavbar />
       {/* Header Section */}
       <header className="flex justify-between items-center mb-6">
         <div className="flex items-center">
