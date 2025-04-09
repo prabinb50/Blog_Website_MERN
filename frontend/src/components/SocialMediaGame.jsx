@@ -3,7 +3,7 @@ import socialmedia from "../../public/socialmediagame.png";
 
 export default function SocialMediaGame() {
   return (
-    <div className="h-full lg:h-120 w-full bg-violet-900 flex mt-12">
+    <div className="h-full lg:h-120 w-full bg-violet-900 flex">
       <div className=" w-11/12 mx-auto flex flex-col max-lg:px-6 lg:flex-row items-center justify-between gap-8">
         <div className="flex flex-col  lg:w-1/2  gap-8 max-lg:mt-12">
           <p className="font-semibold text-6xl text-white opacity-90">

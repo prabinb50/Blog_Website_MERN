@@ -163,7 +163,7 @@ export default function ContactUsPage() {
       </div>
 
       {/* Contact details section */}
-      <div className="max-w-2xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="max-w-2xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 pb-20">
         {contactDetails.map((item, index) => (
           <div
             key={index}
