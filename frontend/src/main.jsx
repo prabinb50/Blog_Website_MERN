@@ -6,6 +6,7 @@ import "./index.css";
 import Footer_Section from "./components/Footer_Section";
 import ContactUsPage from "./pages/ContactUsPage";
 import { Bounce, ToastContainer } from "react-toastify";
+import BlogPage from "./pages/BlogPage";
 
 const root = createRoot(document.getElementById("root")); // Create a root
 root.render(
@@ -26,7 +27,7 @@ root.render(
     <Routes>
       <Route path="/" element={<App />} />
       <Route path="/home" element={<App />} />
-      <Route path="/blog" element={<App />} />
+      <Route path="/blog" element={<BlogPage />} />
       <Route path="/single-post" element={<App />} />
       <Route path="/categories" element={<App />} />
       <Route path="/contact" element={<ContactUsPage />} />
