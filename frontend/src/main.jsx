@@ -11,6 +11,8 @@ import BlogPage from "./pages/BlogPage";
 import SecondNavbar from "./components/SecondNavbar";
 import CategoriesPage from "./pages/CategoriesPage";
 import ScrollToTopArrow from "./components/ScrollToTopArrow";
+import SocialMediaGame from './components/SocialMediaGame'
+
 
 
 const root = createRoot(document.getElementById("root"));
@@ -40,6 +42,9 @@ root.render(
       <Route path="/contact" element={<ContactUsPage />} />
       <Route path="/account" element={<App />} />
     </Routes>
+
+    <SocialMediaGame/>
+
 
     <Footer_Section />
     <ScrollToTopArrow />
