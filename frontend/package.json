@@ -19,6 +19,7 @@
     "react-router": "^7.5.0",
     "react-router-dom": "^7.5.0",
     "react-star-ratings": "^2.3.0",
+    "react-stars": "^2.2.5",
     "react-toastify": "^11.0.5",
     "swiper": "^11.2.6",
     "tailwindcss": "^4.1.3"
