@@ -5,7 +5,6 @@ import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 export default function SinglePostPage() {
   return (
     <div className="w-7/12 mx-auto  p-6">
-      <SecondNavbar />
       {/* Header Section */}
       <header className="flex justify-between items-center mb-6">
         <div className="flex items-center">
@@ -236,6 +235,7 @@ export default function SinglePostPage() {
             
           </div>
           <div className="flex flex-col gap-4 mb-4">
+            <p>yyyyyyyyyyyyyyy</p>
             {/* <span>“This article is exactly what I needed! I've been trying to build my personal brand for a while but was getting stuck. The tips on content creation and engagement are super helpful—thanks for sharing!"</span> */}
           </div>
         </div>
