@@ -216,6 +216,8 @@ export default function SinglePostPage() {
           </div>
         </div>
         <hr className="border-gray-300" />
+
+{/* Comment Section */}
         <div className="flex items-center justify-between gap-4 mt-6">
           <div className="flex justify-between gap-4 mb-4">
             <div className="flex items-center gap-4 mb-4">
@@ -227,11 +229,13 @@ export default function SinglePostPage() {
           <div className="flex flex-col gap-2">
             <span>Mr. Ana Ritchie</span>
             <span>8/1/2025</span>
+            <div className="flex">right</div>
           </div>
             </div>
-            <div>right</div>
+            
           </div>
           <div className="flex flex-col gap-4 mb-4">
+            <p>yyyyyyyyyyyyyyy</p>
             {/* <span>“This article is exactly what I needed! I've been trying to build my personal brand for a while but was getting stuck. The tips on content creation and engagement are super helpful—thanks for sharing!"</span> */}
           </div>
         </div>
