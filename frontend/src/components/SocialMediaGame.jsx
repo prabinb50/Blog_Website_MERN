@@ -3,7 +3,7 @@ import socialmedia from "../../public/socialmediagame.png";
 
 export default function SocialMediaGame() {
   return (
-    <div className="h-full lg:h-120 w-full bg-violet-900 flex">
+    <div className="h-full lg:h-120 w-full bg-violet-900 mt-24 flex">
       <div className=" w-11/12 mx-auto flex flex-col max-lg:px-6 lg:flex-row items-center justify-between gap-8">
         <div className="flex flex-col  lg:w-1/2  gap-8 max-lg:mt-12">
           <p className="font-semibold text-6xl text-white opacity-90">
@@ -14,14 +14,14 @@ export default function SocialMediaGame() {
             with Vexon. Join our community for expert tips, trending strategies,
             and resources that empower you to stand out and succeed.
           </p>
-          <div className=" flex flex-col relative   justify-center  ">
+          <div className=" flex flex-col relative  justify-center  ">
             <input
               type="text"
-              className="outline-none h-16 flex items-center px-4 py-2 bg-white rounded-4xl "
+              className="outline-none  h-16 flex items-center px-4 py-2 bg-white rounded-4xl "
               placeholder="Enter Your Email"
             />
 
-            <button className=" absolute flex items-center  right-2 cursor-pointer hover:bg-black duration-500  px-6 py-3 font-bold bg-violet-800 text-white rounded-4xl">
+            <button className="  absolute flex items-center  right-2 cursor-pointer hover:bg-black duration-500  px-6 py-3 font-bold bg-violet-800 text-white rounded-4xl">
               Get Start
             </button>
           </div>
