@@ -43,7 +43,7 @@ root.render(
       <Route path="/account" element={<App />} />
     </Routes>
 
-    <SocialMediaGame/>
+    <SocialMediaGame />
 
 
     <Footer_Section />
