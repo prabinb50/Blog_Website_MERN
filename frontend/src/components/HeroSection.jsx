@@ -1,16 +1,17 @@
 import React from "react";
 import heroImage from "../../public/hero1-image.png";
+import * as motion from "motion/react-client"
 
 export default function HeroSection() {
   return (
     <div className="h-full  w-full mt-12  flex px-6">
-      <div className=" w-11/12 mx-auto bg-violet-400 flex flex-col rounded-md p-12  md:flex-row sm:p-24  items-center justify-between gap-8">
+      <div className=" w-11/12 mx-auto bg-purple-100 flex flex-col rounded-md p-12  md:flex-row sm:p-24  items-center justify-between gap-8">
         <div className="md:1/2 flex items-center justify-center">
           <img src={heroImage} alt="" className=" h-120 w-110 object-cover" />
         </div>
 
         <div className="flex flex-col  md:w-1/2  gap-8 max-lg:mt-12">
-          <p className="font-bold text-6xl leading-16  opacity-90">
+          <p className="font-bold text-6xl leading-16  opacity-80">
             Unlocking The Secrets To Social Media Success
           </p>
           <p className="text-gray-600  tracking-wide leading-6 ">
@@ -30,11 +31,24 @@ export default function HeroSection() {
               Get Start
             </button>
           </div>
-          <p className="opacity-90">
+
+          
+         <motion.p className=" opacity-90"
+         
+         initial={{ opacity: 0, translateX: 2 }}
+         animate={{ opacity: 1, translateX: 2 }}
+         transition={{
+             duration: 10,
+             delay: 2,
+             ease: [0, 0.71, 0.2, 1.01],
+         }}
+         >
             ❊ Connect, engage, & inspire—social media success starts here.
-          </p>
+          </motion.p>
         </div>
       </div>
     </div>
+    
   );
 }
+ 
