@@ -12,8 +12,9 @@ import SecondNavbar from "./components/SecondNavbar";
 import CategoriesPage from "./pages/CategoriesPage";
 import ScrollToTopArrow from "./components/ScrollToTopArrow";
 import SocialMediaGame from './components/SocialMediaGame'
-
-
+import AccountPage from "./pages/AccountPage";
+import SignUpPage from "./pages/SignUpPage";
+import LoginPage from "./pages/LoginPage";
 
 const root = createRoot(document.getElementById("root"));
 root.render(
@@ -40,12 +41,12 @@ root.render(
       <Route path="/blog" element={<BlogPage />} />
       <Route path="/categories" element={<CategoriesPage />} />
       <Route path="/contact" element={<ContactUsPage />} />
-      <Route path="/account" element={<App />} />
+      <Route path="/account" element={<AccountPage />} />
+      <Route path="/sign-up" element={<SignUpPage />} />
+      <Route path="/login" element={<LoginPage />} />
     </Routes>
 
     <SocialMediaGame />
-
-
     <Footer_Section />
     <ScrollToTopArrow />
   </BrowserRouter>
