@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router";
 import App from "./App";
 import "./index.css";
-import Footer_Section from "./components/Footer_Section";
+import FooterSection from "./components/FooterSection";
 import SinglePostPage from "./pages/singlePostPage";
 import ContactUsPage from "./pages/ContactUsPage";
 import { Bounce, ToastContainer } from "react-toastify";
@@ -47,7 +47,7 @@ root.render(
     </Routes>
 
     <SocialMediaGame />
-    <Footer_Section />
+    <FooterSection />
     <ScrollToTopArrow />
   </BrowserRouter>
 );
