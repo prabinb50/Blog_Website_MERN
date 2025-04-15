@@ -1,75 +1,96 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Search } from 'lucide-react';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+import { AlignJustify, Search } from "lucide-react";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import MobileNavigation from "./MobileMenu";
 
 export default function SecondNavbar() {
-    const [anchorEl, setAnchorEl] = useState(null);
-    const open = Boolean(anchorEl);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
 
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget); // Set the anchor element to the clicked element
-    };
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget); // Set the anchor element to the clicked element
+  };
 
-    const handleClose = () => {
-        setAnchorEl(null); // Reset the anchor element to close the dropdown
-    };
+  const handleClose = () => {
+    setAnchorEl(null); // Reset the anchor element to close the dropdown
+  };
 
-    return (
-        <div className="sticky top-0 bg-white z-50 shadow-md w-full">
-            <div className="w-11/12 mx-auto">
-                <div className="flex items-center justify-between px-6 py-4">
-                    {/* Left child: Logo */}
-                    <img src="/header-logo1.png" alt="Vexon Logo" className="h-8" />
+  return (
+    <div className="sticky top-0 bg-white z-50 shadow-md w-full">
+      <div className="w-11/12 mx-auto">
+        <div className="flex items-center justify-between px-6 py-4">
+          {/* Left child: Logo */}
 
-                    {/* Center child: Navigation links */}
-                    <div className="flex items-center justify-between space-x-4 font-semibold opacity-85">
-                        <Link to="/" className="hover:text-purple-600">Home</Link>
-                        <Link to="/blog" className="ml-4 hover:text-purple-600">Blog</Link>
-                        <Link to="/single-post" className="hover:text-purple-600">Single Post</Link>
-                        <Link to="/categories" className="ml-4 hover:text-purple-600">Categories</Link>
-                        <Link to="/contact" className="hover:text-purple-600">Contact Us</Link>
+          <MobileNavigation />
 
-                        {/* Account dropdown */}
-                        <div>
-                            <span
-                                className="hover:text-purple-600 cursor-pointer"
-                                onClick={handleClick} // Open dropdown on click
-                            >
-                                Account
-                            </span>
-                            <Menu
-                                id="account-menu"
-                                anchorEl={anchorEl} // Anchor element for the dropdown
-                                open={open} // Open state of the dropdown
-                                onClose={handleClose} // Close dropdown on menu close
-                                MenuListProps={{
-                                    'aria-labelledby': 'account-button',
-                                }}
-                            >
-                                {/* Dropdown menu items */}
-                                <MenuItem onClick={handleClose}>
-                                    <Link to="/sign-up" className="text-black">Sign Up</Link>
-                                </MenuItem>
-                                <MenuItem onClick={handleClose}>
-                                    <Link to="/login" className="text-black">Login</Link>
-                                </MenuItem>
-                            </Menu>
-                        </div>
-                    </div>
+          <img src="/header-logo1.png" alt="Vexon Logo" className="h-8" />
 
-                    {/* Right child: Search icon and Subscribe button */}
-                    <div className="flex items-center space-x-4">
-                        {/* Search icon */}
-                        <Search className="cursor-pointer" />
-                        {/* Subscribe button */}
-                        <Link to={"/sign-up"} className="bg-purple-800 text-white font-semibold px-4 py-3 rounded-full hover:bg-black transition duration-300 ease-in-out cursor-pointer">
-                            Subscribe
-                        </Link>
-                    </div>
-                </div>
+          {/* Center child: Navigation links */}
+          <div className="hidden lg:flex items-center justify-between space-x-4 font-semibold opacity-85">
+            <Link to="/" className="hover:text-purple-600">
+              Home
+            </Link>
+            <Link to="/blog" className="ml-4 hover:text-purple-600">
+              Blog
+            </Link>
+            <Link to="/single-post" className="hover:text-purple-600">
+              Single Post
+            </Link>
+            <Link to="/categories" className="ml-4 hover:text-purple-600">
+              Categories
+            </Link>
+            <Link to="/contact" className="hover:text-purple-600">
+              Contact Us
+            </Link>
+
+            {/* Account dropdown */}
+            <div>
+              <span
+                className="hover:text-purple-600 cursor-pointer"
+                onClick={handleClick} // Open dropdown on click
+              >
+                Account
+              </span>
+              <Menu
+                id="account-menu"
+                anchorEl={anchorEl} // Anchor element for the dropdown
+                open={open} // Open state of the dropdown
+                onClose={handleClose} // Close dropdown on menu close
+                MenuListProps={{
+                  "aria-labelledby": "account-button",
+                }}
+              >
+                {/* Dropdown menu items */}
+                <MenuItem onClick={handleClose}>
+                  <Link to="/sign-up" className="text-black">
+                    Sign Up
+                  </Link>
+                </MenuItem>
+                <MenuItem onClick={handleClose}>
+                  <Link to="/login" className="text-black">
+                    Login
+                  </Link>
+                </MenuItem>
+              </Menu>
             </div>
+          </div>
+
+          {/* Right child: Search icon and Subscribe button */}
+          <div className="flex items-center space-x-4">
+            {/* Search icon */}
+            <Search className="cursor-pointer" />
+            {/* Subscribe button */}
+            <Link
+              to={"/sign-up"}
+              className="bg-purple-800 text-white font-semibold px-4 py-3 rounded-full hover:bg-black transition duration-300 ease-in-out cursor-pointer"
+            >
+              Subscribe
+            </Link>
+          </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 }
