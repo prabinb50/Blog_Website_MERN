@@ -16,8 +16,7 @@ export default function BlogPageOne() {
   return (
     <div>
       {/* Fitst blog Complete Responsive */}
-
-      <div className="w-11/12 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-24 mb-12 gap-8">
+      <div className="w-11/12 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-24 pb-20 gap-8">
         {Items1.map((item, index) => (
           <div
             key={index}
@@ -73,11 +72,6 @@ export default function BlogPageOne() {
           </div>
         ))}
       </div>
-
-      {/* second blog Complete Responsive */}
-
-    
-      
     </div>
   );
 }
@@ -148,37 +142,3 @@ const Items1 = [
   },
 ];
 
-// const Items2 = [
-//   {
-//     img: Img7,
-//     title: "Why the multiverse theory could change our understanding",
-//     desc: "This post explores strategies to help create an authentic and memorable brand presence on social media that resonates with the audience.",
-//     date: "26 April 2025",
-//     profile:
-//       "https://images.unsplash.com/photo-1742261569279-da244b3aab46?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDV8X2hiLWRsNFEtNFV8fGVufDB8fHx8fA%3D%3D",
-//     proName: "Prav P.",
-//     date: "26 April 2025",
-//   },
-
-//   {
-//     img: Img8,
-//     title: "Alternate universes and their impact on the nature of space",
-//     desc: "This post explores strategies to help create an authentic and memorable brand presence on social media that resonates with the audience.",
-//     date: "26 April 2025",
-//     profile:
-//       "https://images.unsplash.com/photo-1742261569279-da244b3aab46?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDV8X2hiLWRsNFEtNFV8fGVufDB8fHx8fA%3D%3D",
-//     proName: "John J.",
-//     date: "26 April 2025",
-//   },
-
-//   {
-//     img: Img9,
-//     title: "Exploring the future of interdimensional travel possibilities",
-//     desc: "This post explores strategies to help create an authentic and memorable brand presence on social media that resonates with the audience.",
-//     date: "26 April 2025",
-//     profile:
-//       "https://images.unsplash.com/photo-1742261569279-da244b3aab46?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDV8X2hiLWRsNFEtNFV8fGVufDB8fHx8fA%3D%3D",
-//     proName: "Yang Y.",
-//     date: "26 April 2025",
-//   },
-// ];
