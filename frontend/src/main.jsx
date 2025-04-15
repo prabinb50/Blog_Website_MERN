@@ -61,7 +61,7 @@ function AppWrapper() {
 
 const root = createRoot(document.getElementById("root"));
 root.render(
-  <BrowserRouter >
+  <BrowserRouter>
     <AppWrapper />
   </BrowserRouter >
 );
