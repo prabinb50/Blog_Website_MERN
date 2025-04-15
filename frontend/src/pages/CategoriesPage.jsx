@@ -36,7 +36,7 @@ export default function CategoriesPage() {
                 <p className="text-center font-bold text-6xl pb-20">Categories</p>
             </div>
 
-            {/* Display categories in a grid */}
+            {/* Display categories in grid */}
             <div className="grid grid-cols-3 gap-8 w-11/12 mx-auto pt-20 text-center space-y-4 pb-20">
                 {categories.map((category, index) => (
                     <motion.div key={index} className="space-y-2 hover:scale-105 transition-all duration-300" whileHover={{
