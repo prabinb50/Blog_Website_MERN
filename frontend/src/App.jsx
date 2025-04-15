@@ -1,6 +1,6 @@
 import React from 'react'
 import HeroSection from './components/HeroSection'
-import NewFeedSection from './components/newsFeedSectio/NewsFeedSection'
+import NewFeedSection from './components/NewsFeedSection/NewsFeedSection'
 import BlogPostCategories from './components/BlogPostCategories'
 
 export default function App() {

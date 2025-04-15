@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router";
 import App from "./App";
 import "./index.css";
-import Footer_Section from "./components/Footer_Section";
+import FooterSection from "./components/FooterSection";
 import SinglePostPage from "./pages/singlePostPage";
 import ContactUsPage from "./pages/ContactUsPage";
 import { Bounce, ToastContainer } from "react-toastify";
@@ -53,7 +53,7 @@ function AppWrapper() {
         <SocialMediaGame />
       )}
 
-      <Footer_Section />
+      <FooterSection />
       <ScrollToTopArrow />
     </>
   );
@@ -62,6 +62,38 @@ function AppWrapper() {
 const root = createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
+{/*  */}
+    <SecondNavbar />
+
+    <ToastContainer
+      position="top-right"
+      autoClose={2000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick={false}
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="light"
+      transition={Bounce}
+    />
+
+    <Routes>
+      <Route path="/" element={<App />} />
+      <Route path="/single-post" element={<SinglePostPage />} />
+      <Route path="/blog" element={<BlogPage />} />
+      <Route path="/categories" element={<CategoriesPage />} />
+      <Route path="/contact" element={<ContactUsPage />} />
+      <Route path="/account" element={<AccountPage />} />
+      <Route path="/sign-up" element={<SignUpPage />} />
+      <Route path="/login" element={<LoginPage />} />
+    </Routes>
+
+    <SocialMediaGame />
+    <FooterSection />
+    <ScrollToTopArrow />
     <AppWrapper />
+
   </BrowserRouter>
 );
