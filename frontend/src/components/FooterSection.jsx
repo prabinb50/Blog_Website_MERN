@@ -5,7 +5,6 @@ import {
   FaFacebookF,
   FaInstagram,
   FaLinkedinIn,
-  // FaYoutube,
 } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 
@@ -38,15 +37,12 @@ export default function FooterSection() {
                 className="text-gray-500 hover:text-white border border-gray-500 cursor-pointer w-max p-2 rounded-full hover:bg-violet-600 hover:border-violet-600  duration-700 " />
               <FaInstagram size={40}
                 className="text-gray-500 hover:text-white border border-gray-500 cursor-pointer w-max p-2 rounded-full hover:bg-violet-600 hover:border-violet-600  duration-700 " />
-              {/* <FaYoutube size={40}
-              className="text-gray-500 hover:text-white border border-gray-500 cursor-pointer w-max p-2 rounded-full hover:bg-violet-600 hover:border-violet-600  duration-700 "/> */}
               <FaXTwitter size={40}
                 className="text-gray-500 hover:text-white border border-gray-500 cursor-pointer w-max p-2 rounded-full hover:bg-violet-600 hover:border-violet-600  duration-700 " />
             </div>
           </div>
 
           {/* center section */}
-
           <div className="flex flex-col gap-12   ">
             <p className="font-semibold text-xl opacity-95 whitespace-nowrap">
               Explore Categories
@@ -71,7 +67,7 @@ export default function FooterSection() {
                 Content Strategy
               </Link>
               <Link
-                to={"/"}
+                to={"/blog"}
                 className="hover:text-violet-500 opacity-60 hover:translate-x-2 duration-500"
               >
                 Social Media
@@ -103,7 +99,7 @@ export default function FooterSection() {
                 Home
               </Link>
               <Link
-                to={"/"}
+                to={"/blog"}
                 className="hover:text-violet-500 opacity-60 hover:translate-x-2 duration-500"
               >
                 Blog
@@ -115,7 +111,7 @@ export default function FooterSection() {
                 Features
               </Link>
               <Link
-                to={"/"}
+                to={"/contact"}
                 className="hover:text-violet-500 opacity-60 hover:translate-x-2 duration-500"
               >
                 Contact Us
