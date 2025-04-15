@@ -62,7 +62,7 @@ function AppWrapper() {
 const root = createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
-{/*  */}
+
     <SecondNavbar />
 
     <ToastContainer
@@ -93,6 +93,7 @@ root.render(
     <SocialMediaGame />
     <FooterSection />
     <ScrollToTopArrow />
+
     <AppWrapper />
 
   </BrowserRouter>
