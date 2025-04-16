@@ -10,7 +10,7 @@ import { FaXTwitter } from "react-icons/fa6";
 
 export default function FooterSection() {
   return (
-    <div className="bg-gray-50 h-full mt-24">
+    <div className="bg-gray-50 h-full ">
 
       <div className="w-11/12 mx-auto px-6  pt-20 pb-8 space-y-16 ">
 
