@@ -13,10 +13,15 @@ const AnimatedButton = styled(Button)(({ theme }) => ({
     padding: '10px 20px',
     textTransform: 'none',
     opacity: 0.85,
+    marginTop: '8px',
+    fontSize: '0.9rem',
     transition: 'transform 0.3s ease, background-color 0.3s ease', // Smooth hover animation
     '&:hover': {
         backgroundColor: '#e0e0e0', // Change background color on hover
         transform: 'scale(1.05)', // Slightly enlarge the button on hover
+    },
+    [theme.breakpoints.down('sm')]: {
+        padding: '10px 16px',
     },
 }));
 
@@ -40,34 +45,35 @@ export default function SignUpPage() {
     return (
         <div>
             {/* Page container with light purple background */}
-            <div className="bg-[#f6f2ff]">
+            <div className="bg-[#f6f2ff] min-h-screen">
                 {/* Navigation breadcrumb section */}
-                <div className="flex items-center justify-center pt-20">
+                <div className="flex items-center justify-center pt-12 sm:pt-16 md:pt-20 pb-2 overflow-x-auto px-4">
                     <NavLink to={"/"} className="cursor-pointer">
                         Home
                     </NavLink>
-                    <ChevronRight />
-                    <p className="font-bold">Sign Up</p>
+                    <ChevronRight className="w-5 " />
+                    <p className="font-bold whitespace-nowrap">Sign Up</p>
                 </div>
 
                 {/* Main page title */}
-                <p className="text-center font-bold text-6xl pb-20">Sign Up</p>
+                <p className="text-center font-bold text-5xl md:text-6xl pb-13 sm:pb-18 md:pb-20 px-4">Sign Up</p>
 
                 {/* Sign Up Form Container */}
-                <div className="flex justify-center pb-25 ">
+                <div className="flex justify-center pb-13 sm:pb-16 md:pb-20 px-4 sm:px-6 ">
                     <div className="bg-white p-10 rounded-lg shadow-md w-full max-w-md">
                         {/* Form header section */}
-                        <h1 className="text-4xl font-bold mb-4">Create Your Account</h1>
-                        <p className=" text-gray-500 mb-8 font-semibold opacity-85">
+                        <h1 className="text-3xl sm:text-4xl font-bold mb-4">Create Your Account</h1>
+                        <p className=" text-gray-500 mb-8 font-semibold opacity-85 text-sm sm:text-base">
                             Create an account today and start using Vexon
                         </p>
 
                         {/* Registration form */}
-                        <form className='' onSubmit={handleSubmit}>
+                        <form onSubmit={handleSubmit} >
                             {/* Name input field */}
                             <div className="mb-4">
                                 <label className="block text-sm font-medium mb-2">Name</label>
                                 <input
+                                    id="name"
                                     required
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
@@ -81,6 +87,7 @@ export default function SignUpPage() {
                             <div className="mb-4">
                                 <label className="block text-sm font-medium mb-2">Email</label>
                                 <input
+                                    id="email"
                                     required
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
@@ -91,52 +98,54 @@ export default function SignUpPage() {
                             </div>
 
                             {/* Password input field */}
-                            <div className="mb-4"></div>
-                            <label className="block text-sm font-medium mb-2">Password</label>
-                            <input
-                                required
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                type="password"
-                                placeholder="Enter your password"
-                                className="w-full px-4 py-3 border-gray-100 bg-gray-100 rounded-full focus:outline-none focus:ring-1 focus:ring-purple-500"
-                            />
-
+                            <div className="mb-4">
+                                <label className="block text-sm font-medium mb-2">Password</label>
+                                <input
+                                    id="password"
+                                    required
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    type="password"
+                                    placeholder="Enter your password"
+                                    className="w-full px-4 py-3 border-gray-100 bg-gray-100 rounded-full focus:outline-none focus:ring-1 focus:ring-purple-500"
+                                />
+                            </div>
 
                             {/* Submit button */}
                             <motion.button
                                 type="submit"
-                                className="w-full bg-purple-600 text-white py-3 mt-7 rounded-full hover:bg-black transition cursor-pointer"
+                                className="w-full bg-purple-600 text-white py-3 mt-4 sm:mt-6 rounded-full hover:bg-black transition cursor-pointer font-semibold"
                                 whileHover={{
-                                    scale: 1.05, // Slightly enlarge on hover
-                                    boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.2)", // Add shadow on hover
+                                    scale: 1.03, // Slightly enlarge on hover
+                                    boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.2)", // Add shadow on hover
                                 }}
                                 whileTap={{
-                                    scale: 0.95, // Slightly shrink on click
+                                    scale: 0.98, // Slightly shrink on click
                                 }}
                             >
                                 Create an Account
                             </motion.button>
 
                             {/* Terms and conditions checkbox */}
-                            <div className="flex items-center justify-center mt-4">
+                            <div className="flex items-center justify-center mt-5 sm:mt-6">
                                 <input
+                                    id="terms"
                                     type="checkbox"
-                                    className="mr-2"
+                                    className="mr-2  h-4 w-4 cursor-pointer"
                                 />
-                                <p className="text-sm">
+                                <label htmlFor="terms" className="text-xs sm:text-sm cursor-pointer">
                                     I have read and agree to the{" "}
-                                    <Link to={"/"} className="text-purple-600 underline">
+                                    <Link to={"/"} className="text-purple-600 underline hover:text-purple-800">
                                         Terms & Conditions
                                     </Link>.
-                                </p>
+                                </label>
                             </div>
                         </form>
 
                         {/* Divider with "Or" text */}
-                        <div className="flex items-center my-6">
+                        <div className="flex items-center my-4 sm:my-6">
                             <hr className="flex-grow border-gray-300" />
-                            <span className="mx-2 text-gray-500">Or</span>
+                            <span className="mx-2 text-gray-500 text-sm">Or</span>
                             <hr className="flex-grow border-gray-300" />
                         </div>
 
@@ -149,7 +158,8 @@ export default function SignUpPage() {
                                 <img
                                     src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png"
                                     alt="Google"
-                                    className="w-7 h-7"
+                                    className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7"
+                                    loading="lazy"
                                 />
                             }
                         >
@@ -163,19 +173,20 @@ export default function SignUpPage() {
                                 <img
                                     src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
                                     alt="Facebook"
-                                    className="w-5 h-7"
+                                    className="w-4 h-5 sm:w-5 sm:h-6 md:w-5 md:h-7"
+                                    loading="lazy"
                                 />
                             }
-                            sx={{ marginTop: '10px' }}
+                            sx={{ marginTop: '12px' }}
                         >
                             Sign Up With Facebook
                         </AnimatedButton>
 
                         {/* Link to login page for existing users */}
-                        <div className="text-center mt-6">
-                            <p className="text-sm text-gray-500">
+                        <div className="text-center mt-6 sm:mt-8">
+                            <p className="text-sm text-gray-500 ">
                                 Already have an account?{" "}
-                                <Link to="/login" className="text-purple-600  underline">
+                                <Link to="/login" className="text-purple-600  underline hover:text-purple-800">
                                     Sign In
                                 </Link>
                             </p>
