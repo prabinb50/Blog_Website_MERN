@@ -14,9 +14,9 @@ export default function FooterSection() {
 
       <div className="w-11/12 mx-auto px-6  pt-20 pb-8 space-y-16 ">
 
-        <div className="  grid  lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-8 md:gap-24 xl:gap-8 ">
+        <div className="  grid  lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-12 md:gap-24 xl:gap-8 ">
           {/* left section */}
-          <div className="flex flex-col gap-12  ">
+          <div className="flex flex-col lg:gap-12 gap-8 ">
             <Link to={"/"} className="cursor-pointer">
               {/* Footer logo */}
               <img src="/header-logo1.png" alt="Vexon Logo" className="h-8" />
@@ -40,13 +40,16 @@ export default function FooterSection() {
               <FaXTwitter size={40}
                 className="text-gray-500 hover:text-white border border-gray-500 cursor-pointer w-max p-2 rounded-full hover:bg-violet-600 hover:border-violet-600  duration-700 " />
             </div>
+
           </div>
 
           {/* center section */}
-          <div className="flex flex-col gap-12   ">
+          <div className="flex flex-col gap-6 lg:gap-12  ">
+           
             <p className="font-semibold text-xl opacity-95 whitespace-nowrap">
               Explore Categories
             </p>
+          
             <div className="flex flex-col whitespace-nowrap gap-4">
               <Link
                 to={"/"}
@@ -85,9 +88,10 @@ export default function FooterSection() {
                 Design & Development
               </Link>
             </div>
+
           </div>
 
-          <div className="flex flex-col gap-12  ">
+          <div className="flex flex-col gap-6 lg:gap-12  ">
             <p className="font-semibold text-xl opacity-95 whitespace-nowrap">
               Explore Categories
             </p>
@@ -132,13 +136,13 @@ export default function FooterSection() {
           </div>
 
           {/* Right section */}
-          <div className="flex flex-col gap-8 ">
+          <div className="flex flex-col gap-6 lg:gap-12 ">
             <p className="font-semibold text-xl opacity-95 whitespace-nowrap">
               Contact Us
             </p>
             <div className="space-y-4">
               <div className="flex items-center gap-4">
-                <Mail className="opacity-80" strokeWidth={1.5} />
+                <Mail className="opacity-80"  strokeWidth={1.5} />
                 <p className="hover:text-violet-500 opacity-60 duration-500 cursor-pointer">
                   support@vexon.com
                 </p>
@@ -159,6 +163,7 @@ export default function FooterSection() {
               </div>
             </div>
           </div>
+
         </div>
 
 
