@@ -9,8 +9,6 @@ import ModalClose from "@mui/joy/ModalClose";
 import { AlignJustify, Mail, MapPin, Phone } from "lucide-react";
 import { NavLink } from "react-router";
 
-import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
 import { useState } from "react";
 
 export default function MobileNavigation() {
@@ -146,32 +144,6 @@ export default function MobileNavigation() {
                   +9779784563120
                 </p>
               </div>
-            </div>
-          </div>
-
-          {/* fotter section */}
-          <div className=" px-4 space-y-4">
-            <p className="text-xl text-black font-semibold">
-              Our Social Network
-            </p>
-
-            <div className="flex items-center gap-2 xl:gap-4 lg:gap-1">
-              <FaFacebookF
-                size={36}
-                className="text-white border  cursor-pointer w-max p-2 rounded-full bg-violet-600  duration-700 "
-              />
-              <FaLinkedinIn
-                size={36}
-                className="text-white border  cursor-pointer w-max p-2 rounded-full bg-violet-600  duration-700 "
-              />
-              <FaInstagram
-                size={36}
-                className="text-white border  cursor-pointer w-max p-2 rounded-full bg-violet-600  duration-700 "
-              />
-              <FaXTwitter
-                size={36}
-                className="text-white border  cursor-pointer w-max p-2 rounded-full bg-violet-600  duration-700 "
-              />
             </div>
           </div>
         </div>
