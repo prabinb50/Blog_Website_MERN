@@ -87,8 +87,8 @@ export default function SecondNavbar() {
           <div className="flex items-center space-x-4">
             {/* Search section */}
 
-            <SearchSection/>
-            
+            <SearchSection />
+
             {/* Subscribe button */}
             <Link
               to={"/sign-up"}

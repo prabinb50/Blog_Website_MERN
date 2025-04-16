@@ -21,7 +21,7 @@ function AppWrapper() {
 
   return (
     <>
-      {/* <SecondNavbar /> */}
+      <SecondNavbar />
 
       <ToastContainer
         position="top-right"
@@ -53,7 +53,7 @@ function AppWrapper() {
         <SocialMediaGame />
       )}
 
-      {/* <FooterSection /> */}
+      <FooterSection />
       <ScrollToTopArrow />
     </>
   );
