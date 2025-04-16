@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { AlignJustify, Search } from "lucide-react";
+
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MobileNavigation from "./MobileMenu";
+import SearchSection from "./SearchSection";
 
 export default function SecondNavbar() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -24,24 +25,29 @@ export default function SecondNavbar() {
           {/* Left child: Logo */}
 
           <MobileNavigation />
-
-          <img src="/header-logo1.png" alt="Vexon Logo" className="h-8" />
+          <Link to="/">
+            <img
+              src="/header-logo1.png"
+              alt="Vexon Logo"
+              className="h-8 cursor-pointer"
+            />
+          </Link>
 
           {/* Center child: Navigation links */}
-          <div className="hidden lg:flex items-center justify-between space-x-4 font-semibold opacity-85">
-            <Link to="/" className="hover:text-purple-600">
+          <div className="hidden lg:flex items-center justify-between space-x-8 font-semibold text-lg opacity-85">
+            <Link to="/" className="hover:text-purple-600  duration-300">
               Home
             </Link>
-            <Link to="/blog" className="ml-4 hover:text-purple-600">
+            <Link to="/blog" className=" hover:text-purple-600  duration-300">
               Blog
             </Link>
-            <Link to="/single-post" className="hover:text-purple-600">
+            <Link to="/single-post" className="hover:text-purple-600 duration-300">
               Single Post
             </Link>
-            <Link to="/categories" className="ml-4 hover:text-purple-600">
+            <Link to="/categories" className=" hover:text-purple-600 duration-300">
               Categories
             </Link>
-            <Link to="/contact" className="hover:text-purple-600">
+            <Link to="/contact" className="hover:text-purple-600 duration-300">
               Contact Us
             </Link>
 
@@ -79,8 +85,10 @@ export default function SecondNavbar() {
 
           {/* Right child: Search icon and Subscribe button */}
           <div className="flex items-center space-x-4">
-            {/* Search icon */}
-            <Search className="cursor-pointer" />
+            {/* Search section */}
+
+            <SearchSection/>
+            
             {/* Subscribe button */}
             <Link
               to={"/sign-up"}
