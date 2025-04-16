@@ -49,7 +49,7 @@ export default function ContactUsPage() {
     {
       icon: <MapPin className="h-8 w-8 text-purple-600" />,
       title: "Office Address",
-      details: ["8708 Technology Forest Pl Suite 125 - G", "The Woodlands"],
+      details: ["8708 Technology Forest Pl 125 - G", "The Woodlands"],
     },
     {
       icon: <Phone className="h-8 w-8 text-purple-600" />,
@@ -59,30 +59,30 @@ export default function ContactUsPage() {
   ];
 
   return (
-    <div className="bg-gray-50">
-      <div className="bg-[#f6f2ff]">
-        {/* Breadcrumb navigation */}
-        <div className="flex items-center justify-center pt-20">
-          <NavLink to={"/"} className="cursor-pointer">
+    <div className="bg-gray-50 min-h-screen">
+      {/* Light purple background for title section */}
+      <div className="bg-[#f6f2ff] w-full">
+        <div className="flex items-center justify-center pt-20 pb-2 overflow-x-auto px-4">
+          <NavLink to={"/"} className="cursor-pointer ">
             Home
           </NavLink>
-          <ChevronRight />
-          <p>Blog</p>
-          <ChevronRight />
-          <p className="font-bold">Contact Us</p>
+          <ChevronRight className="w-5 " />
+          <p className="whitespace-nowrap">Blog</p>
+          <ChevronRight className="w-5" />
+          <p className="font-bold whitespace-nowrap">Contact Us</p>
         </div>
 
-        {/* Page title */}
-        <p className="text-center font-bold text-6xl pb-20">Contact Us</p>
+        {/* Main page title */}
+        <p className="text-center font-bold text-5xl md:text-6xl pb-20 px-4">Contact Us</p>
       </div>
 
       {/* Main content section */}
-      <div className="px-6 py-20">
+      <div className="px-4 sm:px-6 py-13 sm:py-16 md:py-20">
         {/* Introduction text */}
-        <h2 className="text-center text-5xl font-semibold mb-6">
+        <h2 className="text-center text-3xl sm:text-4xl md:text-5xl font-semibold mb-6">
           We’d Love to Hear From You
         </h2>
-        <p className="text-center text-gray-600 mb-10 px-60">
+        <p className="text-center text-gray-600 mb-10 px-4 sm:px-8 md:px-16 lg:px-60 text-sm sm:text-base">
           Whether you have questions, feedback, or just want to say hello, we’re
           here to connect. Your thoughts and insights help us make Vexon better
           every day, and we’re always excited to hear from our readers.
@@ -91,14 +91,15 @@ export default function ContactUsPage() {
         {/* Contact form */}
         <div className="max-w-2xl mx-auto bg-gray-100 p-8 rounded-lg shadow-md">
           <h3 className="text-2xl font-bold mb-6">Leave a Reply</h3>
+
           <form className="space-y-6" onSubmit={handleSubmit}>
             {/* Input fields for first name and last name */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 ">
               <input
                 required
                 type="text"
                 placeholder="First Name"
-                className="w-full p-3 border border-gray-300 rounded-lg"
+                className="w-full p-3 border border-white rounded-lg text-base bg-white"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
@@ -106,7 +107,7 @@ export default function ContactUsPage() {
                 required
                 type="text"
                 placeholder="Last Name"
-                className="w-full p-3 border border-gray-300 rounded-lg"
+                className="w-full p-3 border border-white rounded-lg text-base bg-white"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
               />
@@ -118,15 +119,18 @@ export default function ContactUsPage() {
                 required
                 type="email"
                 placeholder="Email"
-                className="w-full p-3 border border-gray-300 rounded-lg"
+                className="w-full p-3 border border-white rounded-lg text-base bg-white"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
               <input
                 required
-                type="number"
+                // type="number"
+                type="tel"
+                pattern="[0-9]*"
+                inputMode="numeric"
                 placeholder="Phone"
-                className="w-full p-3 border border-gray-300 rounded-lg"
+                className="w-full p-3 border border-white rounded-lg text-base bg-white"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
               />
@@ -137,7 +141,7 @@ export default function ContactUsPage() {
               required
               type="text"
               placeholder="Subject"
-              className="w-full p-3 border border-gray-300 rounded-lg"
+              className="w-full p-3 border border-white rounded-lg text-base bg-white"
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
             />
@@ -145,8 +149,8 @@ export default function ContactUsPage() {
             {/* Textarea for message */}
             <textarea
               placeholder="Message"
-              rows="5"
-              className="w-full p-3 border border-gray-300 rounded-lg"
+              rows="4"
+              className="w-full p-3 border border-white rounded-lg text-base bg-white"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
             ></textarea>
@@ -154,7 +158,7 @@ export default function ContactUsPage() {
             {/* Submit button */}
             <button
               type="submit"
-              className="w-full bg-purple-600 text-white py-3 rounded-lg font-bold hover:bg-black transition cursor-pointer"
+              className="w-full bg-purple-600 text-white py-2 rounded-full font-bold hover:bg-black transition cursor-pointer text-base sm:text-lg"
             >
               Submit Request
             </button>
@@ -163,7 +167,7 @@ export default function ContactUsPage() {
       </div>
 
       {/* Contact details section */}
-      <div className="max-w-2xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 pb-20">
+      <div className="max-w-2xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 pb-13 sm:pb-16 md:pb-20 px-4 sm:px-6">
         {contactDetails.map((item, index) => (
           <div
             key={index}
@@ -179,7 +183,7 @@ export default function ContactUsPage() {
               {item.title}
             </h3>
             {item.details.map((detail, i) => (
-              <p key={i} className="text-gray-600 group-hover:text-white">
+              <p key={i} className="text-gray-600 group-hover:text-white text-sm sm:text-base">
                 {detail}
               </p>
             ))}
