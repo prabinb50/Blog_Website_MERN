@@ -19,36 +19,38 @@ export default function CategoriesPage() {
     ];
 
     return (
-        <div className="bg-gray-50">
+        <div className="bg-gray-50 min-h-screen">
             {/* Light purple background for title section */}
-            <div className="bg-[#f6f2ff]">
-                <div className="flex items-center justify-center pt-20">
-                    <NavLink to={"/"} className="cursor-pointer">
+            <div className="bg-[#f6f2ff] w-full">
+                <div className="flex items-center justify-center pt-20 pb-2 overflow-x-auto px-4">
+                    <NavLink to={"/"} className="cursor-pointer ">
                         Home
                     </NavLink>
-                    <ChevronRight />
-                    <p>Blog</p>
-                    <ChevronRight />
-                    <p className="font-bold">Categories</p>
+                    <ChevronRight className="w-5 " />
+                    <p className="whitespace-nowrap">Blog</p>
+                    <ChevronRight className="w-5" />
+                    <p className="font-bold whitespace-nowrap">Categories</p>
                 </div>
 
                 {/* Main page title */}
-                <p className="text-center font-bold text-6xl pb-20">Categories</p>
+                <p className="text-center font-bold text-5xl md:text-6xl pb-20 px-4">Categories</p>
             </div>
 
-            {/* Display categories in a grid */}
-            <div className="grid grid-cols-3 gap-8 w-11/12 mx-auto pt-20 text-center space-y-4 pb-20">
+            {/* Display categories in grid */}
+            <div className="w-[90%] sm:w-11/12 mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 pt-15 md:pt-20 text-center pb-15 md:pb-20 space-y-0 md:space-y-4 ">
                 {categories.map((category, index) => (
                     <motion.div key={index} className="space-y-2 hover:scale-105 transition-all duration-300" whileHover={{
                         scale: 1,
-                        rotate: 2,
+                        rotate: window.innerWidth > 768 ? 2 : 1,
                     }}
-                        transition={{ type: "spring", stiffness: 300 }}
+                        transition={{ type: "spring", stiffness: window.innerWidth > 768 ? 300 : 200, damping: 15 }}
+                        // Accessibility improvement - better focus states
+                        whileFocus={{ scale: 1.02 }}
                     >
                         {/* Category image */}
-                        <img src={category.image} alt="" className="rounded-md object-cover" />
+                        <img src={category.image} alt={`${category.name} category`} className="rounded-md object-cover w-full " loading="lazy" />
                         {/* Category name links to blog page */}
-                        <Link to={"/blog"} className="text-3xl font-semibold">{category.name}</Link>
+                        <Link to={"/blog"} className="text-3xl font-semibold block hover:text-purple-700 transition-colors">{category.name}</Link>
                     </motion.div>
                 ))}
             </div>
