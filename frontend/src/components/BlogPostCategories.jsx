@@ -2,14 +2,14 @@ import React from "react";
 
 export default function BlogPostCategories() {
   return (
-    <div className="w-11/12 mx-auto px-6 mt-16 mb-12 space-y-8">
+    <div className="w-11/12 mx-auto px-6 mt-12 mb-12 space-y-8">
       {/* Title of blog post category */}
 
       <div className="flex flex-col md:flex-row space-y-4 items-center justify-between ">
-        <p className="lg:text-5xl text-4xl font-semibold opacity-80">
+        <p className="lg:text-5xl sm:text-4xl text-3xl  whitespace-nowrap font-semibold opacity-80">
           All Blog Post Categories
         </p>
-        <button className="cursor-pointer max-md:text-sm hover:bg-black duration-500  px-6 py-3 font-bold bg-violet-800 text-white rounded-4xl">
+        <button className="cursor-pointer max-md:text-sm hover:bg-black duration-500 px-4 py-2 md:px-6 md:py-3 font-bold bg-violet-800 text-white rounded-4xl">
           Explore All Topic
         </button>
       </div>
