@@ -1,5 +1,5 @@
 import cloudinary from "../lib/cloudinary.config.js";
-import { BlogSingle } from "../schema/BlogSingle.js";
+import { BlogSingle } from "../schema/BlogSingleSchema.js";
 
 // CRUD Operations for Blog Single
 // 1) Create 
