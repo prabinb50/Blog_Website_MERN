@@ -2,6 +2,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import "dotenv/config";
+import userRoute from './routes/UserRoute.js';
+// import socialMediaRoute from './routes/SocialMediaRoute.js';
 
 // configure the server
 export const app = express();
@@ -21,6 +23,9 @@ try {
 } catch (error) {
     console.error('Error connecting to MongoDB:', error.message);
 }
+
+app.use("/users", userRoute);
+// app.use("/socialMedia", socialMediaRoute);
 
 // define the port
 app.listen(4000, () => {

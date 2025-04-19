@@ -1,4 +1,3 @@
-import e from "express";
 import mongoose from "mongoose";
 
 // create a schema for the user
