@@ -4,7 +4,10 @@ import { Blogs } from "../schema/BlogSchema.js";
 // CRUD Operations for Blog Single
 // 1) Create
 export const createBlog = async (req, res) => {
+
   try {
+
+    console.log(req.files)
     // check if title is already taken or not
     const BlogExists = await Blogs.findOne({ title: req.body.title });
     if (BlogExists) {
@@ -17,15 +20,15 @@ export const createBlog = async (req, res) => {
 
     // upload the image in cloudinary and get the url
     // handle the image upload before saving to database
-    const cloudinaryResponseblogImage = await cloudinary.uploader.upload(image[0].path);
-    const cloudinaryResponseProfilePic = await cloudinary.uploader.upload(Profile[0].path);
-    console.log(cloudinaryResponseblogImage);
+    const cloudinaryRespo1 = await cloudinary.uploader.upload(image[0].path);
+    const cloudinaryRespo2 = await cloudinary.uploader.upload(Profile[0].path);
+
 
 
     const newBlog = await new Blogs({
       ...req.body,
-      image: cloudinaryResponseblogImage.secure_url,
-      profile:cloudinaryResponseProfilePic.secure_url,
+      image: cloudinaryRespo1.secure_url,
+      Profile:cloudinaryRespo2.secure_url,
     }).save();
     return res.status(201).json({
       message: "Blog single created successfully",
@@ -92,15 +95,15 @@ export const updateBlogById = async (req, res) => {
 
     // upload the image in cloudinary and get the url
     // handle the image upload before saving to database
-    const cloudinaryResponseblogImage = await cloudinary.uploader.upload(image[0].path);
-    const cloudinaryResponseProfilePic = await cloudinary.uploader.upload(Profile[0].path);
+    const cloudinaryRespo1 = await cloudinary.uploader.upload(image[0].path);
+    const cloudinaryRespo2 = await cloudinary.uploader.upload(Profile[0].path);
 
       const updatedBlog = await Blogs.findByIdAndUpdate(
         req.params.id,
         {
           ...req.body,
-          image: cloudinaryResponseblogImage.secure_url,
-          profile:cloudinaryResponseProfilePic.secure_url
+          image: cloudinaryRespo1.secure_url,
+          Profile:cloudinaryRespo2.secure_url
         },
         { new: true }
       );

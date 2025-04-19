@@ -1,28 +1,18 @@
 import express from "express";
 import multer from "multer";
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads/"); // Folder where files are temporarily stored
-  },
+const upload = multer({ dest: 'uploads/' })
 
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
-  },
-});
+const Upload = upload.fields([{ name: 'Profile', maxCount: 1 }, { name: 'image', maxCount: 1 }])
 
-const upload = multer({ storage: storage }).fields([
-  { name: "image", maxCount: 1 },
-  { name: "Profile", maxCount: 1 },
-]);
 
 import { createBlog, deleteBlogById, getAllBlogs, getBlogById, updateBlogById } from "../controller/BlogsController.js";
 
 const router = express.Router();
 
-router.post("/", upload, createBlog);
+router.post("/", Upload, createBlog);
 router.get("/", getAllBlogs);
 router.get("/:id", getBlogById);
-router.patch("/:id", upload, updateBlogById);
+router.patch("/:id", Upload, updateBlogById);
 router.delete("/:id", deleteBlogById);
 
 export default router;
