@@ -4,6 +4,9 @@ import { Link, NavLink } from 'react-router';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 import { motion } from 'framer-motion';
+import axios from 'axios';
+import { Bounce, toast } from 'react-toastify';
+import { useNavigate } from 'react-router';
 
 // Custom styled button with hover and ripple effects
 const AnimatedButton = styled(Button)(({ theme }) => ({
@@ -27,17 +30,54 @@ const AnimatedButton = styled(Button)(({ theme }) => ({
 
 export default function LoginPage() {
 
+    // Initialize navigate function for redirection
+    const navigate = useNavigate();
+
     // State variables to manage form inputs
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     // Function to handle form submission
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleSubmit = async (e) => {
+        try {
+            e.preventDefault();
 
-        // Reset form fields after submission
-        setEmail("");
-        setPassword("");
+            const response = await axios.post("http://localhost:4000/users/login", {
+                email: email,
+                password: password,
+            })
+            // console.log(response);
+            // console.log(response.data.message);
+            toast.success(response?.data?.message, {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
+            localStorage.setItem("myToken", response?.data?.token);
+            navigate('/'); // Redirect to home page after successful login
+            // Reset form fields after submission
+            setEmail("");
+            setPassword("");
+        } catch (error) {
+            console.log("Error in login", error);
+            toast.error("Invalid credentials, please try again", {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
+        }
     };
 
     return (
