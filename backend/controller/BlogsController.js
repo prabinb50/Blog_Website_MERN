@@ -1,34 +1,26 @@
 import cloudinary from "../lib/cloudinary.config.js";
 import { Blogs } from "../schema/BlogSchema.js";
 
-// CRUD Operations for Blog Single
+// CRUD Operations for Blog 
 // 1) Create
 export const createBlog = async (req, res) => {
-
   try {
-
-    console.log(req.files)
+    // console.log(req.files)
     // check if title is already taken or not
-    const BlogExists = await Blogs.findOne({ title: req.body.title });
-    if (BlogExists) {
-      return res.status(400).json({
+    const blogExists = await Blogs.findOne({ title: req.body.title });
+    if (blogExists) {
+      return res.status(409).json({
         message: "Blog title already exists, please choose another one",
       });
     }
 
-    const {image,Profile}= req.files
-
     // upload the image in cloudinary and get the url
     // handle the image upload before saving to database
-    const cloudinaryRespo1 = await cloudinary.uploader.upload(image[0].path);
-    const cloudinaryRespo2 = await cloudinary.uploader.upload(Profile[0].path);
-
-
+    const cloudinaryResponse1 = await cloudinary.uploader.upload(req.files.image[0].path);
+    const cloudinaryResponse2 = await cloudinary.uploader.upload(req.files.profile[0].path);
 
     const newBlog = await new Blogs({
-      ...req.body,
-      image: cloudinaryRespo1.secure_url,
-      Profile:cloudinaryRespo2.secure_url,
+      ...req.body, image: cloudinaryResponse1.secure_url, profile: cloudinaryResponse2.secure_url
     }).save();
     return res.status(201).json({
       message: "Blog single created successfully",
@@ -91,19 +83,19 @@ export const updateBlogById = async (req, res) => {
   try {
     // if image is uploaded then handle the image upload part
     if (req.file) {
-      const {image,Profile}= req.files
+      const { image, profile } = req.files
 
-    // upload the image in cloudinary and get the url
-    // handle the image upload before saving to database
-    const cloudinaryRespo1 = await cloudinary.uploader.upload(image[0].path);
-    const cloudinaryRespo2 = await cloudinary.uploader.upload(Profile[0].path);
+      // upload the image in cloudinary and get the url
+      // handle the image upload before saving to database
+      const cloudinaryResponse1 = await cloudinary.uploader.upload(image[0].path);
+      const cloudinaryResponse2 = await cloudinary.uploader.upload(profile[0].path);
 
       const updatedBlog = await Blogs.findByIdAndUpdate(
         req.params.id,
         {
           ...req.body,
-          image: cloudinaryRespo1.secure_url,
-          Profile:cloudinaryRespo2.secure_url
+          image: cloudinaryResponse1.secure_url,
+          profile: cloudinaryResponse2.secure_url
         },
         { new: true }
       );

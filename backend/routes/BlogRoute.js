@@ -2,8 +2,10 @@ import express from "express";
 import multer from "multer";
 const upload = multer({ dest: 'uploads/' })
 
-const Upload = upload.fields([{ name: 'Profile', maxCount: 1 }, { name: 'image', maxCount: 1 }])
-
+const Upload = upload.fields([
+    { name: 'profile', maxCount: 1 },
+    { name: 'image', maxCount: 1 }
+])
 
 import { createBlog, deleteBlogById, getAllBlogs, getBlogById, updateBlogById } from "../controller/BlogsController.js";
 
