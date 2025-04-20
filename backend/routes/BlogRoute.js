@@ -1,0 +1,18 @@
+import express from "express";
+import multer from "multer";
+const upload = multer({ dest: 'uploads/' })
+
+const Upload = upload.fields([{ name: 'Profile', maxCount: 1 }, { name: 'image', maxCount: 1 }])
+
+
+import { createBlog, deleteBlogById, getAllBlogs, getBlogById, updateBlogById } from "../controller/BlogsController.js";
+
+const router = express.Router();
+
+router.post("/", Upload, createBlog);
+router.get("/", getAllBlogs);
+router.get("/:id", getBlogById);
+router.patch("/:id", Upload, updateBlogById);
+router.delete("/:id", deleteBlogById);
+
+export default router;
