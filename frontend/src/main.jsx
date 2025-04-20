@@ -1,12 +1,12 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router";
-import App from "./App";
+import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-router";
+import App from './App.jsx'
 import "./index.css";
 import FooterSection from "./components/FooterSection";
 import SinglePostPage from "./pages/singlePostPage";
 import ContactUsPage from "./pages/ContactUsPage";
-import { Bounce, ToastContainer } from "react-toastify";
+import { Bounce, ToastContainer, toast } from "react-toastify";
 import BlogPage from "./pages/BlogPage";
 import SecondNavbar from "./components/SecondNavbar";
 import CategoriesPage from "./pages/CategoriesPage";
@@ -15,13 +15,16 @@ import SocialMediaGame from './components/SocialMediaGame';
 import AccountPage from "./pages/AccountPage";
 import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function AppWrapper() {
   const location = useLocation(); // Get the current route
+  const isAuthenticated = localStorage.getItem('myToken'); // Check authentication status
 
   return (
     <>
-      <SecondNavbar />
+      {/* Only show navbar if user is authenticated */}
+      {isAuthenticated && <SecondNavbar />}
 
       <ToastContainer
         position="top-right"
@@ -38,22 +41,54 @@ function AppWrapper() {
       />
 
       <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/single-post" element={<SinglePostPage />} />
-        <Route path="/blog" element={<BlogPage />} />
-        <Route path="/categories" element={<CategoriesPage />} />
-        <Route path="/contact" element={<ContactUsPage />} />
-        <Route path="/account" element={<AccountPage />} />
+        {/* Authentication Routes */}
         <Route path="/sign-up" element={<SignUpPage />} />
         <Route path="/login" element={<LoginPage />} />
+
+        {/* Redirect root to sign-up if not authenticated, otherwise to home */}
+        <Route path="/" element={
+          isAuthenticated ? <App /> : <Navigate to="/sign-up" replace />
+        } />
+
+        {/* Protected Routes */}
+        <Route path="/single-post" element={
+          <ProtectedRoute>
+            <SinglePostPage />
+          </ProtectedRoute>
+        } />
+        <Route path="/blog" element={
+          <ProtectedRoute>
+            <BlogPage />
+          </ProtectedRoute>
+        } />
+        <Route path="/categories" element={
+          <ProtectedRoute>
+            <CategoriesPage />
+          </ProtectedRoute>
+        } />
+        <Route path="/contact" element={
+          <ProtectedRoute>
+            <ContactUsPage />
+          </ProtectedRoute>
+        } />
+        <Route path="/account" element={
+          <ProtectedRoute>
+            <AccountPage />
+          </ProtectedRoute>
+        } />
+
+        {/* Catch all - redirect to sign-up */}
+        <Route path="*" element={<Navigate to="/sign-up" replace />} />
       </Routes>
 
-      {/* Conditionally render SocialMediaGame */}
-      {location.pathname !== "/sign-up" && location.pathname !== "/login" && (
+      {/* Conditionally render SocialMediaGame for authenticated users only */}
+      {isAuthenticated && location.pathname !== "/sign-up" && location.pathname !== "/login" && (
         <SocialMediaGame />
       )}
 
-      <FooterSection />
+      {/* Only show footer if user is authenticated or on auth pages */}
+      {(isAuthenticated || location.pathname === "/sign-up" || location.pathname === "/login") && <FooterSection />}
+
       <ScrollToTopArrow />
     </>
   );
@@ -63,5 +98,5 @@ const root = createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <AppWrapper />
-  </BrowserRouter >
+  </BrowserRouter>
 );

@@ -3,7 +3,8 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import "dotenv/config";
 import BlogRoute from './routes/BlogRoute.js'
-
+import userRoute from './routes/UserRoute.js';
+// import socialMediaRoute from './routes/SocialMediaRoute.js';
 
 // configure the server
 export const app = express();
@@ -16,7 +17,6 @@ app.use(cors({
     origin: '*', 
 }));
 
-
 app.use("/blogs",BlogRoute)
 // connect to the database
 try {
@@ -25,6 +25,9 @@ try {
 } catch (error) {
     console.error('Error connecting to MongoDB:', error.message);
 }
+
+app.use("/users", userRoute);
+// app.use("/socialMedia", socialMediaRoute);
 
 // define the port
 app.listen(process.env.APP_PORT, () => {

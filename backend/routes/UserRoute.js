@@ -1,5 +1,8 @@
 import express from "express";
 import { deleteUserById, getAllUsers, getSingleUserById, loginUser, registerUser, updateUserById } from "../controller/UserController.js";
+import multer from "multer";
+const upload = multer({ dest: "uploads/" });
+// import { verifyToken } from "../middleware/verifyToken.js";
 
 const router = express.Router();
 

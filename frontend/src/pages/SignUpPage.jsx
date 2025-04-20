@@ -1,9 +1,12 @@
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, LoaderCircle } from 'lucide-react';
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 import { motion } from 'framer-motion';
+import axios from 'axios';
+import { Bounce, toast } from 'react-toastify';
+import { useNavigate } from 'react-router';
 
 // Custom styled button with hover and ripple effects
 const AnimatedButton = styled(Button)(({ theme }) => ({
@@ -27,19 +30,67 @@ const AnimatedButton = styled(Button)(({ theme }) => ({
 
 export default function SignUpPage() {
 
+    // Initialize navigate function for redirection
+    const navigate = useNavigate();
+
     // State variables to manage form inputs
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    // Function to handle form submission
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    // State variable to manage loading state
+    const [isLoading, setIsLoading] = useState(false);
 
-        // Reset form fields after submission
-        setName("");
-        setEmail("");
-        setPassword("");
+    // Function to handle form submission
+    const handleSubmit = async (e) => {
+        try {
+            e.preventDefault();
+            setIsLoading(true);
+
+            // Send a POST request to the server with JSON data
+            const response = await axios.post("http://localhost:4000/users/register", {
+                name,
+                email,
+                password,
+            }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            setIsLoading(false);
+            toast.success(response?.data?.message, {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
+            navigate('/login'); // Redirect to login page after successful registration
+
+            // Reset form fields after submission
+            setName("");
+            setEmail("");
+            setPassword("");
+        } catch (error) {
+            setIsLoading(false);
+            console.log("Error in creating user: ", error);
+            toast.error("User already exists with this email please choose another email", {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
+        }
     };
 
     return (
@@ -122,7 +173,11 @@ export default function SignUpPage() {
                                 whileTap={{
                                     scale: 0.98, // Slightly shrink on click
                                 }}
+                                disabled={isLoading} // Disable button when loading
                             >
+                                {
+                                    isLoading && <LoaderCircle size={16} className='animate-spin'></LoaderCircle>
+                                }
                                 Create an Account
                             </motion.button>
 
