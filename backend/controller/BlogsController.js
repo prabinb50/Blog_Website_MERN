@@ -35,7 +35,7 @@ export const createBlog = async (req, res) => {
 };
 
 // 2) Read all blog singles
-export const getAllBlogs = async (req, res) => {
+export const getAllBlogs = async (req, res) => { 
   try {
     const allBlogs = await Blogs.find();
     // check if blog singles exist or not
@@ -46,7 +46,7 @@ export const getAllBlogs = async (req, res) => {
     }
     return res.status(200).json({
       message: "Blog singles fetched successfully",
-      data: allBlogs,
+      data: allBlogs, 
     });
   } catch (error) {
     return res.status(500).json({
