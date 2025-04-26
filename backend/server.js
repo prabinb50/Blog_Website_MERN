@@ -14,7 +14,7 @@ app.use(express.json());
 
 // middleware for cors for all origins
 app.use(cors({
-    origin: '*',
+    origin: ' http://localhost:5173',
 }));
 
 
@@ -27,7 +27,7 @@ try {
 }
 
 app.use("/users", userRoute);
-app.use("/blogs", BlogRoute);
+app.use("/blogs", BlogRoute); 
 // app.use("/socialMedia", socialMediaRoute);
 
 // define the port
