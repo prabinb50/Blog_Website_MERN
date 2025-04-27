@@ -1,19 +1,19 @@
 import React from "react";
 import { CalendarDays, Clock } from "lucide-react";
 
-export default function BlogPageTwo() {
+export default function BlogPageTwo({blogs}) {
   return (
     <div>
       {/* Fitst blog Complete Responsive */}
       <div className="w-11/12 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-24 mb-12 gap-8">
-        {Items1.map((item, index) => (
+        {blogs?.map((item, index) => (
           <div
             key={index}
             className="w-full h-full flex flex-col gap-4 border border-gray-200 rounded-md hover:shadow-lg hover:-translate-y-2 duration-500  "
           >
             {/* Image section */}
             <div className="">
-              <img className="rounded-t-md w-full" src={item.img} alt="Image" />
+              <img className="rounded-t-md w-full" src={item.image} alt="Image" />
             </div>
 
             <div className="space-y-4 px-4 pb-3 ">
@@ -44,7 +44,7 @@ export default function BlogPageTwo() {
                   alt=""
                 />
                 <span className="text-sm opacity-70 cursor-pointer">
-                  {item.proName}
+                  {item.username}
                 </span>{" "}
                 <span className="opacity-60 text-sm">|</span>{" "}
                 <div className="flex items-center gap-2 cursor-pointer">
@@ -63,35 +63,4 @@ export default function BlogPageTwo() {
   );
 }
 
-const Items1 = [
-  {
-    img: "/blog1-image7.png",
-    title: " Quantum mechanics and the multiverse theory explained",
-    desc: "This post explores strategies to help create an authentic and memorable brand presence on social media that resonates with the audience.",
-    profile:
-      "https://plus.unsplash.com/premium_photo-1668424271073-013772330c17?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDEwfF9oYi1kbDRRLTRVfHxlbnwwfHx8fHw%3D",
-    proName: "Lama L.",
-    date: "26 April 2025",
-  },
 
-  {
-    img: "/blog1-image8.png",
-    title: "Exploring the vastness of the known and unknown universes",
-    desc: "This post explores strategies to help create an authentic and memorable brand presence on social media that resonates with the audience.",
-
-    profile:
-      "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D",
-    proName: "lama V.",
-    date: "26 25 April 2025",
-  },
-
-  {
-    img: "/blog1-image9.png",
-    title: "How different worlds might coexist in parallel realities",
-    desc: "This post explores strategies to help create an authentic and memorable brand presence on social media that resonates with the audience.",
-    profile:
-      "https://plus.unsplash.com/premium_photo-1671512497719-173938f4d3a4?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDd8X2hiLWRsNFEtNFV8fGVufDB8fHx8fA%3D%3D",
-    proName: "Rit R.",
-    date: "26 April 2025",
-  },
-];

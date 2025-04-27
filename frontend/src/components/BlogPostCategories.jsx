@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function BlogPostCategories() {
+export default function BlogPostCategories(){
   return (
     <div className="w-11/12 mx-auto px-6 mt-12 mb-12 space-y-8">
       {/* Title of blog post category */}
