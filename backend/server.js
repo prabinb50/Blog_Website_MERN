@@ -4,6 +4,7 @@ import cors from 'cors';
 import "dotenv/config";
 import BlogRoute from './routes/BlogRoute.js'
 import userRoute from './routes/UserRoute.js';
+import CategoryRoute from './routes/CategoryRoute.js';
 // import socialMediaRoute from './routes/SocialMediaRoute.js';
 
 // configure the server
@@ -15,6 +16,7 @@ app.use(express.json());
 // middleware for cors for all origins
 app.use(cors({
     origin: ' http://localhost:5173',
+    origin: '*',
 }));
 
 
@@ -27,7 +29,8 @@ try {
 }
 
 app.use("/users", userRoute);
-app.use("/blogs", BlogRoute); 
+app.use("/blogs", BlogRoute);
+app.use("/categories", CategoryRoute);
 // app.use("/socialMedia", socialMediaRoute);
 
 // define the port
