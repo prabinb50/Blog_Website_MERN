@@ -11,31 +11,31 @@ export default function BlogPage() {
   const [view, setView] = useState("one");
 
 
-  
+
   const [blogs, setBlogs] = useState(null);
 
-  const fetchBlogs =async()=>{
+  const fetchBlogs = async () => {
     try {
       const response = await axios.get("http://localhost:4000/blogs");
       setBlogs(response.data.data);
-      
+
     } catch (error) {
       console.log(error)
       console.log("Something went wrong to fetch blogs.")
-      
+
     }
 
   }
 
-  useEffect(()=>{
+  useEffect(() => {
 
     fetchBlogs();
 
-  },[])
+  }, [])
 
   return (
     <div>
-      
+
       <div className="bg-[#f6f2ff] space-y-4">
         {/* Breadcrumb navigation */}
         <div className="flex items-center justify-center pt-20">

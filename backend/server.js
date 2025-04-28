@@ -5,7 +5,6 @@ import "dotenv/config";
 import BlogRoute from './routes/BlogRoute.js'
 import userRoute from './routes/UserRoute.js';
 import CategoryRoute from './routes/CategoryRoute.js';
-// import socialMediaRoute from './routes/SocialMediaRoute.js';
 
 // configure the server
 export const app = express();
