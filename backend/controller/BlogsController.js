@@ -35,7 +35,7 @@ export const createBlog = async (req, res) => {
 };
 
 // 2) Read all blog singles
-export const getAllBlogs = async (req, res) => { 
+export const getAllBlogs = async (req, res) => {
   try {
     const allBlogs = await Blogs.find();
     // check if blog singles exist or not
@@ -46,7 +46,7 @@ export const getAllBlogs = async (req, res) => {
     }
     return res.status(200).json({
       message: "Blog singles fetched successfully",
-      data: allBlogs, 
+      data: allBlogs,
     });
   } catch (error) {
     return res.status(500).json({
@@ -129,9 +129,9 @@ export const updateBlogById = async (req, res) => {
   } catch (error) {
     console.log(error)
     return res.status(500).json({
-      message:"Internal Server Error."
+      message: "Internal Server Error."
     })
-    
+
   }
 };
 
@@ -152,11 +152,62 @@ export const deleteBlogById = async (req, res) => {
   } catch (error) {
     console.log(error)
     return res.status(500).json({
-      message:"Internal Server Error."
+      message: "Internal Server Error."
     })
-    
+
   }
 };
 
+// 6) Search blog by keyword, title, and description. And also, filter blogs by username only
+export const searchBlogs = async (req, res) => {
+  try {
+    const { query, username, sort } = req.query;
 
+    // Build search query
+    let searchQuery = {};
 
+    // Text search in title and description
+    if (query) {
+      searchQuery = {
+        $or: [
+          { title: { $regex: query, $options: 'i' } },
+          { description: { $regex: query, $options: 'i' } }
+        ]
+      };
+    }
+
+    // Filter by username if provided
+    if (username) {
+      searchQuery.username = { $regex: username, $options: 'i' };
+    }
+
+    // Prepare sort options
+    let sortOptions = {};
+    if (sort === 'newest') {
+      sortOptions = { date: -1 };
+    } else if (sort === 'oldest') {
+      sortOptions = { date: 1 };
+    } else if (sort === 'title_asc') {
+      sortOptions = { title: 1 };
+    } else if (sort === 'title_desc') {
+      sortOptions = { title: -1 };
+    } else {
+      // Default sort by newest
+      sortOptions = { date: -1 };
+    }
+
+    // Execute search
+    const searchResults = await Blogs.find(searchQuery).sort(sortOptions);
+
+    return res.status(200).json({
+      message: "Search results fetched successfully",
+      count: searchResults.length,
+      data: searchResults,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Internal server error",
+      error: error.message,
+    });
+  }
+};
