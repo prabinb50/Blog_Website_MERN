@@ -3,7 +3,6 @@ import bcrypt from "bcrypt";
 const saltRounds = 10;
 import jwt from "jsonwebtoken";
 
-
 // CRUD operations for User
 // 1) Create or Register user
 export const registerUser = async (req, res) => {
@@ -150,22 +149,44 @@ export const getSingleUserById = async (req, res) => {
 export const updateUserById = async (req, res) => {
     try {
         const user = await User.findById(req.params.id);
-
-        // handle the password hashing
-        let newHashedPassword = user.password;
-        if (req.body.password) {
-            newHashedPassword = bcrypt.hash(req.body.password);
-        }
-
-        // update user by id from the database
-        const updatedUser = await User.findByIdAndUpdate(req.params.id, { ...req.body, password: newHashedPassword }, { new: true });
-
-        // if user does not exist then return error
-        if (!updatedUser) {
+        // check if user exists or not
+        if (!user) {
             return res.status(404).json({
                 message: "User does not exist matching the given id"
             });
         }
+
+        // handle the password hashing
+        // let newHashedPassword = user.password;
+        // if (req.body.password) {
+        //     newHashedPassword = bcrypt.hash(req.body.password);
+        // }
+
+        // Handle the password hashing properly
+        let updatedData = { ...req.body };
+
+        // Only hash password if it's included in the request
+        if (req.body.password) {
+            const newHashedPassword = await bcrypt.hash(req.body.password, saltRounds);
+            updatedData.password = newHashedPassword;
+        }
+
+        // Update user by id from the database
+        const updatedUser = await User.findByIdAndUpdate(
+            req.params.id,
+            updatedData,
+            { new: true }
+        );
+
+        // update user by id from the database
+        // const updatedUser = await User.findByIdAndUpdate(req.params.id, { ...req.body, password: newHashedPassword }, { new: true });
+
+        // if user does not exist then return error
+        // if (!updatedUser) {
+        //     return res.status(404).json({
+        //         message: "User does not exist matching the given id"
+        //     });
+        // }
 
         // if user updated then return the user
         return res.status(200).json({
