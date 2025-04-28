@@ -48,7 +48,7 @@ export default function SignUpPage() {
             setIsLoading(true);
 
             // Send a POST request to the server with JSON data
-            const response = await axios.post("http://localhost:4000/users/register", {
+            const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/users/register`, {
                 name,
                 email,
                 password,

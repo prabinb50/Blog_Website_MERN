@@ -42,7 +42,7 @@ export default function LoginPage() {
         try {
             e.preventDefault();
 
-            const response = await axios.post("http://localhost:4000/users/login", {
+            const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/users/login`, {
                 email: email,
                 password: password,
             })
