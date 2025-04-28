@@ -1,12 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router";
 import { ChevronRight } from "lucide-react";
 import BlogPageOne from "../components/BlogPageOne";
 import BlogPageTwo from "../components/BlogPageTwo";
+import axios from "axios";
+
 
 export default function BlogPage() {
   // State to manage the current view
   const [view, setView] = useState("one");
+
+
+  
+  const [blogs, setBlogs] = useState(null);
+
+  const fetchBlogs =async()=>{
+    try {
+      const response = await axios.get("http://localhost:4000/blogs");
+      setBlogs(response.data.data);
+      
+    } catch (error) {
+      console.log(error)
+      console.log("Something went wrong to fetch blogs.")
+      
+    }
+
+  }
+
+  useEffect(()=>{
+
+    fetchBlogs();
+
+  },[])
 
   return (
     <div>
@@ -61,7 +86,7 @@ export default function BlogPage() {
 
 
       {/* Conditionally render the sections based on the selected view */}
-      {view === "one" ? <BlogPageOne /> : <BlogPageTwo />}
+      {view === "one" ? <BlogPageOne blogs={blogs} /> : <BlogPageTwo blogs={blogs} />}
     </div>
   );
 }
