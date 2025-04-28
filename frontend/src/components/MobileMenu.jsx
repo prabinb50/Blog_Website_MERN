@@ -141,8 +141,6 @@ export default function MobileNavigation() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1, duration: 0.3 }}>
 
-                  {/* <h3 className="text-sm uppercase text-gray-500 font-medium tracking-widest mb-2">Navigation</h3> */}
-
                   <AnimatedNavLink to="/" onClick={handleLinkClick}>Home</AnimatedNavLink>
                   <AnimatedNavLink to="/blog" onClick={handleLinkClick}>Blog</AnimatedNavLink>
                   <AnimatedNavLink to="/single-post" onClick={handleLinkClick}>Single Post</AnimatedNavLink>
@@ -194,7 +192,7 @@ export default function MobileNavigation() {
 
                 {/* Contact Information Section */}
                 <motion.div
-                  className="mt-auto bg-gray-50 px-8 py-6 space-y-5"
+                  className=" bg-gray-50 px-8 py-6 space-y-5"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.3, duration: 0.4 }}>
