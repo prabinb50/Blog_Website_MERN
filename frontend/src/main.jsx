@@ -16,6 +16,8 @@ import AccountPage from "./pages/AccountPage";
 import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 import ProtectedRoute from "./components/ProtectedRoute";
+import SearchPage from "./pages/SearchPage.jsx";
+
 
 function AppWrapper() {
   const location = useLocation(); // Get the current route
@@ -58,6 +60,12 @@ function AppWrapper() {
           </ProtectedRoute>
         } />
 
+        <Route path="/single-post/:id" element={
+          <ProtectedRoute>
+            <SinglePostPage />
+          </ProtectedRoute>
+        } />
+
         <Route path="/blog" element={
           <ProtectedRoute>
             <BlogPage />
@@ -79,6 +87,13 @@ function AppWrapper() {
         <Route path="/account" element={
           <ProtectedRoute>
             <AccountPage />
+          </ProtectedRoute>
+        } />
+
+        {/* Added Search Route */}
+        <Route path="/search" element={
+          <ProtectedRoute>
+            <SearchPage />
           </ProtectedRoute>
         } />
 
