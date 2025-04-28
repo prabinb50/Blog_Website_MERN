@@ -12,7 +12,7 @@ export default function CategoriesPage() {
     // Fetch categories from the backend 
     const fetchCategories = async () => {
         try {
-            const response = await axios.get("http://localhost:4000/categories");
+            const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/categories`);
             // console.log(response.data.data);
             setCategories(response.data.data);
         } catch (error) {

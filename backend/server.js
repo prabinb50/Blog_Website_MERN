@@ -9,13 +9,13 @@ import CategoryRoute from './routes/CategoryRoute.js';
 // configure the server
 export const app = express();
 
-// middleware for json
+// middleware for json 
 app.use(express.json());
 
 // middleware for cors for all origins
 app.use(cors({
-    origin: ' http://localhost:5173',
-    origin: '*',
+    origin: ['http://localhost:5173',"https://blog-website-mern-gray.vercel.app"]
+   
 }));
 
 
