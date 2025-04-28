@@ -19,6 +19,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 
 function AppWrapper() {
   const location = useLocation(); // Get the current route
+
   const isAuthenticated = localStorage.getItem('myToken'); // Check authentication status
 
   return (
@@ -56,21 +57,25 @@ function AppWrapper() {
             <SinglePostPage />
           </ProtectedRoute>
         } />
+
         <Route path="/blog" element={
           <ProtectedRoute>
             <BlogPage />
           </ProtectedRoute>
         } />
+
         <Route path="/categories" element={
           <ProtectedRoute>
             <CategoriesPage />
           </ProtectedRoute>
         } />
+
         <Route path="/contact" element={
           <ProtectedRoute>
             <ContactUsPage />
           </ProtectedRoute>
         } />
+
         <Route path="/account" element={
           <ProtectedRoute>
             <AccountPage />
@@ -89,6 +94,7 @@ function AppWrapper() {
       {/* Only show footer if user is authenticated or on auth pages */}
       {(isAuthenticated || location.pathname === "/sign-up" || location.pathname === "/login") && <FooterSection />}
 
+      {/* Scroll to top arrow is always shown */}
       <ScrollToTopArrow />
     </>
   );
