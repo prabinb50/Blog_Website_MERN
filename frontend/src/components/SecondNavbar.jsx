@@ -9,6 +9,8 @@ import SearchSection from "./SearchSection";
 export default function SecondNavbar() {
   const [anchorEl, setAnchorEl] = useState(null); // State for dropdown menu
   const [scrolled, setScrolled] = useState(false); // State for scroll effect
+  const [activeLink, setActiveLink] = useState("/"); //  state for active navigation link
+
   const open = Boolean(anchorEl); // Boolean to check if dropdown is open
 
   // Handle scroll effect for navbar
@@ -71,22 +73,26 @@ export default function SecondNavbar() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            {/* Nav links with hover animations */}
-            <NavLink to="/" >Home</NavLink>
-            <NavLink to="/blog">Blog</NavLink>
-            <NavLink to="/single-post">Single Post</NavLink>
-            <NavLink to="/categories">Categories</NavLink>
-            <NavLink to="/contact">Contact Us</NavLink>
+            {/* Nav links  */}
+            <NavLink to="/" activeLink={activeLink} setActiveLink={setActiveLink}>Home</NavLink>
+            <NavLink to="/blog" activeLink={activeLink} setActiveLink={setActiveLink}>Blog</NavLink>
+            <NavLink to="/single-post" activeLink={activeLink} setActiveLink={setActiveLink}>Single Post</NavLink>
+            <NavLink to="/categories" activeLink={activeLink} setActiveLink={setActiveLink}>Categories</NavLink>
+            <NavLink to="/contact" activeLink={activeLink} setActiveLink={setActiveLink}>Contact Us</NavLink>
 
             {/* Account dropdown */}
             <div>
               <motion.span
-                className="hover:text-purple-600 cursor-pointer relative group"
-                onClick={handleClick}
-                whileHover={{ scale: 1.05 }}>
+                className={`hover:text-purple-600 cursor-pointer relative group ${activeLink === "/account" ? "text-purple-600" : "text-black"}`}
+                onClick={(event) => {
+                  handleClick(event);
+                  setActiveLink("/account");
+                }}
+                whileHover={{ scale: 1.05 }}
+              >
                 Account
                 <motion.div
-                  className="absolute bottom-0 left-0 w-0 h-0.5 bg-purple-600 group-hover:w-full transition-all duration-300"
+                  className={`absolute bottom-0 left-0 h-0.5 bg-purple-600 ${activeLink === "/account" ? "w-full" : "w-0"} group-hover:w-full transition-all duration-300`}
                   whileHover={{ width: "100%" }}
                 />
               </motion.span>
@@ -95,7 +101,9 @@ export default function SecondNavbar() {
                 id="account-menu"
                 anchorEl={anchorEl}
                 open={open}
-                onClose={handleClose}
+                onClose={() => {
+                  handleClose();
+                }}
                 MenuListProps={{
                   "aria-labelledby": "account-button",
                 }}
@@ -103,17 +111,27 @@ export default function SecondNavbar() {
                   elevation: 3,
                   style: {
                     borderRadius: '12px',
-                    marginTop: '8px'
-                  }
-                }}>
-
+                    marginTop: '8px',
+                  },
+                }}
+              >
                 {/* Dropdown menu items */}
-                <MenuItem onClick={handleClose}>
+                <MenuItem
+                  onClick={() => {
+                    handleClose();
+                    setActiveLink("/sign-up");
+                  }}
+                >
                   <Link to="/sign-up" className="text-black hover:text-purple-600 transition-colors w-full">
                     Sign Up
                   </Link>
                 </MenuItem>
-                <MenuItem onClick={handleClose}>
+                <MenuItem
+                  onClick={() => {
+                    handleClose();
+                    setActiveLink("/login");
+                  }}
+                >
                   <Link to="/login" className="text-black hover:text-purple-600 transition-colors w-full">
                     Login
                   </Link>
@@ -146,17 +164,21 @@ export default function SecondNavbar() {
   );
 }
 
-// Custom NavLink component with animation
-const NavLink = ({ to, children }) => {
+// Custom NavLink component with active functionality
+const NavLink = ({ to, children, activeLink, setActiveLink }) => {
   return (
     <motion.div className="relative group">
-      <Link to={to} className="hover:text-purple-600 duration-300">
+      <Link
+        to={to}
+        onClick={() => setActiveLink(to)}
+        className={`duration-300 ${activeLink === to ? "text-purple-600" : "text-black"
+          } hover:text-purple-600`}
+      >
         {children}
       </Link>
       <motion.div
-        className="absolute bottom-0 left-0 h-0.5 bg-purple-600 w-0 group-hover:w-full transition-all duration-300"
-        initial={{ width: 0 }}
-        whileHover={{ width: "100%" }}
+        className={`absolute bottom-0 left-0 h-0.5 bg-purple-600 ${activeLink === to ? "w-full" : "w-0"
+          } group-hover:w-full transition-all duration-300`}
       />
     </motion.div>
   );
