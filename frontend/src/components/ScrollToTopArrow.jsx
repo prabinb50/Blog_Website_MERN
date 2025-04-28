@@ -2,11 +2,6 @@ import React, { useEffect } from 'react'
 import { motion, useAnimation } from "framer-motion";
 import { useViewportScroll } from "framer-motion";
 
-/**
- * ScrollToTopArrow Component
- * Displays an arrow button that appears when the user scrolls down and
- * allows them to scroll back to the top of the page.
- */
 export default function ScrollToTopArrow() {
 
     const { scrollY } = useViewportScroll(); // Track vertical scroll position
@@ -32,7 +27,6 @@ export default function ScrollToTopArrow() {
 
     return (
         <motion.div
-            // Styling and positioning of the scroll-to-top button
             className="fixed bottom-8 right-8 bg-white text-purple-600 p-4 rounded-full shadow-lg border-2 border-purple-600 cursor-pointer flex items-center justify-center"
             initial={{ opacity: 0, scale: 0 }} // Initial state (hidden)
             animate={controls} // Animation controlled by scroll position
@@ -46,17 +40,16 @@ export default function ScrollToTopArrow() {
             onMouseEnter={() => controls.start({ opacity: 1, scale: 1 })}
             onMouseLeave={() => controls.start({ opacity: 1, scale: 1 })}
             // Scroll to top of page when clicked
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        >
-            {/* Arrow up icon */}
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
-                strokeWidth={2}
-            >
+                strokeWidth={2}>
+
                 <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
             </svg>
         </motion.div>
