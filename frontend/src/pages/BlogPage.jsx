@@ -16,7 +16,7 @@ export default function BlogPage() {
 
   const fetchBlogs = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/blogs");
+      const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/blogs`);
       setBlogs(response.data.data);
 
     } catch (error) {
