@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 const saltRounds = 10;
 import jwt from "jsonwebtoken";
 
+
 // CRUD operations for User
 // 1) Create or Register user
 export const registerUser = async (req, res) => {
