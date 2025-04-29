@@ -1,24 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, NavLink } from 'react-router';
-import { ChevronRight, Search } from 'lucide-react';
+import { useLocation } from 'react-router';
+import { Search } from 'lucide-react';
 import axios from 'axios';
 import SearchResults from '../components/SearchResults';
 import SearchFilters from '../components/SearchFilters';
 
 export default function SearchPage() {
-    const location = useLocation();
-    const queryParams = new URLSearchParams(location.search);
-    const initialQuery = queryParams.get('q') || '';
+    const location = useLocation(); // Get the current location object
+    const queryParams = new URLSearchParams(location.search); // Parse the query parameters from the URL
+    const initialQuery = queryParams.get('q') || ''; // Initial search query from URL
 
-    const [searchQuery, setSearchQuery] = useState(initialQuery);
-    const [filters, setFilters] = useState({});
-    const [results, setResults] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+    const [searchQuery, setSearchQuery] = useState(initialQuery); // Search query input
+    const [filters, setFilters] = useState({}); // Filters applied to the search
+    const [results, setResults] = useState([]); // Search results
+    const [loading, setLoading] = useState(false); // Loading state
+    const [error, setError] = useState(null); // Error state
 
+    // Handle search functionality
     const handleSearch = async (e) => {
         if (e) e.preventDefault();
 
+        // Prevent search if no query or filters are provided
         if (!searchQuery.trim() && Object.keys(filters).length === 0) return;
 
         setLoading(true);
@@ -29,7 +31,7 @@ export default function SearchPage() {
             const params = new URLSearchParams();
             if (searchQuery.trim()) params.append('query', searchQuery.trim());
 
-            // Only username filtering
+            // Add filters to query parameters
             if (filters.username) params.append('username', filters.username);
             if (filters.sort) params.append('sort', filters.sort);
 
@@ -40,11 +42,12 @@ export default function SearchPage() {
                 `${window.location.pathname}?${params.toString()}`
             );
 
+            // Make API call to fetch search results
             const response = await axios.get(
                 `${import.meta.env.VITE_SERVER_URL}/blogs/search?${params.toString()}`
             );
 
-            setResults(response.data.data);
+            setResults(response.data.data); // Update results state with fetched data
         } catch (err) {
             console.error('Search error:', err);
             setError(err.response?.data?.message || 'An error occurred while searching');
@@ -53,9 +56,9 @@ export default function SearchPage() {
         }
     };
 
-    // Handle filters
+    // Handle filter application
     const handleApplyFilters = (newFilters) => {
-        setFilters(newFilters);
+        setFilters(newFilters); // Update filters state
     };
 
     // Run search when filters change
@@ -63,7 +66,7 @@ export default function SearchPage() {
         handleSearch();
     }, [filters]);
 
-    // Initial search from URL params
+    // Perform initial search based on URL parameters
     useEffect(() => {
         if (initialQuery) {
             handleSearch();
@@ -133,9 +136,9 @@ export default function SearchPage() {
             {/* Results */}
             <div className='sm:w-11/12 mx-auto pb-8 md:pb-10'>
                 <SearchResults
-                    results={results}
-                    loading={loading}
-                    error={error}
+                    results={results} // Pass search results to the component
+                    loading={loading} // Pass loading state to the component
+                    error={error} // Pass error state to the component
                 />
             </div>
         </div>

@@ -3,6 +3,7 @@ import { CalendarDays, Clock, User } from "lucide-react";
 import { Link } from "react-router";
 
 export default function SearchResults({ results, loading, error }) {
+    // Show loading spinner if loading is true
     if (loading) {
         return (
             <div className="w-full flex justify-center p-8">
@@ -11,6 +12,7 @@ export default function SearchResults({ results, loading, error }) {
         );
     }
 
+    // Show error message if error exists
     if (error) {
         return (
             <div className="w-full p-8 text-center">
@@ -19,6 +21,7 @@ export default function SearchResults({ results, loading, error }) {
         );
     }
 
+    // Show message if no results are found
     if (!results || results.length === 0) {
         return (
             <div className="w-full p-8 text-center">
@@ -27,6 +30,7 @@ export default function SearchResults({ results, loading, error }) {
         );
     }
 
+    // Render the list of blog results
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-6">
             {results.map((blog) => (
@@ -45,6 +49,7 @@ export default function SearchResults({ results, loading, error }) {
 
                     {/* Content section */}
                     <div className="space-y-4 px-4 pb-4">
+                        {/* Category and read time */}
                         <div className="flex justify-between">
                             <p className="text-sm font-semibold opacity-90 hover:text-violet-500 cursor-pointer">
                                 {blog.category || "Uncategorized"}
@@ -55,16 +60,19 @@ export default function SearchResults({ results, loading, error }) {
                             </div>
                         </div>
 
+                        {/* Blog title with link */}
                         <Link to={`/single-post/${blog._id}`}>
                             <h3 className="text-xl font-semibold opacity-90 tracking-wide hover:text-violet-500 cursor-pointer">
                                 {blog.title}
                             </h3>
                         </Link>
 
+                        {/* Blog description */}
                         <p className="opacity-70 tracking-wide line-clamp-2">
                             {blog.description}
                         </p>
 
+                        {/* Author and date info */}
                         <div className="flex items-center gap-2">
                             <div className="flex items-center gap-2 bg-gray-100 px-3 py-1 rounded-full">
                                 <img
