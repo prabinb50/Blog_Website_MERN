@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -10,8 +10,22 @@ export default function SecondNavbar() {
   const [anchorEl, setAnchorEl] = useState(null); // State for dropdown menu
   const [scrolled, setScrolled] = useState(false); // State for scroll effect
   const [activeLink, setActiveLink] = useState("/"); //  state for active navigation link
+  const location = useLocation(); // Get the current location object
 
   const open = Boolean(anchorEl); // Boolean to check if dropdown is open
+
+  // update activeLink based on current path and handle search page special case
+  useEffect(() => {
+    const currentPath = location.pathname;
+
+    // If on search page, clear the active state
+    if (currentPath === "/search") {
+      setActiveLink("");
+    } else {
+      // Otherwise set the active link based on current path
+      setActiveLink(currentPath);
+    }
+  }, [location.pathname]);
 
   // Handle scroll effect for navbar
   useEffect(() => {
@@ -86,7 +100,11 @@ export default function SecondNavbar() {
                 className={`hover:text-purple-600 cursor-pointer relative group ${activeLink === "/account" ? "text-purple-600" : "text-black"}`}
                 onClick={(event) => {
                   handleClick(event);
-                  setActiveLink("/account");
+
+                  // Don't set active link if we're on search page
+                  if (location.pathname !== "/search") {
+                    setActiveLink("/account");
+                  }
                 }}
                 whileHover={{ scale: 1.05 }}
               >
@@ -119,7 +137,11 @@ export default function SecondNavbar() {
                 <MenuItem
                   onClick={() => {
                     handleClose();
-                    setActiveLink("/sign-up");
+                    // setActiveLink("/sign-up");
+                    // Don't set active link if we're on search page
+                    if (location.pathname !== "/search") {
+                      setActiveLink("/sign-up");
+                    }
                   }}
                 >
                   <Link to="/sign-up" className="text-black hover:text-purple-600 transition-colors w-full">
@@ -129,7 +151,11 @@ export default function SecondNavbar() {
                 <MenuItem
                   onClick={() => {
                     handleClose();
-                    setActiveLink("/login");
+                    // setActiveLink("/login");
+                    // Don't set active link if we're on search page
+                    if (location.pathname !== "/search") {
+                      setActiveLink("/login");
+                    }
                   }}
                 >
                   <Link to="/login" className="text-black hover:text-purple-600 transition-colors w-full">
@@ -166,16 +192,27 @@ export default function SecondNavbar() {
 
 // Custom NavLink component with active functionality
 const NavLink = ({ to, children, activeLink, setActiveLink }) => {
+
+  const location = useLocation(); // Get the current location 
+
   return (
     <motion.div className="relative group">
       <Link
         to={to}
-        onClick={() => setActiveLink(to)}
+        // onClick={() => setActiveLink(to)}
+        onClick={() => {
+          // Don't set active link if navigating to search page
+          if (to !== "/search") {
+            setActiveLink(to);
+          } else {
+            setActiveLink("");
+          }
+        }}
         className={`duration-300 ${activeLink === to ? "text-purple-600" : "text-black"
-          } hover:text-purple-600`}
-      >
+          } hover:text-purple-600`}>
         {children}
       </Link>
+
       <motion.div
         className={`absolute bottom-0 left-0 h-0.5 bg-purple-600 ${activeLink === to ? "w-full" : "w-0"
           } group-hover:w-full transition-all duration-300`}

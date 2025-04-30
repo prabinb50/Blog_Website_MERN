@@ -1,5 +1,5 @@
 import React from 'react';
-import { CalendarDays, Clock, User } from "lucide-react";
+import { CalendarDays, Clock } from "lucide-react";
 import { Link } from "react-router";
 
 export default function SearchResults({ results, loading, error }) {
