@@ -17,7 +17,7 @@ import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import SearchPage from "./pages/SearchPage.jsx";
-
+import LogoutPage from "./pages/LogoutPage.jsx";
 
 function AppWrapper() {
   const location = useLocation(); // Get the current route
@@ -47,6 +47,7 @@ function AppWrapper() {
         {/* Authentication Routes */}
         <Route path="/sign-up" element={<SignUpPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/logout" element={<LogoutPage />} />
 
         {/* Redirect root to sign-up if not authenticated, otherwise to home */}
         <Route path="/" element={

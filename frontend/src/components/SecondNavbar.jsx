@@ -5,16 +5,24 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MobileNavigation from "./MobileMenu";
 import SearchSection from "./SearchSection";
+import LogoutButton from "./LogoutButton";
 
 export default function SecondNavbar() {
   const [anchorEl, setAnchorEl] = useState(null); // State for dropdown menu
   const [scrolled, setScrolled] = useState(false); // State for scroll effect
-  const [activeLink, setActiveLink] = useState("/"); //  state for active navigation link
+  const [activeLink, setActiveLink] = useState("/"); // State for active navigation link
+  const [isAuthenticated, setIsAuthenticated] = useState(false); // State to track authentication status
   const location = useLocation(); // Get the current location object
 
   const open = Boolean(anchorEl); // Boolean to check if dropdown is open
 
-  // update activeLink based on current path and handle search page special case
+  // Check authentication status
+  useEffect(() => {
+    const token = localStorage.getItem('myToken');
+    setIsAuthenticated(!!token);
+  }, [location.pathname]); // Re-check when location changes
+
+  // Update activeLink based on current path and handle search page special case
   useEffect(() => {
     const currentPath = location.pathname;
 
@@ -65,7 +73,7 @@ export default function SecondNavbar() {
           <div className="flex items-center">
             {/* Mobile Navigation - only visible on small screens */}
             <div className="lg:hidden mr-2">
-              <MobileNavigation />
+              <MobileNavigation isAuthenticated={isAuthenticated} />
             </div>
 
             {/* Logo  */}
@@ -94,76 +102,82 @@ export default function SecondNavbar() {
             <NavLink to="/categories" activeLink={activeLink} setActiveLink={setActiveLink}>Categories</NavLink>
             <NavLink to="/contact" activeLink={activeLink} setActiveLink={setActiveLink}>Contact Us</NavLink>
 
-            {/* Account dropdown */}
-            <div>
-              <motion.span
-                className={`hover:text-purple-600 cursor-pointer relative group ${activeLink === "/account" ? "text-purple-600" : "text-black"}`}
-                onClick={(event) => {
-                  handleClick(event);
+            {/* Conditional rendering based on authentication status */}
+            {isAuthenticated ? (
+              /* Show Logout button when authenticated */
+              <NavLink to="#" activeLink={activeLink} setActiveLink={setActiveLink}>
+                <LogoutButton />
+              </NavLink>
+            ) : (
+              /* Show Account dropdown when NOT authenticated */
+              <div>
+                <motion.span
+                  className={`hover:text-purple-600 cursor-pointer relative group ${activeLink === "/account" ? "text-purple-600" : "text-black"}`}
+                  onClick={(event) => {
+                    handleClick(event);
 
-                  // Don't set active link if we're on search page
-                  if (location.pathname !== "/search") {
-                    setActiveLink("/account");
-                  }
-                }}
-                whileHover={{ scale: 1.05 }}
-              >
-                Account
-                <motion.div
-                  className={`absolute bottom-0 left-0 h-0.5 bg-purple-600 ${activeLink === "/account" ? "w-full" : "w-0"} group-hover:w-full transition-all duration-300`}
-                  whileHover={{ width: "100%" }}
-                />
-              </motion.span>
-
-              <Menu
-                id="account-menu"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={() => {
-                  handleClose();
-                }}
-                MenuListProps={{
-                  "aria-labelledby": "account-button",
-                }}
-                PaperProps={{
-                  elevation: 3,
-                  style: {
-                    borderRadius: '12px',
-                    marginTop: '8px',
-                  },
-                }}
-              >
-                {/* Dropdown menu items */}
-                <MenuItem
-                  onClick={() => {
-                    handleClose();
-                    // setActiveLink("/sign-up");
                     // Don't set active link if we're on search page
                     if (location.pathname !== "/search") {
-                      setActiveLink("/sign-up");
+                      setActiveLink("/account");
                     }
                   }}
+                  whileHover={{ scale: 1.05 }}
                 >
-                  <Link to="/sign-up" className="text-black hover:text-purple-600 transition-colors w-full">
-                    Sign Up
-                  </Link>
-                </MenuItem>
-                <MenuItem
-                  onClick={() => {
+                  Account
+                  <motion.div
+                    className={`absolute bottom-0 left-0 h-0.5 bg-purple-600 ${activeLink === "/account" ? "w-full" : "w-0"} group-hover:w-full transition-all duration-300`}
+                    whileHover={{ width: "100%" }}
+                  />
+                </motion.span>
+
+                <Menu
+                  id="account-menu"
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={() => {
                     handleClose();
-                    // setActiveLink("/login");
-                    // Don't set active link if we're on search page
-                    if (location.pathname !== "/search") {
-                      setActiveLink("/login");
-                    }
+                  }}
+                  MenuListProps={{
+                    "aria-labelledby": "account-button",
+                  }}
+                  PaperProps={{
+                    elevation: 3,
+                    style: {
+                      borderRadius: '12px',
+                      marginTop: '8px',
+                    },
                   }}
                 >
-                  <Link to="/login" className="text-black hover:text-purple-600 transition-colors w-full">
-                    Login
-                  </Link>
-                </MenuItem>
-              </Menu>
-            </div>
+                  {/* Dropdown menu items */}
+                  <MenuItem
+                    onClick={() => {
+                      handleClose();
+                      // Don't set active link if we're on search page
+                      if (location.pathname !== "/search") {
+                        setActiveLink("/sign-up");
+                      }
+                    }}
+                  >
+                    <Link to="/sign-up" className="text-black hover:text-purple-600 transition-colors w-full">
+                      Sign Up
+                    </Link>
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      handleClose();
+                      // Don't set active link if we're on search page
+                      if (location.pathname !== "/search") {
+                        setActiveLink("/login");
+                      }
+                    }}
+                  >
+                    <Link to="/login" className="text-black hover:text-purple-600 transition-colors w-full">
+                      Login
+                    </Link>
+                  </MenuItem>
+                </Menu>
+              </div>
+            )}
           </motion.div>
 
           {/* Right section: Search icon and Subscribe button */}
@@ -171,7 +185,7 @@ export default function SecondNavbar() {
             {/* Search section */}
             <SearchSection />
 
-            {/* Subscribe button - responsive sizing */}
+            {/* Subscribe button - remains unchanged as requested */}
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -192,14 +206,12 @@ export default function SecondNavbar() {
 
 // Custom NavLink component with active functionality
 const NavLink = ({ to, children, activeLink, setActiveLink }) => {
-
   const location = useLocation(); // Get the current location 
 
   return (
     <motion.div className="relative group">
       <Link
         to={to}
-        // onClick={() => setActiveLink(to)}
         onClick={() => {
           // Don't set active link if navigating to search page
           if (to !== "/search") {

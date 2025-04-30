@@ -1,251 +1,156 @@
-import * as React from "react";
-import { useState, useEffect } from "react";
-import Box from "@mui/joy/Box";
-import Drawer from "@mui/joy/Drawer";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import ModalClose from "@mui/joy/ModalClose";
-import { motion, AnimatePresence } from "framer-motion";
-import { AlignJustify, Mail, MapPin, Phone } from "lucide-react";
-import { NavLink } from "react-router";
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { Menu, X } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
+import LogoutButton from "./LogoutButton";
 
-// Custom styled NavLink component with animation
-const AnimatedNavLink = ({ to, children, onClick }) => (
-  <motion.div
-    whileHover={{ scale: 1.05, x: 10 }}
-    whileTap={{ scale: 0.95 }}
-    transition={{ duration: 0.2 }}>
+export default function MobileNavigation({ isAuthenticated }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [activeLink, setActiveLink] = useState("/");
+  const location = useLocation();
 
-    <NavLink
-      to={to}
-      className={({ isActive }) =>
-        `font-semibold text-lg tracking-wider transition-colors duration-300 ${isActive ? "text-violet-700" : "text-gray-800 hover:text-violet-600"
-        }`
-      }
-      onClick={onClick}
-    >
-      {children}
-    </NavLink>
-  </motion.div>
-);
-
-export default function MobileNavigation() {
-  // State for drawer open/close
-  const [open1, setOpen] = useState(false);
-
-  // State for dropdown menu
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
-
-  // Close drawer when screen size becomes large
+  // Effect to update active link based on current path
   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 1024) { // lg breakpoint
-        setOpen(false);
-      }
-    };
+    setActiveLink(location.pathname);
+  }, [location.pathname]);
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  // Handle dropdown menu open
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+  // Toggle mobile menu
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
   };
 
-  // Handle dropdown menu close
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  // Handle link click in drawer (close drawer when navigating)
-  const handleLinkClick = () => {
-    setOpen(false);
-  };
-
-  // Drawer animation variants
-  const drawerVariants = {
-    hidden: { opacity: 0, x: "-100%" },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.3, ease: "easeOut" } }
+  // Close menu when link is clicked
+  const handleLinkClick = (path) => {
+    setActiveLink(path);
+    setIsOpen(false);
   };
 
   return (
-    <React.Fragment>
-      {/* Hamburger Menu Icon - only visible on mobile */}
+    <div className="z-50 flex items-center justify-center">
+      {/* Hamburger menu button */}
+      <button
+        onClick={toggleMenu}
+        className="p-2 text-gray-600 transition-colors duration-300 rounded-md focus:outline-none"
+        aria-label="Toggle menu"
+      >
+        {isOpen ? <X size={24} /> : <Menu size={24} />}
+      </button>
+
+      {/* Mobile menu overlay */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 z-40"
+          onClick={toggleMenu}
+        ></div>
+      )}
+
+      {/* Mobile menu sidebar */}
       <motion.div
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
+        className={`fixed top-0 left-0 h-screen w-64 bg-white shadow-2xl z-50 transform ${isOpen ? "translate-x-0" : "-translate-x-full"
+          } transition-transform duration-300 ease-in-out flex flex-col`}
+        initial={false}
       >
-        <AlignJustify
-          onClick={() => setOpen(true)}
-          className="flex lg:hidden cursor-pointer text-gray-800 hover:text-violet-700 transition-colors duration-300"
-          size={28}
-        />
-      </motion.div>
+        {/* Menu header */}
+        <div className="flex items-center justify-between p-4 border-b">
+          <Link to="/" onClick={() => handleLinkClick("/")}>
+            <img
+              src="/header-logo1.png"
+              alt="Logo"
+              className="h-8"
+            />
+          </Link>
+          <button
+            onClick={toggleMenu}
+            className="p-2 text-gray-600 rounded-md focus:outline-none"
+            aria-label="Close menu"
+          >
+            <X size={20} />
+          </button>
+        </div>
 
-      {/* Mobile Navigation Drawer */}
-      <Drawer
-        open={open1}
-        onClose={() => setOpen(false)}
-        sx={{
-          width: "100%",
-          '& .MuiDrawer-paper': {
-            width: { xs: '100%', sm: '380px' },
-            boxSizing: 'border-box',
-            boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
-          }
-        }}
-      >
-        <AnimatePresence>
-          {open1 && (
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              exit="hidden"
-              variants={drawerVariants}
-              className="h-full bg-white">
+        {/* Menu links */}
+        <div className="flex flex-col px-4 py-6 space-y-4 font-medium">
+          <MobileNavLink
+            to="/"
+            active={activeLink === "/"}
+            onClick={() => handleLinkClick("/")}
+          >
+            Home
+          </MobileNavLink>
+          <MobileNavLink
+            to="/blog"
+            active={activeLink === "/blog"}
+            onClick={() => handleLinkClick("/blog")}
+          >
+            Blog
+          </MobileNavLink>
+          <MobileNavLink
+            to="/single-post"
+            active={activeLink === "/single-post"}
+            onClick={() => handleLinkClick("/single-post")}
+          >
+            Single Post
+          </MobileNavLink>
+          <MobileNavLink
+            to="/categories"
+            active={activeLink === "/categories"}
+            onClick={() => handleLinkClick("/categories")}
+          >
+            Categories
+          </MobileNavLink>
+          <MobileNavLink
+            to="/contact"
+            active={activeLink === "/contact"}
+            onClick={() => handleLinkClick("/contact")}
+          >
+            Contact Us
+          </MobileNavLink>
 
-              {/* Drawer Header with Logo and Close Button */}
-              <Box className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
-                <motion.img
-                  src="/header-logo1.png"
-                  alt="Vexon Logo"
-                  className="h-10 object-cover"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.2 }}
-                />
-
-                <motion.div whileHover={{ rotate: 90 }} transition={{ duration: 0.2 }}>
-                  <ModalClose
-                    id="close-icon"
-                    sx={{
-                      position: "initial",
-                      color: "black",
-                      '&:hover': {
-                        color: '#7c3aed',
-                        backgroundColor: 'rgba(124, 58, 237, 0.1)'
-                      }
-                    }}
-                  />
-                </motion.div>
-              </Box>
-
-              {/* Drawer Content */}
-              <div className="flex flex-col h-[calc(100%-70px)] overflow-y-auto">
-                {/* Navigation Links */}
-                <motion.div
-                  className="flex flex-col px-8 py-6 gap-5"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1, duration: 0.3 }}>
-
-                  <AnimatedNavLink to="/" onClick={handleLinkClick}>Home</AnimatedNavLink>
-                  <AnimatedNavLink to="/blog" onClick={handleLinkClick}>Blog</AnimatedNavLink>
-                  <AnimatedNavLink to="/single-post" onClick={handleLinkClick}>Single Post</AnimatedNavLink>
-                  <AnimatedNavLink to="/categories" onClick={handleLinkClick}>Categories</AnimatedNavLink>
-                  <AnimatedNavLink to="/contact" onClick={handleLinkClick}>Contact Us</AnimatedNavLink>
-
-                  {/* Account dropdown */}
-                  <motion.div
-                    whileHover={{ scale: 1.05, x: 10 }}
-                    whileTap={{ scale: 0.95 }}
-                    transition={{ duration: 0.2 }}>
-
-                    <span
-                      className="font-semibold text-lg tracking-wider cursor-pointer text-gray-800 hover:text-violet-600 transition-colors duration-300"
-                      onClick={handleClick}>
-                      Account
-                    </span>
-
-                    <Menu
-                      id="account-menu"
-                      anchorEl={anchorEl}
-                      open={open}
-                      onClose={handleClose}
-                      MenuListProps={{
-                        "aria-labelledby": "account-button",
-                      }}
-                      sx={{
-                        "& .MuiPaper-root": {
-                          borderRadius: "8px",
-                          boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
-                          mt: 1.5
-                        }
-                      }}>
-
-                      {/* Dropdown menu items */}
-                      <MenuItem onClick={handleClose} sx={{ minWidth: "150px" }}>
-                        <NavLink to="/sign-up" className="text-gray-800 hover:text-violet-600 font-medium w-full">
-                          Sign Up
-                        </NavLink>
-                      </MenuItem>
-                      <MenuItem onClick={handleClose}>
-                        <NavLink to="/login" className="text-gray-800 hover:text-violet-600 font-medium w-full">
-                          Login
-                        </NavLink>
-                      </MenuItem>
-                    </Menu>
-                  </motion.div>
-                </motion.div>
-
-                {/* Contact Information Section */}
-                <motion.div
-                  className=" bg-gray-50 px-8 py-6 space-y-5"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.3, duration: 0.4 }}>
-
-                  <h3 className="text-xl text-gray-800 font-semibold mb-4">Get in touch</h3>
-
-                  {/* Email conatct item */}
-                  <motion.div
-                    className="flex items-center gap-4"
-                    whileHover={{ x: 5 }}
-                    transition={{ duration: 0.2 }}>
-
-                    <div className="bg-violet-100 p-2 rounded-full">
-                      <Mail className="text-violet-700" size={20} strokeWidth={1.5} />
-                    </div>
-                    <p className="text-gray-600 hover:text-violet-600 transition-colors duration-300 cursor-pointer">
-                      support@vexon.com
-                    </p>
-                  </motion.div>
-
-                  {/* Address contact item */}
-                  <motion.div
-                    className="flex items-start gap-4"
-                    whileHover={{ x: 5 }}
-                    transition={{ duration: 0.2 }}>
-
-                    <div className="bg-violet-100 p-2 rounded-full mt-1">
-                      <MapPin className="text-violet-700" size={20} strokeWidth={1.5} />
-                    </div>
-                    <p className="text-gray-600 hover:text-violet-600 transition-colors duration-300 cursor-pointer">
-                      Kathmandu, Nepal +0123, Bagmati Province N.O. : 3
-                    </p>
-                  </motion.div>
-
-                  {/* Phone contact item */}
-                  <motion.div
-                    className="flex items-center gap-4"
-                    whileHover={{ x: 5 }}
-                    transition={{ duration: 0.2 }}>
-
-                    <div className="bg-violet-100 p-2 rounded-full">
-                      <Phone className="text-violet-700" size={20} strokeWidth={1.5} />
-                    </div>
-                    <p className="text-gray-600 hover:text-violet-600 transition-colors duration-300 cursor-pointer">
-                      +9779784563120
-                    </p>
-                  </motion.div>
-                </motion.div>
-              </div>
-            </motion.div>
+          {/* Conditional authentication links */}
+          {isAuthenticated ? (
+            // Show Logout button when authenticated
+            <div className="py-2">
+              <LogoutButton
+                className="text-gray-800 hover:text-purple-600 transition-colors font-medium"
+                onClick={() => setIsOpen(false)}
+              />
+            </div>
+          ) : (
+            // Show Sign Up and Login links when not authenticated
+            <>
+              <MobileNavLink
+                to="/sign-up"
+                active={activeLink === "/sign-up"}
+                onClick={() => handleLinkClick("/sign-up")}
+              >
+                Sign Up
+              </MobileNavLink>
+              <MobileNavLink
+                to="/login"
+                active={activeLink === "/login"}
+                onClick={() => handleLinkClick("/login")}
+              >
+                Login
+              </MobileNavLink>
+            </>
           )}
-        </AnimatePresence>
-      </Drawer>
-    </React.Fragment>
+        </div>
+      </motion.div>
+    </div>
   );
 }
+
+// Mobile nav link component
+function MobileNavLink({ to, active, onClick, children }) {
+  return (
+    <Link
+      to={to}
+      onClick={onClick}
+      className={`block py-2 transition-colors duration-200 ${active ? "text-purple-600" : "text-gray-800 hover:text-purple-600"
+        }`}
+    >
+      {children}
+    </Link>
+  );
+}
+

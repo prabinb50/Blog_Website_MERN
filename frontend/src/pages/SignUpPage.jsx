@@ -61,7 +61,7 @@ export default function SignUpPage() {
             setIsLoading(false);
             toast.success(response?.data?.message, {
                 position: "top-right",
-                autoClose: 2000,
+                autoClose: 200,
                 hideProgressBar: false,
                 closeOnClick: false,
                 pauseOnHover: true,

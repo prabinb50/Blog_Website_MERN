@@ -50,7 +50,7 @@ export default function LoginPage() {
             // console.log(response.data.message);
             toast.success(response?.data?.message, {
                 position: "top-right",
-                autoClose: 2000,
+                autoClose: 200,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
