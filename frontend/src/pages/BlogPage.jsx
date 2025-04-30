@@ -86,7 +86,7 @@ export default function BlogPage() {
 
 
       {/* Conditionally render the sections based on the selected view */}
-      {view === "one" ? <BlogPageOne blogs={blogs} /> : <BlogPageTwo blogs={blogs} />}
+      {view === "one" ? <BlogPageOne blogs={blogs ? blogs.slice(0, 6) : []} /> : <BlogPageTwo blogs={blogs ? blogs.slice(6) : []} />}
     </div>
   );
 }

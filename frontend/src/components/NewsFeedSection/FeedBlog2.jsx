@@ -4,18 +4,18 @@ import { CalendarDays, Clock } from "lucide-react";
 
 
 
-export default function FeedBlog2() {
+export default function FeedBlog2({blogs}) {
   return (
     <div>
        <div className="  grid grid-cols-1 md:grid-cols-2  gap-8">
-      {Items1.map((item, index) => (
+      {blogs?.map((item, index) => (
         <div
           key={index}
           className="w-full h-full flex flex-col gap-4 border border-gray-200 rounded-md hover:shadow-lg hover:-translate-y-2 duration-500  "
         >
           {/* Image section */}
           <div className="">
-            <img className="rounded-t-md w-full" src={item.img} alt="Image" />
+            <img className="rounded-t-md w-full" src={item.image} alt="Image" />
           </div>
 
           <div className="space-y-4 px-4 pb-3 ">
@@ -26,7 +26,7 @@ export default function FeedBlog2() {
 
               <div className="flex items-center gap-1 cursor-pointer">
                 <Clock size={16} />{" "}
-                <p className="text-sm opacity-80"> 3 min read</p>
+                <p className="text-sm opacity-80"> {item.readTime}</p>
               </div>
             </div>
 
@@ -37,7 +37,7 @@ export default function FeedBlog2() {
             </p>
 
             {/* Text area */}
-            <p className="opacity-70 tracking-wide">{item.desc}</p>
+            <p className="opacity-70 tracking-wide">{item.description}</p>
 
             {/* Footer section  */}
 
@@ -48,7 +48,7 @@ export default function FeedBlog2() {
                 alt=""
               />
               <span className="text-sm opacity-70 cursor-pointer">
-                {item.proName}
+                {item.username}
               </span>{" "}
               <span className="opacity-60 text-sm">|</span>{" "}
               <div className="flex items-center gap-2 cursor-pointer">
@@ -68,47 +68,4 @@ export default function FeedBlog2() {
 }
 
 
-const Items1 = [
- 
-  {
-    img: "/blogImage/img5.png",
-    title: "Alternate universes and their impact on the nature of space",
-    desc: "This post explores strategies to help create an authentic and memorable brand presence on social media that resonates with the audience.",
-    date: "26 April 2025",
-    profile:
-      "https://images.unsplash.com/photo-1742261569279-da244b3aab46?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDV8X2hiLWRsNFEtNFV8fGVufDB8fHx8fA%3D%3D",
-    proName: "John J.",
-    date: "26 April 2025",
-  },
 
-  {
-    img: "/blogImage/img6.png",
-    title: "Exploring the future of interdimensional travel possibilities",
-    desc: "This post explores strategies to help create an authentic and memorable brand presence on social media that resonates with the audience.",
-    date: "26 April 2025",
-    profile:
-      "https://images.unsplash.com/photo-1742261569279-da244b3aab46?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDV8X2hiLWRsNFEtNFV8fGVufDB8fHx8fA%3D%3D",
-    proName: "Yang Y.",
-    date: "26 April 2025",
-  },
-  {
-    img: "/blogImage/img7.png",
-    title: "Exploring the future of interdimensional travel possibilities",
-    desc: "This post explores strategies to help create an authentic and memorable brand presence on social media that resonates with the audience.",
-    date: "26 April 2025",
-    profile:
-      "https://images.unsplash.com/photo-1742261569279-da244b3aab46?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDV8X2hiLWRsNFEtNFV8fGVufDB8fHx8fA%3D%3D",
-    proName: "Yang Y.",
-    date: "26 April 2025",
-  },
-  {
-    img: "/blogImage/img8.png",
-    title: "Exploring the future of interdimensional travel possibilities",
-    desc: "This post explores strategies to help create an authentic and memorable brand presence on social media that resonates with the audience.",
-    date: "26 April 2025",
-    profile:
-      "https://images.unsplash.com/photo-1742261569279-da244b3aab46?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDV8X2hiLWRsNFEtNFV8fGVufDB8fHx8fA%3D%3D",
-    proName: "Yang Y.",
-    date: "26 April 2025",
-  },
-];
