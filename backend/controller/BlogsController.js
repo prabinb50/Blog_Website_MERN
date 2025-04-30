@@ -49,6 +49,7 @@ export const getAllBlogs = async (req, res) => {
       data: allBlogs,
     });
   } catch (error) {
+    console.log(error)
     return res.status(500).json({
       message: "Internal server error",
       error: error.message,

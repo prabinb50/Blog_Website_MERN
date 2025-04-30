@@ -3,17 +3,17 @@ import { CalendarDays, Clock } from "lucide-react";
 
 
 
-export default function FeedBlog3() {
+export default function FeedBlog3({blogs}) {
   return (
-    <div className="  grid grid-cols-1 md:grid-cols-2  gap-8">
-    {Items1.map((item, index) => (
+    <div className="grid grid-cols-1 md:grid-cols-2  gap-8">
+    {blogs?.map((item, index) => (
       <div
         key={index}
         className="w-full h-full flex flex-col gap-4 border border-gray-200 rounded-md hover:shadow-lg hover:-translate-y-2 duration-500  "
       >
         {/* Image section */}
         <div className="">
-          <img className="rounded-t-md w-full" src={item.img} alt="Image" />
+          <img className="rounded-t-md w-full" src={item.image} alt="Image" />
         </div>
 
         <div className="space-y-4 px-4 pb-3 ">
@@ -24,7 +24,7 @@ export default function FeedBlog3() {
 
             <div className="flex items-center gap-1 cursor-pointer">
               <Clock size={16} />{" "}
-              <p className="text-sm opacity-80"> 3 min read</p>
+              <p className="text-sm opacity-80"> {item.readTime}</p>
             </div>
           </div>
 
@@ -35,7 +35,7 @@ export default function FeedBlog3() {
           </p>
 
           {/* Text area */}
-          <p className="opacity-70 tracking-wide">{item.desc}</p>
+          <p className="opacity-70 tracking-wide">{item.description}</p>
 
           {/* Footer section  */}
 
@@ -46,7 +46,7 @@ export default function FeedBlog3() {
               alt=""
             />
             <span className="text-sm opacity-70 cursor-pointer">
-              {item.proName}
+              {item.username}
             </span>{" "}
             <span className="opacity-60 text-sm">|</span>{" "}
             <div className="flex items-center gap-2 cursor-pointer">

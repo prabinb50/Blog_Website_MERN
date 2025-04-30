@@ -36,20 +36,20 @@ export default function BlogPage() {
   return (
     <div>
 
-      <div className="bg-[#f6f2ff] space-y-4">
+      <div  className="bg-[#f6f2ff] w-full">
         {/* Breadcrumb navigation */}
-        <div className="flex items-center justify-center pt-20">
+        <div className="flex items-center justify-center pt-20 pb-2 overflow-x-auto px-4">
           <NavLink to={"/"} className="cursor-pointer">
             Home
           </NavLink>
+          <ChevronRight  className="w-5 "/>
+          <p className="whitespace-nowrap">Blog</p>
           <ChevronRight />
-          <p>Blog</p>
-          <ChevronRight />
-          <p className="font-bold">Blog Post 01</p>
+          <p className="font-bold whitespace-nowrap">Blog Post 01</p>
         </div>
 
         {/* Page title */}
-        <p className="text-center font-bold text-6xl pb-20">Standard</p>
+        <p className="text-center font-bold text-5xl md:text-6xl pb-20 px-4">Standard</p>
       </div>
 
       <div className="w-11/12 mx-auto pt-20 space-x-4 flex items-center justify-center">
@@ -86,7 +86,7 @@ export default function BlogPage() {
 
 
       {/* Conditionally render the sections based on the selected view */}
-      {view === "one" ? <BlogPageOne blogs={blogs} /> : <BlogPageTwo blogs={blogs} />}
+      {view === "one" ? <BlogPageOne blogs={blogs ? blogs.slice(0, 6) : []} /> : <BlogPageTwo blogs={blogs ? blogs.slice(6) : []} />}
     </div>
   );
 }

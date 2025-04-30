@@ -28,7 +28,7 @@ export default function BlogPageOne({blogs}) {
 
                 <div className="flex items-center gap-1 cursor-pointer">
                   <Clock size={16} />{" "}
-                  <p className="text-sm opacity-80"> 3 min read</p>
+                  <p className="text-sm opacity-80"> {item.readTime}</p>
                 </div>
               </div>
 
@@ -39,7 +39,7 @@ export default function BlogPageOne({blogs}) {
               </p>
 
               {/* Text area */}
-              <p className="opacity-70 tracking-wide">{item.desc}</p>
+              <p className="opacity-70 tracking-wide">{item.description}</p>
 
               {/* Footer section  */}
 
