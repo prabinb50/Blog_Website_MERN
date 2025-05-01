@@ -1,11 +1,39 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
-import { NavLink } from "react-router";
+import { NavLink, useLocation } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 import { Bounce, toast } from "react-toastify";
 import MoreBlogsSinglePost from "../components/moreBlogsSinglePost";
+import axios from "axios";
 
 export default function SinglePostPage() {
+
+  // Get the blog id from the URL
+  const location = useLocation();
+  console.log("location", location);
+  const blogs_id = location.pathname.split("/")[2];
+  console.log("blogs_id", blogs_id);
+
+  // state to store single post data 
+  const [singlePost, setSinglePost] = useState([]);
+
+  // fetch single post data from backend
+  const fetchSinglePost = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:4000/blogs/${blogs_id}`);
+      console.log("response", response);
+      setSinglePost([response.data.data]);
+    } catch (error) {
+      console.error("Error fetching single post:", error);
+    }
+  }
+
+  // Call the function to fetch single post data when the component mounts
+  useEffect(() => {
+    fetchSinglePost();
+  }, [blogs_id]);
+
   // State variables for form inputs
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
