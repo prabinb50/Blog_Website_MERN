@@ -5,6 +5,7 @@ import "dotenv/config";
 import BlogRoute from './routes/BlogRoute.js'
 import userRoute from './routes/UserRoute.js';
 import CategoryRoute from './routes/CategoryRoute.js';
+import PostsRoute from './routes/PostsRoute.js'
 
 // configure the server
 export const app = express();
@@ -28,8 +29,9 @@ try {
 }
 
 app.use("/users", userRoute);
-app.use("/blogs", BlogRoute);
+app.use("/blogs", BlogRoute); 
 app.use("/categories", CategoryRoute);
+app.use("/posts",PostsRoute)
 // app.use("/socialMedia", socialMediaRoute);
 
 // define the port

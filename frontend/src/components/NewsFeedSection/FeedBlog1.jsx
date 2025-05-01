@@ -52,7 +52,11 @@ export default function FeedBlog1({blogs}) {
               <CalendarDays size={16} strokeWidth={1.5} />{" "}
               <span className="text-sm opacity-70 tracking-wider">
                 {" "}
-                {item.date}
+                {new Date(item.date).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
               </span>{" "}
             </div>
           </div>
