@@ -10,20 +10,19 @@ export default function SinglePostPage() {
 
   // Get the blog id from the URL
   const location = useLocation();
-  console.log("location", location);
+  // console.log("location", location);
   const blogs_id = location.pathname.split("/")[2];
-  console.log("blogs_id", blogs_id);
+  // console.log("blogs_id", blogs_id);
 
   // state to store single post data 
-  const [singlePost, setSinglePost] = useState([]);
+  const [singlePost, setSinglePost] = useState();
 
   // fetch single post data from backend
   const fetchSinglePost = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:4000/blogs/${blogs_id}`);
-      console.log("response", response);
-      setSinglePost([response.data.data]);
+      const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/blogs/${blogs_id}`);
+      // console.log("response", response.data.data);
+      setSinglePost(response.data.data);
     } catch (error) {
       console.error("Error fetching single post:", error);
     }
@@ -92,35 +91,39 @@ export default function SinglePostPage() {
         <header className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
           <div className="flex items-center mb-4 md:mb-0">
             <img
-              src="/blog1-author1.png"
+              // src="/blog1-author1.png"
+              src={singlePost?.profile}
               alt="Author"
               className="w-10 h-10 rounded-full mr-3"
             />
             <span className="font-semibold text-gray-800">
-              Kimberly Mastrangelo
+              {singlePost?.username}
             </span>
           </div>
           <div className="text-sm text-gray-500">
-            <span>Oct 26, 2025</span>
+            <span>
+              {new Date(singlePost?.date).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </span>
             <span className="mx-2 hidden md:inline">|</span>
-            <span>3 min read</span>
+            <span>{singlePost?.readTime}</span>
           </div>
         </header>
 
         {/* Post Content */}
         <div className="mb-6 grid grid-cols-1 gap-4">
           <h1 className="text-3xl md:text-5xl font-semibold text-gray-900 mb-4">
-            The Art of Building a Strong Personal Brand on Social Media
+            {/* The Art of Building a Strong Personal Brand on Social Media */}
+            {singlePost?.title}
           </h1>
           <p className="text-gray-700 leading-relaxed">
-            In today’s digital age, building a strong personal brand on social
-            media is more crucial than ever. A compelling personal brand not
-            only establishes your credibility and trustworthiness but also opens
-            doors to new opportunities, connects you with like-minded
-            individuals, ...
+            {singlePost?.description}
           </p>
           <img
-            src="/blog-details-image1.png"
+            src={singlePost?.image}
             alt="blog-details"
             className="rounded-lg object-cover"
           />

@@ -55,11 +55,11 @@ function AppWrapper() {
         } />
 
         {/* Protected Routes */}
-        <Route path="/single-post" element={
+        {/* <Route path="/single-post" element={
           <ProtectedRoute>
             <SinglePostPage />
           </ProtectedRoute>
-        } />
+        } /> */}
 
         <Route path="/single-post/:id" element={
           <ProtectedRoute>
@@ -100,6 +100,9 @@ function AppWrapper() {
 
         {/* Catch all - redirect to sign-up */}
         <Route path="*" element={<Navigate to="/sign-up" replace />} />
+        <Route path="/single-post" element={
+          <Navigate to="/blog" replace />
+        } />
       </Routes>
 
       {/* Conditionally render SocialMediaGame for authenticated users only */}
