@@ -6,7 +6,7 @@ import "./index.css";
 import FooterSection from "./components/FooterSection";
 import SinglePostPage from "./pages/singlePostPage";
 import ContactUsPage from "./pages/ContactUsPage";
-import { Bounce, ToastContainer, toast } from "react-toastify";
+import { Bounce, ToastContainer } from "react-toastify";
 import BlogPage from "./pages/BlogPage";
 import SecondNavbar from "./components/SecondNavbar";
 import CategoriesPage from "./pages/CategoriesPage";
