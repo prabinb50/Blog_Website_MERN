@@ -7,28 +7,24 @@ import MoreBlogsSinglePost from "../components/moreBlogsSinglePost";
 import axios from "axios";
 
 export default function SinglePostPage() {
-
   // Get the blog id from the URL
   const location = useLocation();
-  // console.log("location", location);
   const blogs_id = location.pathname.split("/")[2];
-  // console.log("blogs_id", blogs_id);
 
-  // state to store single post data 
+  // State to store single post data
   const [singlePost, setSinglePost] = useState();
 
-  // fetch single post data from backend
+  // Fetch single post data from the backend
   const fetchSinglePost = async () => {
     try {
       const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/blogs/${blogs_id}`);
-      // console.log("response", response.data.data);
       setSinglePost(response.data.data);
     } catch (error) {
       console.error("Error fetching single post:", error);
     }
-  }
+  };
 
-  // Call the function to fetch single post data when the component mounts
+  // Fetch single post data when the component mounts or when blogs_id changes
   useEffect(() => {
     fetchSinglePost();
   }, [blogs_id]);
@@ -44,6 +40,7 @@ export default function SinglePostPage() {
   // Function to handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
+    // Display a toast notification
     toast("Thank you for your message! We will get back to you soon.", {
       position: "top-right",
       autoClose: 2000,
@@ -65,70 +62,83 @@ export default function SinglePostPage() {
   };
 
   return (
-    <div>
-      {/* Header Section */}
-      <div className="bg-[#f6f2ff] space-y-4">
-        {/* Breadcrumb navigation */}
-        <div className="flex items-center justify-center pt-20">
-          <NavLink to={"/"} className="cursor-pointer">
+    <div className="bg-gray-50 min-h-screen">
+      {/* Light purple background for title section */}
+      <div className="bg-[#f6f2ff] w-full">
+        <div className="flex items-center justify-center pt-20 pb-2 overflow-x-auto px-4">
+          {/* Breadcrumb navigation */}
+          <NavLink to={"/"} className="cursor-pointer ">
             Home
           </NavLink>
-          <ChevronRight />
-          <p>Blog</p>
-          <ChevronRight />
-          <p className="font-bold">Blog Without Sidebar</p>
+          <ChevronRight className="w-5" />
+          <p className="whitespace-nowrap ">Blog</p>
+          <ChevronRight className="w-5" />
+          <p className="font-bold whitespace-nowrap">Blog Without Sidebar</p>
         </div>
 
         {/* Page title */}
-        <p className="text-center font-bold text-4xl md:text-6xl pb-20">
+        <p className="text-center font-bold text-4xl md:text-5xl pb-20 px-4">
           Blog Without Sidebar
         </p>
       </div>
 
       {/* Main Content Section */}
-      <div className="w-11/12 lg:w-7/12 mx-auto p-4 md:p-6">
+      <div className="w-[90%] sm:w-11/12 lg:w-9/12 xl:w-7/12 mx-auto pt-15 md:pt-20 pb-15 pb:pb-20">
         {/* Post Header */}
-        <header className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
-          <div className="flex items-center mb-4 md:mb-0">
+        <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-6">
+          <div className="flex items-center mb-3 sm:mb-0">
+            {/* Author profile image and name */}
             <img
-              // src="/blog1-author1.png"
               src={singlePost?.profile}
               alt="Author"
-              className="w-10 h-10 rounded-full mr-3"
+              className="w-8 h-8 sm:w-10 sm:h-10 rounded-full mr-2 sm:mr-3 object-cover"
             />
-            <span className="font-semibold text-gray-800">
+
+            <span className="font-semibold text-gray-800 text-sm sm:text-base">
               {singlePost?.username}
             </span>
           </div>
-          <div className="text-sm text-gray-500">
+
+          <div className="text-xs sm:text-sm text-gray-500">
+            {/* Post date and read time */}
             <span>
-              {new Date(singlePost?.date).toLocaleDateString("en-US", {
+              {singlePost?.date && new Date(singlePost.date).toLocaleDateString("en-US", {
                 year: "numeric",
                 month: "long",
                 day: "numeric",
               })}
             </span>
-            <span className="mx-2 hidden md:inline">|</span>
+
+            <span className="mx-2 inline">|</span>
+
             <span>{singlePost?.readTime}</span>
           </div>
         </header>
 
         {/* Post Content */}
-        <div className="mb-6 grid grid-cols-1 gap-4">
-          <h1 className="text-3xl md:text-5xl font-semibold text-gray-900 mb-4">
-            {/* The Art of Building a Strong Personal Brand on Social Media */}
+        <div className="mb-6 grid grid-cols-1 gap-3 sm:gap-4">
+          {/* Post title */}
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 mb-2 sm:mb-4">
             {singlePost?.title}
           </h1>
-          <p className="text-gray-700 leading-relaxed">
+
+          {/* Post description */}
+          <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
             {singlePost?.description}
           </p>
-          <img
-            src={singlePost?.image}
-            alt="blog-details"
-            className="rounded-lg object-cover"
-          />
-          <p className="text-gray-700 leading-relaxed">
-            In today’s digital age, building a strong personal brand on social
+
+          {/* Post image */}
+          <div className="my-2 sm:my-4">
+            <img
+              src={singlePost?.image}
+              alt="blog-details"
+              className="rounded-lg object-cover w-full h-auto"
+            />
+          </div>
+
+          {/* Additional content */}
+          <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
+            In today's digital age, building a strong personal brand on social
             media is more crucial than ever. A compelling personal brand not
             only establishes your credibility and trustworthiness but also opens
             doors to new opportunities, connects you with like-minded
@@ -140,10 +150,11 @@ export default function SinglePostPage() {
         </div>
 
         {/* Additional Sections */}
-        <h2 className="text-2xl md:text-3xl font-semibold">
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold mt-6 mb-3">
           Understanding Your Personal Brand
         </h2>
-        <p className="text-gray-700 leading-relaxed">
+
+        <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
           Your personal brand is a reflection of who you are, what you stand
           for, and how you want others to perceive you. Before diving into the
           social media world, take some time to reflect on your values,
@@ -152,78 +163,81 @@ export default function SinglePostPage() {
         </p>
 
         {/* Responsive Images */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mt-4 sm:mt-6">
           <img
             src="/blog-details-image2.png"
             alt=""
-            className="rounded-lg object-cover"
+            className="rounded-lg object-cover w-full h-auto"
           />
           <img
             src="/blog-details-image3.png"
             alt=""
-            className="rounded-lg object-cover"
+            className="rounded-lg object-cover w-full h-auto"
           />
         </div>
 
         {/* Quote Section */}
-        <div className="gap-4 grid grid-cols-1 border border-gray-300 rounded-md bg-purple-800 mt-6 p-6">
-          <span className="text-white text-lg md:text-2xl font-semibold">
+        <div className="gap-3 grid grid-cols-1 border border-gray-300 rounded-md bg-purple-800 mt-4 sm:mt-6 p-4 sm:p-6">
+          <span className="text-white text-base sm:text-lg md:text-xl lg:text-2xl font-semibold">
             <q>
               Your personal brand is the unique story that only you can tell.
               Own it, share it, and let it shine.
             </q>
           </span>
-          <span className="text-white">Henry Fawyel</span>
+          <span className="text-white text-sm sm:text-base">Henry Fawyel</span>
         </div>
 
         {/* Tags and Socials */}
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between py-8 gap-4">
-          <div className="flex items-center gap-4">
-            <p className="font-semibold text-lg md:text-2xl">Tags:</p>
-            <div className="text-gray-500 hover:text-white border border-gray-500 cursor-pointer w-max p-2 rounded-full hover:bg-violet-600 hover:border-violet-600 duration-700">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between py-4 sm:py-6 md:py-8 gap-4">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+            {/* Tags */}
+            <p className="font-semibold text-base sm:text-lg md:text-xl lg:text-2xl">Tags:</p>
+            <div className="text-xs sm:text-sm text-gray-500 hover:text-white border border-gray-500 cursor-pointer w-max p-1.5 sm:p-2 rounded-full hover:bg-violet-600 hover:border-violet-600 duration-700">
               Social Media
             </div>
-            <div className="text-gray-500 hover:text-white border border-gray-500 cursor-pointer w-max p-2 rounded-full hover:bg-violet-600 hover:border-violet-600 duration-700">
+            <div className="text-xs sm:text-sm text-gray-500 hover:text-white border border-gray-500 cursor-pointer w-max p-1.5 sm:p-2 rounded-full hover:bg-violet-600 hover:border-violet-600 duration-700">
               UI/UX
             </div>
-            <div className="text-gray-500 hover:text-white border border-gray-500 cursor-pointer w-max p-2 rounded-full hover:bg-violet-600 hover:border-violet-600 duration-700">
+            <div className="text-xs sm:text-sm text-gray-500 hover:text-white border border-gray-500 cursor-pointer w-max p-1.5 sm:p-2 rounded-full hover:bg-violet-600 hover:border-violet-600 duration-700">
               Business
             </div>
           </div>
 
-          <div className="flex items-center gap-4">
-            <p className="text-lg md:text-2xl font-semibold">Socials:</p>
+          <div className="flex items-center gap-2 sm:gap-3 mt-3 sm:mt-0">
+            {/* Social media icons */}
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold">Socials:</p>
             <FaFacebookF
-              size={40}
-              className="text-gray-500 hover:text-white border border-gray-500 cursor-pointer w-max p-2 rounded-full hover:bg-violet-600 hover:border-violet-600 duration-700"
+              size={30}
+              className="text-gray-500 hover:text-white border border-gray-500 cursor-pointer w-max p-1.5 sm:p-2 rounded-full hover:bg-violet-600 hover:border-violet-600 duration-700"
             />
             <FaInstagram
-              size={40}
-              className="text-gray-500 hover:text-white border border-gray-500 cursor-pointer w-max p-2 rounded-full hover:bg-violet-600 hover:border-violet-600 duration-700"
+              size={30}
+              className="text-gray-500 hover:text-white border border-gray-500 cursor-pointer w-max p-1.5 sm:p-2 rounded-full hover:bg-violet-600 hover:border-violet-600 duration-700"
             />
             <FaLinkedinIn
-              size={40}
-              className="text-gray-500 hover:text-white border border-gray-500 cursor-pointer w-max p-2 rounded-full hover:bg-violet-600 hover:border-violet-600 duration-700"
+              size={30}
+              className="text-gray-500 hover:text-white border border-gray-500 cursor-pointer w-max p-1.5 sm:p-2 rounded-full hover:bg-violet-600 hover:border-violet-600 duration-700"
             />
           </div>
         </div>
 
         {/* Comment Section */}
-        <div className="bg-gray-100 p-6 rounded-lg shadow-md">
-          <h3 className="text-xl md:text-2xl font-bold mb-2">Leave a Reply</h3>
-          <p className="text-gray-600 mb-6">
+        <div className="bg-gray-100 p-4 sm:p-5 md:p-6 rounded-lg shadow-md">
+          <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-1 sm:mb-2">Leave a Reply</h3>
+          <p className="text-xs sm:text-sm text-gray-600 mb-4 sm:mb-6">
             Provide clear contact information, including phone number, email,
             and address.
           </p>
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+            {/* Form fields */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               <input
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
                 required
                 type="text"
                 placeholder="First Name"
-                className="w-full p-3 border border-gray-300 rounded-lg"
+                className="w-full p-2.5 sm:p-3 border border-gray-300 rounded-lg text-sm"
               />
               <input
                 value={lastName}
@@ -231,17 +245,17 @@ export default function SinglePostPage() {
                 required
                 type="text"
                 placeholder="Last Name"
-                className="w-full p-3 border border-gray-300 rounded-lg"
+                className="w-full p-2.5 sm:p-3 border border-gray-300 rounded-lg text-sm"
               />
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               <input
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 type="email"
                 placeholder="Email"
-                className="w-full p-3 border border-gray-300 rounded-lg"
+                className="w-full p-2.5 sm:p-3 border border-gray-300 rounded-lg text-sm"
               />
               <input
                 value={phone}
@@ -249,7 +263,7 @@ export default function SinglePostPage() {
                 required
                 type="text"
                 placeholder="Phone"
-                className="w-full p-3 border border-gray-300 rounded-lg"
+                className="w-full p-2.5 sm:p-3 border border-gray-300 rounded-lg text-sm"
               />
             </div>
             <input
@@ -258,19 +272,19 @@ export default function SinglePostPage() {
               required
               type="text"
               placeholder="Subject"
-              className="w-full p-3 border border-gray-300 rounded-lg"
+              className="w-full p-2.5 sm:p-3 border border-gray-300 rounded-lg text-sm"
             />
             <textarea
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               required
               placeholder="Message"
-              rows="5"
-              className="w-full p-3 border border-gray-300 rounded-lg"
+              rows="4"
+              className="w-full p-2.5 sm:p-3 border border-gray-300 rounded-lg text-sm"
             ></textarea>
             <button
               type="submit"
-              className="w-full md:w-30 bg-purple-600 text-white py-3 rounded-lg font-bold hover:bg-purple-700 transition"
+              className="w-full sm:w-auto px-6 bg-purple-600 text-white py-2.5 rounded-lg font-bold hover:bg-purple-700 transition text-sm sm:text-base"
             >
               Get Started
             </button>

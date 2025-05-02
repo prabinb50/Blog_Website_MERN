@@ -8,6 +8,6 @@ const BlogSchema = new mongoose.Schema({
   description: { type: String },
   date: { type: Date, default: Date.now },
   readTime: { type: String },
-});  
+});
 
 export const Blogs = mongoose.model("Blogs", BlogSchema);
