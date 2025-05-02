@@ -106,15 +106,15 @@ function AppWrapper() {
       </Routes>
 
       {/* Conditionally render SocialMediaGame for authenticated users only */}
-      {isAuthenticated && location.pathname !== "/sign-up" && location.pathname !== "/login" && (
+      {/* {isAuthenticated && location.pathname !== "/sign-up" && location.pathname !== "/login" && (
         <SocialMediaGame />
-      )}
-
-      {/* Only show footer if user is authenticated or on auth pages */}
-      {(isAuthenticated || location.pathname === "/sign-up" || location.pathname === "/login") && <FooterSection />}
+      )} */}
 
       {/* Scroll to top arrow is always shown */}
       <ScrollToTopArrow />
+
+      {/* Only show footer if user is authenticated or on auth pages */}
+      {(isAuthenticated || location.pathname === "/sign-up" || location.pathname === "/login") && <FooterSection />}
     </>
   );
 }

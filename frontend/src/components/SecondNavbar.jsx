@@ -67,8 +67,8 @@ export default function SecondNavbar() {
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="w-full md:w-11/12 mx-auto">
-        <div className="flex items-center justify-between px-3 sm:px-4 md:px-6 py-3 md:py-4">
+      <div className="w-full lg:w-11/12 mx-auto">
+        <div className="flex items-center justify-between px-1.5 sm:px-4 md:px-5 lg:px-0 py-3 md:py-4">
           {/* Left section: Mobile menu & Logo */}
           <div className="flex items-center">
             {/* Mobile Navigation - only visible on small screens */}
