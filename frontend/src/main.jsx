@@ -106,9 +106,9 @@ function AppWrapper() {
       </Routes>
 
       {/* Conditionally render SocialMediaGame for authenticated users only */}
-      {/* {isAuthenticated && location.pathname !== "/sign-up" && location.pathname !== "/login" && (
+      {isAuthenticated && location.pathname !== "/sign-up" && location.pathname !== "/login" && (
         <SocialMediaGame />
-      )} */}
+      )}
 
       {/* Scroll to top arrow is always shown */}
       <ScrollToTopArrow />
