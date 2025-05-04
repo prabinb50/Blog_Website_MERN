@@ -37,6 +37,7 @@ export default function SignUpPage() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [termsAccepted, setTermsAccepted] = useState(false); // State variable for terms acceptance
 
     // State variable to manage loading state
     const [isLoading, setIsLoading] = useState(false);
@@ -45,6 +46,22 @@ export default function SignUpPage() {
     const handleSubmit = async (e) => {
         try {
             e.preventDefault();
+
+            // Validate that terms are accepted
+            if (!termsAccepted) {
+                toast.error("Please accept the terms and conditions", {
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                });
+                return;
+            }
             setIsLoading(true);
 
             // Send a POST request to the server with JSON data
@@ -165,7 +182,7 @@ export default function SignUpPage() {
                             {/* Submit button */}
                             <motion.button
                                 type="submit"
-                                className="w-full bg-purple-600 text-white py-3 mt-4 sm:mt-6 rounded-full hover:bg-black transition cursor-pointer font-semibold"
+                                className="w-full bg-purple-600 text-white py-3 mt-4 sm:mt-6 rounded-full hover:bg-black transition cursor-pointer font-semibold flex items-center justify-center"
                                 whileHover={{
                                     scale: 1.03, // Slightly enlarge on hover
                                     boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.2)", // Add shadow on hover
@@ -176,7 +193,7 @@ export default function SignUpPage() {
                                 disabled={isLoading} // Disable button when loading
                             >
                                 {
-                                    isLoading && <LoaderCircle size={16} className='animate-spin'></LoaderCircle>
+                                    isLoading && <LoaderCircle size={16} className='animate-spin mr-2'></LoaderCircle>
                                 }
                                 Create an Account
                             </motion.button>
@@ -187,6 +204,9 @@ export default function SignUpPage() {
                                     id="terms"
                                     type="checkbox"
                                     className="mr-2  h-4 w-4 cursor-pointer"
+                                    onChange={(e) => setTermsAccepted(e.target.checked)}
+                                    required
+                                    checked={termsAccepted} // Bind checkbox state to termsAccepted
                                 />
                                 <label htmlFor="terms" className="text-xs sm:text-sm cursor-pointer">
                                     I have read and agree to the{" "}
