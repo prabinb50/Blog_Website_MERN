@@ -86,11 +86,11 @@ function AppWrapper() {
           </ProtectedRoute>
         } />
 
-        <Route path="/account" element={
+        {/* <Route path="/account" element={
           <ProtectedRoute>
             <AccountPage />
           </ProtectedRoute>
-        } />
+        } /> */}
 
         {/* Added Search Route */}
         <Route path="/search" element={
