@@ -12,7 +12,6 @@ import SecondNavbar from "./components/SecondNavbar";
 import CategoriesPage from "./pages/CategoriesPage";
 import ScrollToTopArrow from "./components/ScrollToTopArrow";
 import SocialMediaGame from './components/SocialMediaGame';
-import AccountPage from "./pages/AccountPage";
 import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -85,12 +84,6 @@ function AppWrapper() {
             <ContactUsPage />
           </ProtectedRoute>
         } />
-
-        {/* <Route path="/account" element={
-          <ProtectedRoute>
-            <AccountPage />
-          </ProtectedRoute>
-        } /> */}
 
         {/* Added Search Route */}
         <Route path="/search" element={
