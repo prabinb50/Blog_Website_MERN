@@ -1,5 +1,5 @@
-import { ChevronRight, LoaderCircle } from 'lucide-react';
-import React, { useState } from 'react';
+import { ChevronRight, LoaderCircle, Check, X } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import axios from 'axios';
 import { Bounce, toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
+import { validateName, validateEmail, validatePassword, validateConfirmPassword } from '../utils/FormValidation';
 
 // custom styled button 
 const AnimatedButton = styled(Button)(({ theme }) => ({
@@ -29,14 +30,14 @@ const AnimatedButton = styled(Button)(({ theme }) => ({
 }));
 
 export default function SignUpPage() {
-
-    // Iiitialize navigate function for redirection
+    // initialize navigate function for redirection
     const navigate = useNavigate();
 
     // state variables to manage form inputs
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
 
     // state variable to manage terms acceptance
     const [termsAccepted, setTermsAccepted] = useState(false);
@@ -44,10 +45,68 @@ export default function SignUpPage() {
     // state variable to manage loading state
     const [isLoading, setIsLoading] = useState(false);
 
+    // state variables for validation errors
+    const [nameError, setNameError] = useState("");
+    const [emailError, setEmailError] = useState("");
+    const [passwordErrors, setPasswordErrors] = useState({
+        length: true,
+        uppercase: true,
+        lowercase: true,
+        number: true,
+        special: true
+    });
+    const [confirmPasswordError, setConfirmPasswordError] = useState("");
+
+    // state variables to track if fields have been touched
+    const [nameTouched, setNameTouched] = useState(false);
+    const [emailTouched, setEmailTouched] = useState(false);
+    const [passwordTouched, setPasswordTouched] = useState(false);
+    const [confirmPasswordTouched, setConfirmPasswordTouched] = useState(false);
+
+    // check if all validations pass
+    const isFormValid = () => {
+        return (
+            !nameError && name.trim() !== "" &&
+            !emailError && email.trim() !== "" &&
+            Object.values(passwordErrors).every(Boolean) &&
+            !confirmPasswordError && confirmPassword.trim() !== "" &&
+            termsAccepted
+        );
+    };
+
+    // validate fields when they change
+    useEffect(() => {
+        if (nameTouched) validateName(name, setNameError);
+    }, [name, nameTouched]);
+
+    useEffect(() => {
+        if (emailTouched) validateEmail(email, setEmailError);
+    }, [email, emailTouched]);
+
+    useEffect(() => {
+        if (passwordTouched) validatePassword(password, setPasswordErrors);
+        if (confirmPasswordTouched) validateConfirmPassword(confirmPassword, password, setConfirmPasswordError);
+    }, [password, passwordTouched]);
+
+    useEffect(() => {
+        if (confirmPasswordTouched) validateConfirmPassword(confirmPassword, password, setConfirmPasswordError);
+    }, [confirmPassword, confirmPasswordTouched, password]);
+
     // function to handle form submission
     const handleSubmit = async (e) => {
         try {
             e.preventDefault();
+
+            // validate all fields
+            const isNameValid = validateName(name, setNameError);
+            const isEmailValid = validateEmail(email, setEmailError);
+            const isPasswordValid = validatePassword(password, setPasswordErrors);
+            const isConfirmPasswordValid = validateConfirmPassword(confirmPassword, password, setConfirmPasswordError);
+
+            // check if form is valid
+            if (!isNameValid || !isEmailValid || !isPasswordValid || !isConfirmPasswordValid) {
+                return;
+            }
 
             // validate that terms are accepted
             if (!termsAccepted) {
@@ -64,6 +123,7 @@ export default function SignUpPage() {
                 });
                 return;
             }
+
             setIsLoading(true);
 
             // send a POST request to the server with JSON data
@@ -81,7 +141,7 @@ export default function SignUpPage() {
             // show success message 
             toast.success(response?.data?.message, {
                 position: "top-right",
-                autoClose: 200,
+                autoClose: 1000,
                 hideProgressBar: false,
                 closeOnClick: false,
                 pauseOnHover: true,
@@ -93,16 +153,24 @@ export default function SignUpPage() {
 
             navigate('/login'); // redirect to login page after successful registration
 
-            // Reset form fields after submission
+            // reset form fields after submission
             setName("");
             setEmail("");
             setPassword("");
+            setConfirmPassword("");
+            setTermsAccepted(false);
+
+            // reset touched states
+            setNameTouched(false);
+            setEmailTouched(false);
+            setPasswordTouched(false);
+            setConfirmPasswordTouched(false);
         } catch (error) {
             setIsLoading(false);
 
             console.log("Error in creating user: ", error);
 
-            toast.error("User already exists with this email please choose another email", {
+            toast.error(error.response?.data?.message || "User already exists with this email please choose another email", {
                 position: "top-right",
                 autoClose: 2000,
                 hideProgressBar: false,
@@ -142,7 +210,7 @@ export default function SignUpPage() {
                         </p>
 
                         {/* registration form */}
-                        <form onSubmit={handleSubmit} >
+                        <form onSubmit={handleSubmit} noValidate>
                             {/* name input field */}
                             <div className="mb-4">
                                 <label className="block text-sm font-medium mb-2">Name</label>
@@ -151,10 +219,15 @@ export default function SignUpPage() {
                                     required
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
+                                    onBlur={() => setNameTouched(true)}
                                     type="text"
                                     placeholder="Your name"
-                                    className="w-full px-4 py-3 border-gray-100 bg-gray-100 rounded-full focus:outline-none focus:ring-1 focus:ring-purple-500"
+                                    className={`w-full px-4 py-3 border-gray-100 bg-gray-100 rounded-full focus:outline-none focus:ring-1 ${nameTouched && nameError ? 'border-2 border-red-500 focus:ring-red-500' : 'focus:ring-purple-500'
+                                        }`}
                                 />
+                                {nameTouched && nameError && (
+                                    <p className="mt-1 text-red-500 text-xs">{nameError}</p>
+                                )}
                             </div>
 
                             {/* email input field */}
@@ -165,10 +238,15 @@ export default function SignUpPage() {
                                     required
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
+                                    onBlur={() => setEmailTouched(true)}
                                     type="email"
                                     placeholder="Email address"
-                                    className="w-full px-4 py-3 border-gray-100 bg-gray-100 rounded-full focus:outline-none focus:ring-1 focus:ring-purple-500"
+                                    className={`w-full px-4 py-3 border-gray-100 bg-gray-100 rounded-full focus:outline-none focus:ring-1 ${emailTouched && emailError ? 'border-2 border-red-500 focus:ring-red-500' : 'focus:ring-purple-500'
+                                        }`}
                                 />
+                                {emailTouched && emailError && (
+                                    <p className="mt-1 text-red-500 text-xs">{emailError}</p>
+                                )}
                             </div>
 
                             {/* password input field */}
@@ -179,28 +257,85 @@ export default function SignUpPage() {
                                     required
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
+                                    onBlur={() => setPasswordTouched(true)}
                                     type="password"
                                     placeholder="Enter your password"
-                                    className="w-full px-4 py-3 border-gray-100 bg-gray-100 rounded-full focus:outline-none focus:ring-1 focus:ring-purple-500"
+                                    minLength={8}
+                                    maxLength={32}
+                                    className={`w-full px-4 py-3 border-gray-100 bg-gray-100 rounded-full focus:outline-none focus:ring-1 ${passwordTouched && !Object.values(passwordErrors).every(Boolean)
+                                        ? 'border-2 border-red-500 focus:ring-red-500'
+                                        : 'focus:ring-purple-500'
+                                        }`}
                                 />
+
+                                {/* password requirements */}
+                                {passwordTouched && (
+                                    <div className="mt-2 space-y-1">
+                                        <p className="text-sm font-medium text-gray-700">Password must have:</p>
+                                        <ul className="space-y-1">
+                                            <li className={`text-xs flex items-center ${passwordErrors.length ? 'text-green-500' : 'text-red-500'}`}>
+                                                {passwordErrors.length ? <Check size={12} className="mr-1" /> : <X size={12} className="mr-1" />}
+                                                8-32 characters
+                                            </li>
+                                            <li className={`text-xs flex items-center ${passwordErrors.uppercase ? 'text-green-500' : 'text-red-500'}`}>
+                                                {passwordErrors.uppercase ? <Check size={12} className="mr-1" /> : <X size={12} className="mr-1" />}
+                                                At least one uppercase letter
+                                            </li>
+                                            <li className={`text-xs flex items-center ${passwordErrors.lowercase ? 'text-green-500' : 'text-red-500'}`}>
+                                                {passwordErrors.lowercase ? <Check size={12} className="mr-1" /> : <X size={12} className="mr-1" />}
+                                                At least one lowercase letter
+                                            </li>
+                                            <li className={`text-xs flex items-center ${passwordErrors.number ? 'text-green-500' : 'text-red-500'}`}>
+                                                {passwordErrors.number ? <Check size={12} className="mr-1" /> : <X size={12} className="mr-1" />}
+                                                At least one number
+                                            </li>
+                                            <li className={`text-xs flex items-center ${passwordErrors.special ? 'text-green-500' : 'text-red-500'}`}>
+                                                {passwordErrors.special ? <Check size={12} className="mr-1" /> : <X size={12} className="mr-1" />}
+                                                At least one special character (!@#$%^&*(),.?":&#123;&#125;|&lt;&gt;)
+                                            </li>
+                                        </ul>
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* confirm password input field */}
+                            <div className="mb-4">
+                                <label className="block text-sm font-medium mb-2">Confirm Password</label>
+                                <input
+                                    id="confirmPassword"
+                                    required
+                                    value={confirmPassword}
+                                    onChange={(e) => setConfirmPassword(e.target.value)}
+                                    onBlur={() => setConfirmPasswordTouched(true)}
+                                    type="password"
+                                    placeholder="Confirm your password"
+                                    className={`w-full px-4 py-3 border-gray-100 bg-gray-100 rounded-full focus:outline-none focus:ring-1 ${confirmPasswordTouched && confirmPasswordError
+                                        ? 'border-2 border-red-500 focus:ring-red-500'
+                                        : 'focus:ring-purple-500'
+                                        }`}
+                                />
+                                {confirmPasswordTouched && confirmPasswordError && (
+                                    <p className="mt-1 text-red-500 text-xs">{confirmPasswordError}</p>
+                                )}
                             </div>
 
                             {/* submit button */}
                             <motion.button
                                 type="submit"
-                                className="w-full bg-purple-600 text-white py-3 mt-4 sm:mt-6 rounded-full hover:bg-black transition cursor-pointer font-semibold flex items-center justify-center"
-                                whileHover={{
+                                className={`w-full py-3 mt-4 sm:mt-6 rounded-full cursor-pointer font-semibold flex items-center justify-center ${isFormValid()
+                                    ? 'bg-purple-600 text-white hover:bg-black transition'
+                                    : 'bg-purple-300 text-white cursor-not-allowed'
+                                    }`}
+                                whileHover={isFormValid() ? {
                                     scale: 1.03,
                                     boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.2)",
-                                }}
-                                whileTap={{
+                                } : {}}
+                                whileTap={isFormValid() ? {
                                     scale: 0.98,
-                                }}
-                                disabled={isLoading} // disable button when loading
+                                } : {}}
+                                disabled={isLoading || !isFormValid()} // disable button when loading or form invalid
                             >
-                                {
-                                    isLoading && <LoaderCircle size={16} className='animate-spin mr-2'></LoaderCircle>
-                                }
+                                {isLoading && <LoaderCircle size={16} className='animate-spin mr-2' />}
                                 Create an Account
                             </motion.button>
 
@@ -209,7 +344,8 @@ export default function SignUpPage() {
                                 <input
                                     id="terms"
                                     type="checkbox"
-                                    className="mr-2  h-4 w-4 cursor-pointer"
+                                    className="mr-2 h-4 w-4 cursor-pointer accent-purple-600"
+                                    checked={termsAccepted}
                                     onChange={(e) => setTermsAccepted(e.target.checked)}
                                     required
                                 />
@@ -230,7 +366,7 @@ export default function SignUpPage() {
                             <hr className="flex-grow border-gray-300" />
                         </div>
 
-                        {/* Google sign-up button */}
+                        {/* google sign-up button */}
                         <AnimatedButton
                             fullWidth
                             className=''
@@ -271,10 +407,9 @@ export default function SignUpPage() {
                                 </Link>
                             </p>
                         </div>
-
                     </div>
-                </div >
-            </div >
-        </div >
+                </div>
+            </div>
+        </div>
     );
 }

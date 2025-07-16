@@ -1,5 +1,5 @@
-import { ChevronRight } from 'lucide-react';
-import React, { useState } from 'react';
+import { ChevronRight, LoaderCircle } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
@@ -7,8 +7,9 @@ import { motion } from 'framer-motion';
 import axios from 'axios';
 import { Bounce, toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
+import { validateEmail, validateLoginPassword } from '../utils/FormValidation';
 
-// Custom styled button with hover and ripple effects
+// custom styled button 
 const AnimatedButton = styled(Button)(({ theme }) => ({
     backgroundColor: '#f5f5f5',
     color: '#000',
@@ -18,10 +19,10 @@ const AnimatedButton = styled(Button)(({ theme }) => ({
     opacity: 0.85,
     marginTop: '8px',
     fontSize: '0.9rem',
-    transition: 'transform 0.3s ease, background-color 0.3s ease', // Smooth hover animation
+    transition: 'transform 0.3s ease, background-color 0.3s ease',
     '&:hover': {
-        backgroundColor: '#e0e0e0', // Change background color on hover
-        transform: 'scale(1.05)', // Slightly enlarge the button on hover
+        backgroundColor: '#e0e0e0',
+        transform: 'scale(1.05)',
     },
     [theme.breakpoints.down('sm')]: {
         padding: '10px 16px',
@@ -29,28 +30,65 @@ const AnimatedButton = styled(Button)(({ theme }) => ({
 }));
 
 export default function LoginPage() {
-
-    // Initialize navigate function for redirection
+    // initialize navigate function for redirection
     const navigate = useNavigate();
 
-    // State variables to manage form inputs
+    // state variables to manage form inputs
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    // Function to handle form submission
+    // state variables for validation errors
+    const [emailError, setEmailError] = useState("");
+    const [passwordError, setPasswordError] = useState("");
+
+    // state variables to track if fields have been touched
+    const [emailTouched, setEmailTouched] = useState(false);
+    const [passwordTouched, setPasswordTouched] = useState(false);
+
+    // state variable to manage loading state
+    const [isLoading, setIsLoading] = useState(false);
+
+    // validate fields when they change
+    useEffect(() => {
+        if (emailTouched) validateEmail(email, setEmailError);
+    }, [email, emailTouched]);
+
+    useEffect(() => {
+        if (passwordTouched) validateLoginPassword(password, setPasswordError);
+    }, [password, passwordTouched]);
+
+    // check if form is valid (used for enabling/disabling submit button)
+    const isFormValid = () => {
+        return !emailError && email.trim() !== "" &&
+            !passwordError && password.trim() !== "";
+    };
+
+    // function to handle form submission
     const handleSubmit = async (e) => {
         try {
             e.preventDefault();
 
+            // validate all fields
+            const isEmailValid = validateEmail(email, setEmailError);
+            const isPasswordValid = validateLoginPassword(password, setPasswordError);
+
+            // check if form is valid
+            if (!isEmailValid || !isPasswordValid) {
+                return;
+            }
+
+            setIsLoading(true);
+
             const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/users/login`, {
                 email: email,
                 password: password,
-            })
-            // console.log(response);
-            // console.log(response.data.message);
+            });
+
+            setIsLoading(false);
+
             toast.success(response?.data?.message, {
                 position: "top-right",
-                autoClose: 200,
+                autoClose: 1000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -59,16 +97,22 @@ export default function LoginPage() {
                 theme: "light",
                 transition: Bounce,
             });
+
             localStorage.setItem("myToken", response?.data?.token);
-            navigate('/'); // Redirect to home page after successful login
-            // Reset form fields after submission
+            navigate('/'); // redirect to home page after successful login
+
+            // reset form fields after submission
             setEmail("");
             setPassword("");
+            setEmailTouched(false);
+            setPasswordTouched(false);
         } catch (error) {
+            setIsLoading(false);
             console.log("Error in login", error);
+
             toast.error("Invalid credentials, please try again", {
                 position: "top-right",
-                autoClose: 2000,
+                autoClose: 1000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -82,9 +126,8 @@ export default function LoginPage() {
 
     return (
         <div className=''>
-            {/* Page container with light purple background */}
-            <div className="bg-[#f6f2ff]">
-                {/* Navigation breadcrumb section */}
+            <div className="bg-[#f6f2ff] min-h-screen">
+                {/* navigation breadcrumb section */}
                 <div className="flex items-center justify-center pt-13 sm:pt-16 md:pt-20 pb-2 overflow-x-auto px-4">
                     <NavLink to={"/"} className="cursor-pointer">
                         Home
@@ -93,21 +136,21 @@ export default function LoginPage() {
                     <p className="font-bold whitespace-nowrap">Sign In</p>
                 </div>
 
-                {/* Main page title */}
+                {/* main page title */}
                 <p className="text-center font-bold text-5xl md:text-6xl pb-13 sm:pb-18 md:pb-20 px-4">Sign In</p>
 
-                {/* Login Section */}
+                {/* login Section */}
                 <div className="flex justify-center pb-13 sm:pb-16 md:pb-20 px-4 sm:px-6">
                     <div className="bg-white p-10 rounded-lg shadow-md w-full max-w-md">
-                        {/* Form header section */}
+                        {/* form header section */}
                         <h1 className="text-3xl sm:text-4xl font-bold mb-4">Welcome Back</h1>
                         <p className="text-gray-500 mb-8 font-semibold opacity-85 text-sm sm:text-base">
                             Please fill your email and password to sign in.
                         </p>
 
-                        {/* Logi form */}
-                        <form onSubmit={handleSubmit}>
-                            {/* Email input field */}
+                        {/* login form */}
+                        <form onSubmit={handleSubmit} noValidate>
+                            {/* email input field */}
                             <div className="mb-4">
                                 <label className="block text-sm font-medium mb-2">Email</label>
                                 <input
@@ -115,13 +158,18 @@ export default function LoginPage() {
                                     required
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
+                                    onBlur={() => setEmailTouched(true)}
                                     type="email"
                                     placeholder="Email address"
-                                    className="w-full px-4 py-3 border-gray-100 bg-gray-100 rounded-full focus:outline-none focus:ring-1 focus:ring-purple-500"
+                                    className={`w-full px-4 py-3 border-gray-100 bg-gray-100 rounded-full focus:outline-none focus:ring-1 ${emailTouched && emailError ? 'border-2 border-red-500 focus:ring-red-500' : 'focus:ring-purple-500'
+                                        }`}
                                 />
+                                {emailTouched && emailError && (
+                                    <p className="mt-1 text-red-500 text-xs">{emailError}</p>
+                                )}
                             </div>
 
-                            {/* Password input field */}
+                            {/* password input field */}
                             <div className="mb-4">
                                 <label className="block text-sm font-medium mb-2">Password</label>
                                 <input
@@ -129,30 +177,40 @@ export default function LoginPage() {
                                     required
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
+                                    onBlur={() => setPasswordTouched(true)}
                                     type="password"
                                     placeholder="Enter your password"
-                                    className="w-full px-4 py-3 border-gray-100 bg-gray-100 rounded-full focus:outline-none focus:ring-1 focus:ring-purple-500"
+                                    className={`w-full px-4 py-3 border-gray-100 bg-gray-100 rounded-full focus:outline-none focus:ring-1 ${passwordTouched && passwordError ? 'border-2 border-red-500 focus:ring-red-500' : 'focus:ring-purple-500'
+                                        }`}
                                 />
+                                {passwordTouched && passwordError && (
+                                    <p className="mt-1 text-red-500 text-xs">{passwordError}</p>
+                                )}
                             </div>
 
-                            {/* Submit button */}
+                            {/* submit button */}
                             <motion.button
                                 type="submit"
-                                className="w-full bg-purple-600 text-white py-3 mt-4 sm:mt-6 rounded-full hover:bg-black transition cursor-pointer font-semibold"
-                                whileHover={{
-                                    scale: 1.05, // Slightly enlarge on hover
-                                    boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.2)", // Add shadow on hover
-                                }}
-                                whileTap={{
-                                    scale: 0.98, // Slightly shrink on click
-                                }}
+                                className={`w-full py-3 mt-4 sm:mt-6 rounded-full cursor-pointer font-semibold flex items-center justify-center ${isFormValid()
+                                    ? 'bg-purple-600 text-white hover:bg-black transition'
+                                    : 'bg-purple-300 text-white cursor-not-allowed'
+                                    }`}
+                                whileHover={isFormValid() ? {
+                                    scale: 1.05,
+                                    boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.2)",
+                                } : {}}
+                                whileTap={isFormValid() ? {
+                                    scale: 0.98,
+                                } : {}}
+                                disabled={isLoading || !isFormValid()} // disable button when loading or form invalid
                             >
+                                {isLoading && <LoaderCircle size={16} className="animate-spin mr-2" />}
                                 Sign In
                             </motion.button>
 
                             <div className="flex items-center justify-center mt-5 sm:mt-6">
                                 <p className="text-sm">
-                                    Don’t have an account?{" "}
+                                    Don't have an account?{" "}
                                     <Link to={"/sign-up"} className="text-purple-600 underline hover:text-purple-800">
                                         Sign Up
                                     </Link>
@@ -160,14 +218,14 @@ export default function LoginPage() {
                             </div>
                         </form>
 
-                        {/* Divider with "Or" text */}
+                        {/* divider with "Or" text */}
                         <div className="flex items-center my-4 sm:my-6">
                             <hr className="flex-grow border-gray-300" />
                             <span className="mx-2 text-gray-500 text-sm">Or</span>
                             <hr className="flex-grow border-gray-300" />
                         </div>
 
-                        {/* Sign Up With Google Button */}
+                        {/* sign Up With Google Button */}
                         <AnimatedButton
                             fullWidth
                             startIcon={
@@ -179,10 +237,10 @@ export default function LoginPage() {
                                 />
                             }
                         >
-                            Sign Up With Google
+                            Sign In With Google
                         </AnimatedButton>
 
-                        {/* Sign Up With Facebook Button */}
+                        {/* sign Up With Facebook Button */}
                         <AnimatedButton
                             fullWidth
                             startIcon={
@@ -195,11 +253,10 @@ export default function LoginPage() {
                             }
                             sx={{ marginTop: '12px' }}
                         >
-                            Sign Up With Facebook
+                            Sign In With Facebook
                         </AnimatedButton>
                     </div>
                 </div>
-
             </div>
         </div>
     );
