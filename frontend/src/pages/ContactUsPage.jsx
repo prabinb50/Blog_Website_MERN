@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import SecondNavbar from "../components/SecondNavbar";
-import { NavLink } from "react-router";
+import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
 import { ChevronRight, Mail, MapPin, Phone } from "lucide-react";
 import { Bounce, toast } from "react-toastify";
+import { AnimatedText, AnimatedCard, AnimatedFade } from "../components/AnimatedComponent";
 
 export default function ContactUsPage() {
-  // State variables to manage form inputs
+  // state variables to manage form inputs
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -13,11 +13,11 @@ export default function ContactUsPage() {
   const [subject, setSubject] = useState("");
   const [phone, setPhone] = useState("");
 
-  // Function to handle form submission
+  // function to handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Display a toast notification on form submission
+    // display a toast notification on form submission
     toast("Thank you for your message! We will get back to you soon.", {
       position: "top-right",
       autoClose: 2000,
@@ -30,7 +30,7 @@ export default function ContactUsPage() {
       transition: Bounce,
     });
 
-    // Reset form fields after submission
+    // reset form fields after submission
     setName("");
     setLastName("");
     setEmail("");
@@ -39,7 +39,7 @@ export default function ContactUsPage() {
     setPhone("");
   };
 
-  // Contact details to display in the contact section
+  // contact details to display in the contact section
   const contactDetails = [
     {
       icon: <Mail className="h-8 w-8 text-purple-600" />,
@@ -60,40 +60,49 @@ export default function ContactUsPage() {
 
   return (
     <div className="bg-gray-50 min-h-screen">
-      {/* Light purple background for title section */}
       <div className="bg-[#f6f2ff] w-full">
-        <div className="flex items-center justify-center pt-20 pb-2 overflow-x-auto px-4">
+        <AnimatedFade className="flex items-center justify-center pt-20 pb-2 overflow-x-auto px-4" delay={0.1}>
           <NavLink to={"/"} className="cursor-pointer ">
             Home
           </NavLink>
-          <ChevronRight className="w-5 " />
-          <p className="whitespace-nowrap">Blog</p>
-          <ChevronRight className="w-5" />
-          <p className="font-bold whitespace-nowrap">Contact Us</p>
-        </div>
 
-        {/* Main page title */}
-        <p className="text-center font-bold text-5xl md:text-6xl pb-20 px-4">Contact Us</p>
+          <ChevronRight className="w-5 " />
+
+          <p className="whitespace-nowrap">Blog</p>
+
+          <ChevronRight className="w-5" />
+
+          <p className="font-bold whitespace-nowrap">Contact Us</p>
+        </AnimatedFade>
+
+        <AnimatedText className="text-center font-bold text-5xl md:text-6xl pb-20 px-4" delay={0.2}>
+          Contact Us
+        </AnimatedText>
       </div>
 
-      {/* Main content section */}
+      {/* main content section */}
       <div className="px-4 sm:px-6 py-13 sm:py-16 md:py-20">
-        {/* Introduction text */}
-        <h2 className="text-center text-3xl sm:text-4xl md:text-5xl font-semibold mb-6">
-          We’d Love to Hear From You
-        </h2>
-        <p className="text-center text-gray-600 mb-10 px-4 sm:px-8 md:px-16 lg:px-60 text-sm sm:text-base">
-          Whether you have questions, feedback, or just want to say hello, we’re
-          here to connect. Your thoughts and insights help us make Vexon better
-          every day, and we’re always excited to hear from our readers.
-        </p>
+        {/* introduction text  */}
+        <AnimatedText className="text-center mb-6" delay={0.3}>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold">
+            We'd Love to Hear From You
+          </h2>
+        </AnimatedText>
 
-        {/* Contact form */}
-        <div className="max-w-2xl mx-auto bg-gray-100 p-8 rounded-lg shadow-md">
+        <AnimatedText className="text-center mb-10" delay={0.4}>
+          <p className="text-gray-600 px-4 sm:px-8 md:px-16 lg:px-60 text-sm sm:text-base">
+            Whether you have questions, feedback, or just want to say hello, we're
+            here to connect. Your thoughts and insights help us make Vexon better
+            every day, and we're always excited to hear from our readers.
+          </p>
+        </AnimatedText>
+
+        {/* contact form  */}
+        <AnimatedCard className="max-w-2xl mx-auto bg-gray-100 p-8 rounded-lg shadow-md" delay={0.5}>
           <h3 className="text-2xl font-bold mb-6">Leave a Reply</h3>
 
           <form className="space-y-6" onSubmit={handleSubmit}>
-            {/* Input fields for first name and last name */}
+            {/* input fields for first name and last name */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 ">
               <input
                 required
@@ -103,6 +112,7 @@ export default function ContactUsPage() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
+
               <input
                 required
                 type="text"
@@ -113,7 +123,7 @@ export default function ContactUsPage() {
               />
             </div>
 
-            {/* Input fields for email and phone */}
+            {/* input fields for email and phone */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <input
                 required
@@ -123,9 +133,9 @@ export default function ContactUsPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
+
               <input
                 required
-                // type="number"
                 type="tel"
                 pattern="[0-9]*"
                 inputMode="numeric"
@@ -136,7 +146,7 @@ export default function ContactUsPage() {
               />
             </div>
 
-            {/* Input field for subject */}
+            {/* input field for subject */}
             <input
               required
               type="text"
@@ -146,7 +156,7 @@ export default function ContactUsPage() {
               onChange={(e) => setSubject(e.target.value)}
             />
 
-            {/* Textarea for message */}
+            {/* textarea for message */}
             <textarea
               placeholder="Message"
               rows="4"
@@ -155,7 +165,7 @@ export default function ContactUsPage() {
               onChange={(e) => setMessage(e.target.value)}
             ></textarea>
 
-            {/* Submit button */}
+            {/* submit button */}
             <button
               type="submit"
               className="w-full bg-purple-600 text-white py-2 rounded-full font-bold hover:bg-black transition cursor-pointer text-base sm:text-lg"
@@ -163,31 +173,33 @@ export default function ContactUsPage() {
               Submit Request
             </button>
           </form>
-        </div>
+        </AnimatedCard>
       </div>
 
-      {/* Contact details section */}
+      {/* contact details section */}
       <div className="max-w-2xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 pb-13 sm:pb-16 md:pb-20 px-4 sm:px-6">
         {contactDetails.map((item, index) => (
-          <div
+          <AnimatedCard
             key={index}
+            delay={0.2 + (0.1 * index)}
             className="group flex flex-col items-center text-center bg-gray-100 p-6 rounded-lg shadow-md hover:bg-purple-500 hover:scale-105 transition-transform cursor-pointer"
           >
-            {/* Icon for each contact detail */}
+            {/* icon for each contact detail */}
             <div className="bg-purple-100 p-4 rounded-full mb-4">
               {item.icon}
             </div>
 
-            {/* Title and details */}
+            {/* title and details */}
             <h3 className="text-xl font-semibold mb-2 group-hover:text-white">
               {item.title}
             </h3>
+
             {item.details.map((detail, i) => (
               <p key={i} className="text-gray-600 group-hover:text-white text-sm sm:text-base">
                 {detail}
               </p>
             ))}
-          </div>
+          </AnimatedCard>
         ))}
       </div>
     </div>
