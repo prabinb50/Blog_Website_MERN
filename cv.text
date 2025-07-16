@@ -1,0 +1,7 @@
+Full Stack Blogging Platform
+- Built a dynamic and responsive UI using React.js and Tailwind CSS, with client-side routing via React Router.
+- Designed RESTful APIs for user, blog, category, and post management with secure JWT-based authentication and password hashing.
+- Integrated Cloudinary for image uploads and React Toastify for user-friendly notifications.
+- Developed search and filter functionality for blogs, with sorting by date or title.
+- Ensured robust error handling, validation, and seamless communication between frontend and backend using Axios.
+- Technology Used: MERN Stack, Postman
