@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink } from "react-router";
 import { ChevronRight, Mail, MapPin, Phone } from "lucide-react";
 import { Bounce, toast } from "react-toastify";
 import { AnimatedText, AnimatedCard, AnimatedFade } from "../components/AnimatedComponent";
