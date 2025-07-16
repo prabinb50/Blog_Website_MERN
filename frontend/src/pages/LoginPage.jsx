@@ -81,8 +81,7 @@ export default function LoginPage() {
 
             const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/users/login`, {
                 email: email,
-                password: password,
-                rememberMe: rememberMe
+                password: password
             });
 
             setIsLoading(false);
@@ -127,9 +126,6 @@ export default function LoginPage() {
 
     // state variable to manage password visibility
     const [showPassword, setShowPassword] = useState(false);
-
-    // state variable to manage remember me option
-    const [rememberMe, setRememberMe] = useState(false);
 
     return (
         <div className=''>
@@ -207,25 +203,6 @@ export default function LoginPage() {
                                     <p className="mt-1 text-red-500 text-xs">{passwordError}</p>
                                 )}
                             </div>
-
-                            {/* remember me option */}
-                            {/* <div className="flex items-center justify-between mt-2 mb-4">
-                                <div className="flex items-center">
-                                    <input
-                                        id="remember-me"
-                                        type="checkbox"
-                                        className="h-4 w-4 cursor-pointer accent-purple-600"
-                                        checked={rememberMe}
-                                        onChange={(e) => setRememberMe(e.target.checked)}
-                                    />
-                                    <label htmlFor="remember-me" className="ml-2 text-sm text-gray-600 cursor-pointer">
-                                        Remember me
-                                    </label>
-                                </div>
-                                <a href="#" className="text-sm text-purple-600 hover:text-purple-800">
-                                    Forgot password?
-                                </a>
-                            </div> */}
 
                             {/* submit button */}
                             <motion.button

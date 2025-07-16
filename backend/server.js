@@ -6,13 +6,12 @@ import BlogRoute from './routes/BlogRoute.js'
 import userRoute from './routes/UserRoute.js';
 import CategoryRoute from './routes/CategoryRoute.js';
 import PostsRoute from './routes/PostsRoute.js'
-import helmet from 'helmet';
 
 // configure the server
 export const app = express();
 
 // middleware for helmet
-app.use(helmet());
+// app.use(helmet());
 
 // middleware for json 
 app.use(express.json());

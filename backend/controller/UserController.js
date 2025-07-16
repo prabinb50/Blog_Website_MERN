@@ -67,12 +67,8 @@ export const loginUser = async (req, res) => {
             });
         }
 
-        // 3. check if remember me option is true and set expiresIn accordingly
-        // const rememberMe = req.body.rememberMe || false;
-        // const expiresIn = rememberMe ? "30d" : "1d";
-
-        // create a token using jwt with appropriate expiration
-        const userToken = jwt.sign({ email: userExists.email, id: userExists._id }, process.env.JWT_SECRET, { expiresIn: "1d" });
+        // 3. if password matches then create a token using jwt
+        const userToken = jwt.sign({ email: userExists.email, id: userExists._id }, process.env.JWT_SECRET, { expiresIn: "7d" });
 
         // if token is not generated
         if (!userToken) {
@@ -86,8 +82,7 @@ export const loginUser = async (req, res) => {
             message: "You have been logged in successfully",
             data: {
                 user: userExists,
-                token: userToken,
-                // expiresIn: expiresIn
+                token: userToken
             }
         });
     } catch (error) {
