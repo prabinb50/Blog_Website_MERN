@@ -1,4 +1,4 @@
-import { ChevronRight, LoaderCircle, Check, X } from 'lucide-react';
+import { ChevronRight, LoaderCircle, Check, X, Eye, EyeOff } from 'lucide-react';
 import React, { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router';
 import Button from '@mui/material/Button';
@@ -184,11 +184,13 @@ export default function SignUpPage() {
         }
     };
 
+    // state variables for password visibility toggling
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
     return (
         <div>
-            {/* page container with light purple background */}
             <div className="bg-[#f6f2ff] min-h-screen">
-                {/* navigation breadcrumb section */}
                 <div className="flex items-center justify-center pt-12 sm:pt-16 md:pt-20 pb-2 overflow-x-auto px-4">
                     <NavLink to={"/"} className="cursor-pointer">
                         Home
@@ -233,6 +235,7 @@ export default function SignUpPage() {
                             {/* email input field */}
                             <div className="mb-4">
                                 <label className="block text-sm font-medium mb-2">Email</label>
+
                                 <input
                                     id="email"
                                     required
@@ -244,51 +247,68 @@ export default function SignUpPage() {
                                     className={`w-full px-4 py-3 border-gray-100 bg-gray-100 rounded-full focus:outline-none focus:ring-1 ${emailTouched && emailError ? 'border-2 border-red-500 focus:ring-red-500' : 'focus:ring-purple-500'
                                         }`}
                                 />
+
                                 {emailTouched && emailError && (
                                     <p className="mt-1 text-red-500 text-xs">{emailError}</p>
                                 )}
                             </div>
 
                             {/* password input field */}
-                            <div className="mb-4">
+                            <div className="mb-4 relative">
                                 <label className="block text-sm font-medium mb-2">Password</label>
-                                <input
-                                    id="password"
-                                    required
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    onBlur={() => setPasswordTouched(true)}
-                                    type="password"
-                                    placeholder="Enter your password"
-                                    minLength={8}
-                                    maxLength={32}
-                                    className={`w-full px-4 py-3 border-gray-100 bg-gray-100 rounded-full focus:outline-none focus:ring-1 ${passwordTouched && !Object.values(passwordErrors).every(Boolean)
-                                        ? 'border-2 border-red-500 focus:ring-red-500'
-                                        : 'focus:ring-purple-500'
-                                        }`}
-                                />
+
+                                <div className="relative">
+                                    <input
+                                        id="password"
+                                        required
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        onBlur={() => setPasswordTouched(true)}
+                                        type={showPassword ? "text" : "password"}
+                                        placeholder="Enter your password"
+                                        minLength={8}
+                                        maxLength={32}
+                                        className={`w-full px-4 py-3 border-gray-100 bg-gray-100 rounded-full focus:outline-none focus:ring-1 ${passwordTouched && !Object.values(passwordErrors).every(Boolean)
+                                            ? 'border-2 border-red-500 focus:ring-red-500'
+                                            : 'focus:ring-purple-500'
+                                            }`}
+                                    />
+
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowPassword(!showPassword)}
+                                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                                        aria-label={showPassword ? "Hide password" : "Show password"}>
+                                        {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                                    </button>
+                                </div>
 
                                 {/* password requirements */}
                                 {passwordTouched && (
                                     <div className="mt-2 space-y-1">
                                         <p className="text-sm font-medium text-gray-700">Password must have:</p>
+
                                         <ul className="space-y-1">
                                             <li className={`text-xs flex items-center ${passwordErrors.length ? 'text-green-500' : 'text-red-500'}`}>
                                                 {passwordErrors.length ? <Check size={12} className="mr-1" /> : <X size={12} className="mr-1" />}
                                                 8-32 characters
                                             </li>
+
                                             <li className={`text-xs flex items-center ${passwordErrors.uppercase ? 'text-green-500' : 'text-red-500'}`}>
                                                 {passwordErrors.uppercase ? <Check size={12} className="mr-1" /> : <X size={12} className="mr-1" />}
                                                 At least one uppercase letter
                                             </li>
+
                                             <li className={`text-xs flex items-center ${passwordErrors.lowercase ? 'text-green-500' : 'text-red-500'}`}>
                                                 {passwordErrors.lowercase ? <Check size={12} className="mr-1" /> : <X size={12} className="mr-1" />}
                                                 At least one lowercase letter
                                             </li>
+
                                             <li className={`text-xs flex items-center ${passwordErrors.number ? 'text-green-500' : 'text-red-500'}`}>
                                                 {passwordErrors.number ? <Check size={12} className="mr-1" /> : <X size={12} className="mr-1" />}
                                                 At least one number
                                             </li>
+
                                             <li className={`text-xs flex items-center ${passwordErrors.special ? 'text-green-500' : 'text-red-500'}`}>
                                                 {passwordErrors.special ? <Check size={12} className="mr-1" /> : <X size={12} className="mr-1" />}
                                                 At least one special character (!@#$%^&*(),.?":&#123;&#125;|&lt;&gt;)
@@ -299,21 +319,33 @@ export default function SignUpPage() {
                             </div>
 
                             {/* confirm password input field */}
-                            <div className="mb-4">
+                            <div className="mb-4 relative">
                                 <label className="block text-sm font-medium mb-2">Confirm Password</label>
-                                <input
-                                    id="confirmPassword"
-                                    required
-                                    value={confirmPassword}
-                                    onChange={(e) => setConfirmPassword(e.target.value)}
-                                    onBlur={() => setConfirmPasswordTouched(true)}
-                                    type="password"
-                                    placeholder="Confirm your password"
-                                    className={`w-full px-4 py-3 border-gray-100 bg-gray-100 rounded-full focus:outline-none focus:ring-1 ${confirmPasswordTouched && confirmPasswordError
-                                        ? 'border-2 border-red-500 focus:ring-red-500'
-                                        : 'focus:ring-purple-500'
-                                        }`}
-                                />
+                                <div className="relative">
+                                    <input
+                                        id="confirmPassword"
+                                        required
+                                        value={confirmPassword}
+                                        onChange={(e) => setConfirmPassword(e.target.value)}
+                                        onBlur={() => setConfirmPasswordTouched(true)}
+                                        type={showConfirmPassword ? "text" : "password"}
+                                        placeholder="Confirm your password"
+                                        className={`w-full px-4 py-3 border-gray-100 bg-gray-100 rounded-full focus:outline-none focus:ring-1 ${confirmPasswordTouched && confirmPasswordError
+                                                ? 'border-2 border-red-500 focus:ring-red-500'
+                                                : 'focus:ring-purple-500'
+                                            }`}
+                                    />
+                                    
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                                        aria-label={showConfirmPassword ? "Hide password" : "Show password"}
+                                    >
+                                        {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                                    </button>
+                                </div>
+
                                 {confirmPasswordTouched && confirmPasswordError && (
                                     <p className="mt-1 text-red-500 text-xs">{confirmPasswordError}</p>
                                 )}
@@ -362,7 +394,9 @@ export default function SignUpPage() {
                         {/* divider with "Or" text */}
                         <div className="flex items-center my-4 sm:my-6">
                             <hr className="flex-grow border-gray-300" />
+
                             <span className="mx-2 text-gray-500 text-sm">Or</span>
+
                             <hr className="flex-grow border-gray-300" />
                         </div>
 

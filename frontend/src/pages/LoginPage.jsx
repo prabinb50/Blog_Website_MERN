@@ -1,4 +1,4 @@
-import { ChevronRight, LoaderCircle } from 'lucide-react';
+import { ChevronRight, LoaderCircle, Eye, EyeOff } from 'lucide-react';
 import React, { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router';
 import Button from '@mui/material/Button';
@@ -82,6 +82,7 @@ export default function LoginPage() {
             const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/users/login`, {
                 email: email,
                 password: password,
+                rememberMe: rememberMe
             });
 
             setIsLoading(false);
@@ -124,10 +125,15 @@ export default function LoginPage() {
         }
     };
 
+    // state variable to manage password visibility
+    const [showPassword, setShowPassword] = useState(false);
+
+    // state variable to manage remember me option
+    const [rememberMe, setRememberMe] = useState(false);
+
     return (
         <div className=''>
             <div className="bg-[#f6f2ff] min-h-screen">
-                {/* navigation breadcrumb section */}
                 <div className="flex items-center justify-center pt-13 sm:pt-16 md:pt-20 pb-2 overflow-x-auto px-4">
                     <NavLink to={"/"} className="cursor-pointer">
                         Home
@@ -144,6 +150,7 @@ export default function LoginPage() {
                     <div className="bg-white p-10 rounded-lg shadow-md w-full max-w-md">
                         {/* form header section */}
                         <h1 className="text-3xl sm:text-4xl font-bold mb-4">Welcome Back</h1>
+
                         <p className="text-gray-500 mb-8 font-semibold opacity-85 text-sm sm:text-base">
                             Please fill your email and password to sign in.
                         </p>
@@ -153,6 +160,7 @@ export default function LoginPage() {
                             {/* email input field */}
                             <div className="mb-4">
                                 <label className="block text-sm font-medium mb-2">Email</label>
+
                                 <input
                                     id="email"
                                     required
@@ -170,22 +178,53 @@ export default function LoginPage() {
                             </div>
 
                             {/* password input field */}
-                            <div className="mb-4">
+                            <div className="mb-4 relative">
                                 <label className="block text-sm font-medium mb-2">Password</label>
-                                <input
-                                    id="password"
-                                    required
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    onBlur={() => setPasswordTouched(true)}
-                                    type="password"
-                                    placeholder="Enter your password"
-                                    className={`w-full px-4 py-3 border-gray-100 bg-gray-100 rounded-full focus:outline-none focus:ring-1 ${passwordTouched && passwordError ? 'border-2 border-red-500 focus:ring-red-500' : 'focus:ring-purple-500'
-                                        }`}
-                                />
+
+                                <div className="relative">
+                                    <input
+                                        id="password"
+                                        required
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        onBlur={() => setPasswordTouched(true)}
+                                        type={showPassword ? "text" : "password"}
+                                        placeholder="Enter your password"
+                                        className={`w-full px-4 py-3 border-gray-100 bg-gray-100 rounded-full focus:outline-none focus:ring-1 ${passwordTouched && passwordError ? 'border-2 border-red-500 focus:ring-red-500' : 'focus:ring-purple-500'
+                                            }`}
+                                    />
+
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowPassword(!showPassword)}
+                                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                                        aria-label={showPassword ? "Hide password" : "Show password"}
+                                    >
+                                        {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                                    </button>
+                                </div>
                                 {passwordTouched && passwordError && (
                                     <p className="mt-1 text-red-500 text-xs">{passwordError}</p>
                                 )}
+                            </div>
+
+                            {/* remember me option */}
+                            <div className="flex items-center justify-between mt-2 mb-4">
+                                <div className="flex items-center">
+                                    <input
+                                        id="remember-me"
+                                        type="checkbox"
+                                        className="h-4 w-4 cursor-pointer accent-purple-600"
+                                        checked={rememberMe}
+                                        onChange={(e) => setRememberMe(e.target.checked)}
+                                    />
+                                    <label htmlFor="remember-me" className="ml-2 text-sm text-gray-600 cursor-pointer">
+                                        Remember me
+                                    </label>
+                                </div>
+                                <a href="#" className="text-sm text-purple-600 hover:text-purple-800">
+                                    Forgot password?
+                                </a>
                             </div>
 
                             {/* submit button */}
@@ -221,7 +260,9 @@ export default function LoginPage() {
                         {/* divider with "Or" text */}
                         <div className="flex items-center my-4 sm:my-6">
                             <hr className="flex-grow border-gray-300" />
+
                             <span className="mx-2 text-gray-500 text-sm">Or</span>
+
                             <hr className="flex-grow border-gray-300" />
                         </div>
 
