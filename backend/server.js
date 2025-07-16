@@ -10,9 +10,6 @@ import PostsRoute from './routes/PostsRoute.js'
 // configure the server
 export const app = express();
 
-// middleware for helmet
-// app.use(helmet());
-
 // middleware for json 
 app.use(express.json());
 
@@ -44,7 +41,6 @@ app.use("/users", userRoute);
 app.use("/blogs", BlogRoute);
 app.use("/categories", CategoryRoute);
 app.use("/posts", PostsRoute)
-// app.use("/socialMedia", socialMediaRoute);
 
 // define the port
 // app.listen(process.env.APP_PORT, () => {
