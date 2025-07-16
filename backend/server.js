@@ -18,7 +18,11 @@ app.use(express.json());
 
 // middleware for cors for all origins
 app.use(cors({
-    origin: ['http://localhost:5173', "https://blog-website-mern-sxag.vercel.app"],
+    origin: [
+        'http://localhost:5173',
+        "https://blog-website-mern-sxag.vercel.app",
+        "https://blog-website-mern-gray.vercel.app",
+    ],
 }));
 
 // connect to the database
