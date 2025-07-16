@@ -7,7 +7,6 @@ export default function ScrollToTopArrow() {
     const { scrollY } = useViewportScroll(); // Track vertical scroll position
     const controls = useAnimation(); // Controls for animation states
 
-    // Effect to handle scroll position changes
     useEffect(() => {
         // Subscribe to scroll position changes
         const unsubscribe = scrollY.onChange((latest) => {
@@ -29,16 +28,18 @@ export default function ScrollToTopArrow() {
         <motion.div
             className="fixed bottom-8 right-8 bg-white text-purple-600 p-4 rounded-full shadow-lg border-2 border-purple-600 cursor-pointer flex items-center justify-center"
             initial={{ opacity: 0, scale: 0 }} // Initial state (hidden)
-            animate={controls} // Animation controlled by scroll position
+            animate={controls}
+
             // Hover animation effects
             whileHover={{
                 scale: 1.2,
-                backgroundColor: "#6B46C1", // Purple hover background
-                color: "#FFFFFF", // White arrow color on hover
+                backgroundColor: "#6B46C1",
+                color: "#FFFFFF",
             }}
             // Ensure button stays visible during interaction
             onMouseEnter={() => controls.start({ opacity: 1, scale: 1 })}
             onMouseLeave={() => controls.start({ opacity: 1, scale: 1 })}
+
             // Scroll to top of page when clicked
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
 

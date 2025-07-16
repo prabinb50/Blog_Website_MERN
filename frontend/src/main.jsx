@@ -85,7 +85,6 @@ function AppWrapper() {
           </ProtectedRoute>
         } />
 
-        {/* Added Search Route */}
         <Route path="/search" element={
           <ProtectedRoute>
             <SearchPage />
@@ -105,8 +104,8 @@ function AppWrapper() {
       {/* Scroll to top arrow is always shown */}
       <ScrollToTopArrow />
 
-      {/* Only show footer if user is authenticated or on auth pages */}
-      {(isAuthenticated || location.pathname === "/sign-up" || location.pathname === "/login") && <FooterSection />}
+      {/* Show footer only if user is authenticated */}
+      {isAuthenticated && <FooterSection />}
     </>
   );
 }

@@ -8,7 +8,7 @@ import axios from 'axios';
 import { Bounce, toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
 
-// Custom styled button with hover and ripple effects
+// Custom styled button 
 const AnimatedButton = styled(Button)(({ theme }) => ({
     backgroundColor: '#f5f5f5',
     color: '#000',
@@ -18,10 +18,10 @@ const AnimatedButton = styled(Button)(({ theme }) => ({
     opacity: 0.85,
     marginTop: '8px',
     fontSize: '0.9rem',
-    transition: 'transform 0.3s ease, background-color 0.3s ease', // Smooth hover animation
+    transition: 'transform 0.3s ease, background-color 0.3s ease',
     '&:hover': {
-        backgroundColor: '#e0e0e0', // Change background color on hover
-        transform: 'scale(1.05)', // Slightly enlarge the button on hover
+        backgroundColor: '#e0e0e0',
+        transform: 'scale(1.05)',
     },
     [theme.breakpoints.down('sm')]: {
         padding: '10px 16px',
@@ -87,6 +87,7 @@ export default function SignUpPage() {
                 theme: "light",
                 transition: Bounce,
             });
+
             navigate('/login'); // Redirect to login page after successful registration
 
             // Reset form fields after submission
@@ -96,6 +97,7 @@ export default function SignUpPage() {
         } catch (error) {
             setIsLoading(false);
             console.log("Error in creating user: ", error);
+
             toast.error("User already exists with this email please choose another email", {
                 position: "top-right",
                 autoClose: 2000,
@@ -184,11 +186,11 @@ export default function SignUpPage() {
                                 type="submit"
                                 className="w-full bg-purple-600 text-white py-3 mt-4 sm:mt-6 rounded-full hover:bg-black transition cursor-pointer font-semibold flex items-center justify-center"
                                 whileHover={{
-                                    scale: 1.03, // Slightly enlarge on hover
-                                    boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.2)", // Add shadow on hover
+                                    scale: 1.03,
+                                    boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.2)",
                                 }}
                                 whileTap={{
-                                    scale: 0.98, // Slightly shrink on click
+                                    scale: 0.98,
                                 }}
                                 disabled={isLoading} // Disable button when loading
                             >
@@ -206,7 +208,6 @@ export default function SignUpPage() {
                                     className="mr-2  h-4 w-4 cursor-pointer"
                                     onChange={(e) => setTermsAccepted(e.target.checked)}
                                     required
-                                    checked={termsAccepted} // Bind checkbox state to termsAccepted
                                 />
                                 <label htmlFor="terms" className="text-xs sm:text-sm cursor-pointer">
                                     I have read and agree to the{" "}
