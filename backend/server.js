@@ -13,37 +13,11 @@ export const app = express();
 // middleware for json 
 app.use(express.json());
 
-// Security headers middleware
-app.use((req, res, next) => {
-    // Force HTTPS
-    res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
-
-    // Prevent clickjacking
-    res.setHeader('X-Frame-Options', 'DENY');
-
-    // Prevent MIME type sniffing
-    res.setHeader('X-Content-Type-Options', 'nosniff');
-
-    // XSS Protection
-    res.setHeader('X-XSS-Protection', '1; mode=block');
-
-    // Content Security Policy
-    res.setHeader('Content-Security-Policy', "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:; font-src 'self' data:;");
-
-    // Referrer Policy
-    res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
-
-    next();
-});
-
 // middleware for cors for all origins
 app.use(cors({
-    origin: ['http://localhost:5173', "https://blog-website-mern-gray.vercel.app"],
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
-}));
+    origin: ['http://localhost:5173', "https://blog-website-mern-gray.vercel.app"]
 
+}));
 
 // connect to the database
 try {

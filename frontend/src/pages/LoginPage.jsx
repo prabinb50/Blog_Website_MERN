@@ -209,7 +209,7 @@ export default function LoginPage() {
                             </div>
 
                             {/* remember me option */}
-                            <div className="flex items-center justify-between mt-2 mb-4">
+                            {/* <div className="flex items-center justify-between mt-2 mb-4">
                                 <div className="flex items-center">
                                     <input
                                         id="remember-me"
@@ -225,7 +225,7 @@ export default function LoginPage() {
                                 <a href="#" className="text-sm text-purple-600 hover:text-purple-800">
                                     Forgot password?
                                 </a>
-                            </div>
+                            </div> */}
 
                             {/* submit button */}
                             <motion.button
