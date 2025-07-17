@@ -64,7 +64,7 @@ export default function CategoriesPage() {
             </div>
 
             {/* display categories */}
-            <div className="w-[90%] sm:w-11/12 mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 pt-15 md:pt-20 text-center pb-15 md:pb-20 space-y-0 md:space-y-4 ">
+            <div className="w-[90%] sm:w-11/12 mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 pt-13 sm:pt-16 md:pt-20 text-center pb-13 sm:pb-16 md:pb-20 space-y-0 md:space-y-4 ">
                 {loading ? (
                     // loading placeholders for better UX
                     Array(6).fill().map((_, index) => (

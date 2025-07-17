@@ -61,7 +61,7 @@ export default function ContactUsPage() {
   return (
     <div className="bg-gray-50 min-h-screen">
       <div className="bg-[#f6f2ff] w-full">
-        <AnimatedFade className="flex items-center justify-center pt-20 pb-2 overflow-x-auto px-4" delay={0.1}>
+        <AnimatedFade className="flex items-center justify-center pt-20 pb-2 overflow-x-auto px-4 " delay={0.1}>
           <NavLink to={"/"} className="cursor-pointer ">
             Home
           </NavLink>
@@ -195,7 +195,7 @@ export default function ContactUsPage() {
             </h3>
 
             {item.details.map((detail, i) => (
-              <p key={i} className="text-gray-600 group-hover:text-white text-sm sm:text-base">
+              <p key={i} className="text-gray-600 group-hover:text-white text-base">
                 {detail}
               </p>
             ))}
