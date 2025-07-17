@@ -15,7 +15,7 @@ export default function CategoriesPage() {
     // state to handle error
     const [error, setError] = useState(null);
 
-    // fetch categories from backend 
+    // fetch categories from  backend 
     const fetchCategories = async () => {
         try {
             setLoading(true);
