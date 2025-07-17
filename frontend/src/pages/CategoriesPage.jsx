@@ -15,7 +15,7 @@ export default function CategoriesPage() {
     // state to handle error
     const [error, setError] = useState(null);
 
-    // fetch categories from the backend 
+    // fetch categories from backend 
     const fetchCategories = async () => {
         try {
             setLoading(true);
@@ -29,7 +29,7 @@ export default function CategoriesPage() {
         } catch (error) {
             console.error("Error fetching categories:", error);
 
-            setError("Failed to load categories. Please try again later.");
+            setError("Failed to load categories. Please try again later");
 
             setLoading(false);
         }
