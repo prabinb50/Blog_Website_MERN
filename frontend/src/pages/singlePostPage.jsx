@@ -3,8 +3,8 @@ import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 import { NavLink, useLocation } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 import { Bounce, toast } from "react-toastify";
-import MoreBlogsSinglePost from "../components/MoreBlogsSinglePost";
 import axios from "axios";
+import MoreBlogsSinglePost from "../components/MoreBlogsSinglePost";
 
 export default function SinglePostPage() {
   // Get the blog id from the URL
