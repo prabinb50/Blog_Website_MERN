@@ -64,7 +64,7 @@ export default function DefaultSinglePostPage() {
       </div>
 
       {/* main content section */}
-      <div className="w-[90%] sm:w-11/12 lg:w-9/12 xl:w-7/12 mx-auto pt-13 sm:pt-16 md:pt-20 pb-13 sm:pb-16 pb:pb-20">
+      <div className="w-[90%] sm:w-11/12 lg:w-9/12 xl:w-7/12 mx-auto pt-13 sm:pt-16 md:pt-20 pb-13 sm:pb-16 md:pb-20">
         {/* post header */}
         <AnimatedFade className="flex justify-between items-center mb-4 sm:mb-6" delay={0.3}>
           <div className="flex items-center ">
