@@ -6,7 +6,7 @@ import { AnimatedCard } from "../components/AnimatedComponent";
 export default function BlogPageOne({ blogs }) {
   return (
     <div>
-      <div className="w-11/12 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-24 pb-20 gap-8">
+      <div className="w-11/12 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-13 sm:mt-16 md:mt-20 pb-13 sm:pb-16 md:pb-20 gap-8">
         {/* loop through blogs and render each blog item */}
         {blogs?.map((item, index) => (
           <AnimatedCard

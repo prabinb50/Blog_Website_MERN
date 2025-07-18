@@ -53,7 +53,7 @@ export default function BlogPage() {
       </div>
 
       {/* pagination controls */}
-      <AnimatedFade className="w-11/12 mx-auto pt-20 space-x-4 flex items-center justify-center" delay={0.3}>
+      <AnimatedFade className="w-11/12 mx-auto pt-13 sm:pt-16 md:pt-20 space-x-4 flex items-center justify-center" delay={0.3}>
         {/* chevron to navigate to the first page */}
         {view === "two" && (
           <ChevronRight
