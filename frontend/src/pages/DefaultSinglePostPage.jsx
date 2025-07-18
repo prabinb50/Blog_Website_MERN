@@ -3,7 +3,7 @@ import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 import { NavLink } from "react-router";
 import { ChevronRight } from "lucide-react";
 import { Bounce, toast } from "react-toastify";
-import MoreBlogsSinglePost from "../components/MoreBlogsSinglePost";
+import MoreBlogsSinglePost from "../components/moreBlogsSinglePost";
 import { AnimatedText, AnimatedCard, AnimatedFade } from "../components/AnimatedComponent";
 
 export default function DefaultSinglePostPage() {

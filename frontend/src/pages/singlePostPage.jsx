@@ -4,7 +4,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 import { Bounce, toast } from "react-toastify";
 import axios from "axios";
-import MoreBlogsSinglePost from "../components/MoreBlogsSinglePost";
+import MoreBlogsSinglePost from "../components/moreBlogsSinglePost";
 
 export default function SinglePostPage() {
   // Get the blog id from the URL
