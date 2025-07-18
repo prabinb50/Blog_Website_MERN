@@ -43,7 +43,7 @@ export default function BlogPage() {
 
           <ChevronRight />
 
-          <p className="font-bold whitespace-nowrap">Blog Post 01</p>
+          <p className="font-bold whitespace-nowrap">Blog Post</p>
         </AnimatedFade>
 
         {/* page title */}
