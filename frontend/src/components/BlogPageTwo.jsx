@@ -1,76 +1,85 @@
 import React from "react";
 import { CalendarDays, Clock } from "lucide-react";
 import { Link } from "react-router";
+import { AnimatedCard } from "../components/AnimatedComponent";
 
 export default function BlogPageTwo({ blogs }) {
   return (
     <div>
       <div className="w-11/12 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-24 mb-12 gap-8">
-        {/* Loop through blogs and render each blog item */}
+        {/* loop through blogs and render each blog item */}
         {blogs?.map((item, index) => (
-          <Link
-            to={`/single-post/${item._id}`}
+          <AnimatedCard
             key={index}
-            className="w-full h-full flex flex-col gap-4 border border-gray-200 rounded-md hover:shadow-lg hover:-translate-y-2 duration-500">
+            delay={0.3 + index * 0.1}
+            className="w-full h-full flex flex-col gap-4 border border-gray-200 rounded-md hover:shadow-lg hover:-translate-y-2 duration-500"
+          >
+            <Link to={`/single-post/${item._id}`}>
+              {/* blog image */}
+              <div className="">
+                <img
+                  className="rounded-t-md w-full"
+                  src={item.image}
+                  alt="Image"
+                />
+              </div>
 
-            {/* Blog image */}
-            <div className="">
-              <img className="rounded-t-md w-full" src={item.image} alt="Image" />
-            </div>
+              {/* blog content */}
+              <div className="space-y-4 px-4 pb-3">
+                {/* blog category and read time */}
+                <div className="flex justify-between">
+                  <p className="text-sm font-semibold opacity-90 hover:text-violet-500 cursor-pointer">
+                    Social Media
+                  </p>
 
-            {/* Blog content */}
-            <div className="space-y-4 px-4 pb-3">
-              {/* Blog category and read time */}
-              <div className="flex justify-between">
-                <p className="text-sm font-semibold opacity-90 hover:text-violet-500 cursor-pointer">
-                  Social Media
+                  <div className="flex items-center gap-1 cursor-pointer">
+                    <Clock size={16} />{" "}
+
+                    <p className="text-sm opacity-80">{item.readTime}</p>
+                  </div>
+                </div>
+
+                {/* blog title */}
+                <p className="text-xl font-semibold opacity-90 tracking-wide hover:text-violet-500 cursor-pointer">
+                  {item.title}
                 </p>
 
-                <div className="flex items-center gap-1 cursor-pointer">
-                  <Clock size={16} />{" "}
-                  <p className="text-sm opacity-80">{item.readTime}</p>
-                </div>
-              </div>
+                {/* blog description */}
+                <p className="opacity-70 tracking-wide">{item.description}</p>
 
-              {/* Blog title */}
-              <p className="text-xl font-semibold opacity-90 tracking-wide hover:text-violet-500 cursor-pointer">
-                {item.title}
-              </p>
+                {/* blog footer: author and date */}
+                <div className="flex items-center gap-2">
+                  {/* author profile image */}
+                  <img
+                    src={item.profile}
+                    className="w-8 h-8 rounded-full object-cover"
+                    alt="Author"
+                  />
 
-              {/* Blog description */}
-              <p className="opacity-70 tracking-wide">{item.description}</p>
-
-              {/* Blog footer: author and date */}
-              <div className="flex items-center gap-2">
-                {/* Author profile image */}
-                <img
-                  src={item.profile}
-                  className="w-8 h-8 rounded-full object-cover"
-                  alt=""
-                />
-
-                {/* Author name */}
-                <span className="text-sm opacity-70 cursor-pointer">
-                  {item.username}
-                </span>{" "}
-
-                {/* Separator */}
-                <span className="opacity-60 text-sm">|</span>{" "}
-
-                {/* Blog publish date */}
-                <div className="flex items-center gap-2 cursor-pointer">
-                  <CalendarDays size={16} strokeWidth={1.5} />{" "}
-                  <span className="text-sm opacity-70 tracking-wider">
-                    {new Date(item.date).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
+                  {/* author name */}
+                  <span className="text-sm opacity-70 cursor-pointer">
+                    {item.username}
                   </span>{" "}
+
+                  {/* separator */}
+                  <span className="opacity-60 text-sm">|</span>{" "}
+
+                  {/* blog publish date */}
+                  <div className="flex items-center gap-2 cursor-pointer">
+                    <CalendarDays size={16} strokeWidth={1.5} />{" "}
+
+                    <span className="text-sm opacity-70 tracking-wider">
+                      {new Date(item.date).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
+                    </span>{" "}
+                  </div>
                 </div>
               </div>
-            </div>
-          </Link>
+            </Link>
+          </AnimatedCard>
         ))}
       </div>
     </div>

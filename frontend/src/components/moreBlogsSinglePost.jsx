@@ -3,7 +3,7 @@ import React from "react";
 import Img1 from "../../public/blog1-image6.png";
 import Img2 from "../../public/blog1-image7.png";
 import Img3 from "../../public/blog1-image8.png";
-import { AnimatedText, AnimatedCard } from "../components/AnimatedComponent";
+import { AnimatedText, AnimatedCard } from "./AnimatedComponent";
 
 export default function MoreBlogsSinglePost() {
   // array of blog post items
@@ -44,7 +44,7 @@ export default function MoreBlogsSinglePost() {
   ];
 
   return (
-    <div className="py-13 sm:py-16 md:py-20 bg-gray-100 rounded-md shadow-md ">
+    <div className="py-13 sm:py-16 md:py-20 bg-gray-100 rounded-md shadow-md cursor-pointer">
       {/* section title */}
       <AnimatedText className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-6 sm:mb-8 md:mb-12" delay={0.1}>
         More Blogs
@@ -60,7 +60,7 @@ export default function MoreBlogsSinglePost() {
             delay={0.2 + index * 0.1} // staggered delay - 0.2, 0.3, 0.4 seconds
           >
             {/* Image section */}
-            <div className="cursor-pointer">
+            <div className="">
               <img
                 className="w-full object-cover transform transition-transform duration-500 hover:scale-105 overflow-hidden rounded-t-md"
                 src={item.img}
@@ -73,7 +73,7 @@ export default function MoreBlogsSinglePost() {
             <div className="space-y-2 sm:space-y-3 md:space-y-4 px-3 sm:px-4 pb-3 flex-grow">
               {/* category and read time */}
               <div className="flex justify-between items-center">
-                <p className="text-sm md:text-md font-semibold opacity-90 hover:text-violet-500 cursor-pointer truncate max-w-[60%]">
+                <p className="text-sm md:text-md font-semibold opacity-90 hover:text-violet-500  truncate max-w-[60%]">
                   {item.category} {/* blog category */}
                 </p>
 
@@ -84,7 +84,7 @@ export default function MoreBlogsSinglePost() {
               </div>
 
               {/* blog title */}
-              <p className="text-base sm:text-lg md:text-xl font-semibold opacity-90 tracking-wide hover:text-violet-500 cursor-pointer line-clamp-2">
+              <p className="text-base sm:text-lg md:text-xl font-semibold opacity-90 tracking-wide hover:text-violet-500  line-clamp-2">
                 {item.title}
               </p>
 

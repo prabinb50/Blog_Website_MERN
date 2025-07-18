@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-route
 import App from './App.jsx'
 import "./index.css";
 import FooterSection from "./components/FooterSection";
-import SinglePostPage from "./pages/singlePostPage";
+import SinglePostPage from "./pages/singlePostPage.jsx";
 import ContactUsPage from "./pages/ContactUsPage";
 import { Bounce, ToastContainer } from "react-toastify";
 import BlogPage from "./pages/BlogPage";

@@ -3,7 +3,7 @@ import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 import { NavLink, useLocation } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 import { Bounce, toast } from "react-toastify";
-import MoreBlogsSinglePost from "../components/moreBlogsSinglePost";
+import MoreBlogsSinglePost from "../components/MoreBlogsSinglePost";
 import axios from "axios";
 
 export default function SinglePostPage() {
