@@ -1,41 +1,51 @@
 import { ArrowUpRight, Instagram } from "lucide-react";
 import React from "react";
+import { AnimatedCard, AnimatedText } from "../AnimatedComponent";
 
 export default function MediaPostCard() {
   return (
-    <div className="bg-white rounded-md flex flex-col gap-6 py-8 px-6">
-      {/* Title */}
-      <p className="text-2xl font-semibold opacity-80">Instagram Posts</p>
+    <AnimatedCard className="bg-white rounded-md flex flex-col gap-6 py-8 px-6" delay={0.1}>
+      {/* title */}
+      <AnimatedText className="text-2xl font-semibold opacity-80" delay={0.2}>
+        Instagram Posts
+      </AnimatedText>
 
-      {/* Post section */}
-      <div className="grid grid-cols-3 gap-4  h-full w-full">
+      {/* post section */}
+      <AnimatedCard className="grid grid-cols-3 gap-4 h-full w-full" delay={0.3}>
         {Images.map((image, index) => (
-          <div key={index} className="relative h-full w-full  rounded-lg cursor-pointer group overflow-hidden">
+          <AnimatedCard
+            key={index}
+            className="relative h-full w-full rounded-lg cursor-pointer group overflow-hidden"
+            delay={0.2 + index * 0.05}
+          >
+            {/* images */}
+            <img
+              className=""
+              src={image.image}
+              alt={`Instagram post ${index + 1}`}
+              loading="lazy"
+            />
 
-            {/* Images */}
-            <img className="" src={image.image} alt="" />
-
-            <div className="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-40 transition-opacity duration-500 ">
+            <div className="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-40 transition-opacity duration-500">
             </div>
-           
-           {/* instagram logo  */}
+
+            {/* instagram logo */}
             <div
-            
-             className="bg-violet-800 absolute top-1/2  left-1/2 transform ease-in-out -translate-x-1/2 -translate-y-1/2 p-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-            <Instagram size={20} className="text-white opacity-90 " />
+              className="bg-violet-800 absolute top-1/2 left-1/2 transform ease-in-out -translate-x-1/2 -translate-y-1/2 p-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+              <Instagram size={20} className="text-white opacity-90" />
             </div>
-          </div>
+          </AnimatedCard>
         ))}
-      </div>
+      </AnimatedCard>
 
       {/* footer section */}
-      <div className="flex items-center justify-between">
-        <p className="text-2xl font-semibold opacity-80 hover:text-violet-500 cursor-pointer duration-300">
+      <AnimatedCard className="flex items-center justify-between" delay={0.4}>
+        <AnimatedText className="text-2xl font-semibold opacity-80 hover:text-violet-500 cursor-pointer duration-300" delay={0.5}>
           View on Instagram
-        </p>
+        </AnimatedText>
         <ArrowUpRight className="hover:text-violet-600 cursor-pointer duration-300" />
-      </div>
-    </div>
+      </AnimatedCard>
+    </AnimatedCard>
   );
 }
 
