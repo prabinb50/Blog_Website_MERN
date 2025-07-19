@@ -10,11 +10,11 @@ export default function BlogPageOne({ blogs }) {
         {/* loop through blogs and render each blog item */}
         {blogs?.map((item, index) => (
           <AnimatedCard
+            key={item._id || index}
             delay={0.2 + index * 0.1}
           >
             <Link
               to={`/single-post/${item._id}`}
-              key={index}
               className="w-full h-full flex flex-col gap-4 border border-gray-200 rounded-md hover:shadow-lg hover:-translate-y-2 duration-500"
             >
               {/* blog image section */}

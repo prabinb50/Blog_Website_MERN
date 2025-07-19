@@ -10,6 +10,7 @@ export default function BlogPageTwo({ blogs }) {
         {/* loop through blogs and render each blog item */}
         {blogs?.map((item, index) => (
           <AnimatedCard
+            key={item._id || index}
             delay={0.2 + index * 0.1}
           >
             <Link
