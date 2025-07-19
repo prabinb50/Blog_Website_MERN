@@ -118,7 +118,7 @@ export default function SinglePostPage() {
             </div>
           </div>
         ) : error ? (
-          // Error message
+          // error message
           <div className="text-center py-10">
             <p className="text-red-500 text-lg">{error}</p>
             <button
