@@ -1,6 +1,6 @@
 ﻿# [Full Stack Blog Platform](https://blog-website-mern-gray.vercel.app/) 
 
-This is a blog website built using the `MERN Stack`, `Tailwind CSS` for styling, and `Framer Motion` for animations.
+This is a full stack blog website built using the `MERN stack`, `Tailwind CSS` for styling, and `Framer Motion`, `GSAP`, `React Bits` for animations.
 
 ---
 
