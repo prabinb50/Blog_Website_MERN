@@ -82,12 +82,12 @@ export default function HeroSection() {
 
   return (
     <motion.div
-      className="h-full w-full mt-6 sm:mt-12 flex px-3 sm:px-6"
+      className="h-full w-full mt-6 sm:mt-12 flex"
       initial="initial"
       animate="animate"
       variants={pageVariants}
     >
-      <div className="w-11/12 max-w-7xl mx-auto bg-purple-100 flex flex-col rounded-md p-4 sm:p-6 md:p-12 lg:p-24 md:flex-row items-center justify-between gap-4 sm:gap-6 md:gap-8 relative overflow-hidden">
+      <div className="w-11/12 max-w-7xl mx-auto bg-purple-100 flex flex-col rounded-md p-4 sm:p-6 md:p-12 md:flex-row items-center justify-between gap-4 sm:gap-6 md:gap-8 relative overflow-hidden">
         {/* image section  */}
         <AnimatedCard
           className="w-full md:w-1/2 flex items-center justify-center"
@@ -130,8 +130,8 @@ export default function HeroSection() {
         </AnimatedCard>
 
         {/* content section */}
-        <div className="flex flex-col w-full md:w-1/2 gap-4 sm:gap-6 md:gap-8 mt-6 md:mt-0">
-          <AnimatedFade delay={0.3}>
+        <div className="flex flex-col w-full md:w-1/2 gap-4 sm:gap-6 md:gap-7 mt-6 md:mt-0 ">
+          <AnimatedFade delay={0.3} className="">
             <SplitTextUsage />
           </AnimatedFade>
 

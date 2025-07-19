@@ -1,34 +1,35 @@
 import { Mail, MapPin, Phone } from "lucide-react";
 import React from "react";
 import { Link } from "react-router";
-import {
-  FaFacebookF,
-  FaInstagram,
-  FaLinkedinIn,
-} from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
+import { AnimatedText, AnimatedCard, AnimatedFade } from "./AnimatedComponent";
 
 export default function FooterSection() {
   return (
     <div className="bg-gray-50 w-full">
-      <div className="lg:w-11/12 mx-auto px-4 sm:px-7 lg:px-0 pt-15 md:pt-20 pb-4 space-y-8 sm:space-y-12 lg:space-y-16">
+      <div className="lg:w-11/12 mx-auto px-4 sm:px-7 lg:px-0 pt-13 sm:pt-15 md:pt-20 pb-4 space-y-8 sm:space-y-12 lg:space-y-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 md:gap-12 xl:gap-8">
-          {/* Left section: Logo, description, and social media links */}
-          <div className="flex flex-col gap-6 sm:gap-8 lg:gap-10">
-            {/* Footer logo */}
+          {/* left section: logo, description, and social media links */}
+          <AnimatedCard className="flex flex-col gap-6 sm:gap-8 lg:gap-10" delay={0.1}>
+            {/* footer logo */}
             <Link to={"/"} className="cursor-pointer inline-block">
-              <img src="/header-logo1.png" alt="Vexon Logo" className="h-6 sm:h-8" />
+              <img
+                src="/header-logo1.png"
+                alt="Vexon Logo"
+                className="h-6 sm:h-8"
+              />
             </Link>
 
-            {/* Company description */}
-            <p className="opacity-60 leading-6 sm:leading-7">
+            {/* company description */}
+            <p className="opacity-70 leading-6 sm:leading-7">
               Vexon is your hub for the latest in digital innovation, technology
               trends, creative insights. Our mission is to empower creators,
               businesses, valuable resource.
             </p>
 
-            {/* Social media icons */}
-            <div className="flex items-center gap-2 sm:gap-3">
+            {/* social media icons */}
+            <AnimatedFade className="flex items-center gap-2 sm:gap-3" delay={0.2}>
               {[FaFacebookF, FaLinkedinIn, FaInstagram, FaXTwitter].map((Icon, index) => (
                 <Icon
                   key={index}
@@ -36,17 +37,17 @@ export default function FooterSection() {
                   className="text-gray-500 hover:text-white border border-gray-500 cursor-pointer w-max p-1.5 sm:p-2 rounded-full hover:bg-violet-600 hover:border-violet-600 transition-all duration-300"
                 />
               ))}
-            </div>
-          </div>
+            </AnimatedFade>
+          </AnimatedCard>
 
-          {/* Center section: Explore Categories */}
-          <div className="flex flex-col gap-4 sm:gap-6 lg:gap-10">
-            <p className="font-semibold text-lg sm:text-xl opacity-95">
+          {/* center section: explore categories */}
+          <AnimatedCard className="flex flex-col gap-4 sm:gap-6 lg:gap-10" delay={0.2}>
+            <AnimatedText className="font-semibold text-lg sm:text-xl opacity-95" delay={0.25}>
               Explore Categories
-            </p>
+            </AnimatedText>
 
-            {/* List of categories */}
-            <div className="flex flex-col gap-3 sm:gap-4">
+            {/* list of categories */}
+            <div className="flex flex-col gap-3 sm:gap-4 opacity-70">
               {[
                 "Digital Marketing",
                 "Ai & Technology",
@@ -55,94 +56,99 @@ export default function FooterSection() {
                 "SEO & Analytics",
                 "Design & Development"
               ].map((category, index) => (
-                <Link
+                <AnimatedText
                   key={index}
-                  to={"/" + (index === 3 ? "blog" : "")}
+                  delay={0.3 + index * 0.05}
                   className="text-base hover:text-violet-500 opacity-60 hover:translate-x-2 transition-all duration-300"
                 >
-                  {category}
-                </Link>
+                  <Link to={"/" + (index === 3 ? "blog" : "")}>
+                    {category}
+                  </Link>
+                </AnimatedText>
               ))}
             </div>
-          </div>
+          </AnimatedCard>
 
-          {/* Center section: Quick Links */}
-          <div className="flex flex-col gap-4 sm:gap-6 lg:gap-10">
-            <p className="font-semibold text-lg sm:text-xl opacity-95">
+          {/* center section: quick links */}
+          <AnimatedCard className="flex flex-col gap-4 sm:gap-6 lg:gap-10" delay={0.3}>
+            <AnimatedText className="font-semibold text-lg sm:text-xl opacity-95" delay={0.35}>
               Quick Links
-            </p>
+            </AnimatedText>
 
-            {/* List of quick links */}
-            <div className="flex flex-col gap-3 sm:gap-4">
+            {/* list of quick links */}
+            <div className="flex flex-col gap-3 sm:gap-4 opacity-70">
               {[
                 { name: "Home", path: "/" },
                 { name: "Blog", path: "/blog" },
-                { name: "Features", path: "/" },
+                { name: "Categories", path: "/categories" },
+                { name: "Single Post", path: "/single-post" },
                 { name: "Contact Us", path: "/contact" },
-                { name: "Privacy & Policy", path: "/" },
                 { name: "Terms of Services", path: "/" }
               ].map((link, index) => (
-                <Link
+                <AnimatedText
                   key={index}
-                  to={link.path}
+                  delay={0.4 + index * 0.05}
                   className="text-base hover:text-violet-500 opacity-60 hover:translate-x-2 transition-all duration-300"
                 >
-                  {link.name}
-                </Link>
+                  <Link to={link.path}>{link.name}</Link>
+                </AnimatedText>
               ))}
             </div>
-          </div>
+          </AnimatedCard>
 
-          {/* Right section: Contact Information */}
-          <div className="flex flex-col gap-4 sm:gap-6 lg:gap-10">
-            <p className="font-semibold text-lg sm:text-xl opacity-95">
+          {/* right section: contact information */}
+          <AnimatedCard className="flex flex-col gap-4 sm:gap-6 lg:gap-10" delay={0.4}>
+            <AnimatedText className="font-semibold text-lg sm:text-xl opacity-95" delay={0.45}>
               Contact Us
-            </p>
+            </AnimatedText>
 
-            {/* Contact details */}
+            {/* contact details */}
             <div className="space-y-4">
-              <div className="flex items-center gap-3">
+              <AnimatedFade className="flex items-center gap-3" delay={0.5}>
                 <Mail className="opacity-80 flex-shrink-0" size={20} strokeWidth={1.5} />
-                <p className="text-base hover:text-violet-500 opacity-60 transition-all duration-300 cursor-pointer">
+
+                <p className="text-base hover:text-violet-500 opacity-70 transition-all duration-300 cursor-pointer">
                   support@vexon.com
                 </p>
-              </div>
+              </AnimatedFade>
 
-              <div className="flex items-start sm:items-center gap-3">
+              <AnimatedFade className="flex items-start sm:items-center gap-3" delay={0.55}>
                 <MapPin className="opacity-80 flex-shrink-0 mt-1 sm:mt-0" size={20} strokeWidth={1.5} />
-                <p className="text-base hover:text-violet-500 opacity-60 transition-all duration-300 cursor-pointer">
+                <p className="text-base hover:text-violet-500 opacity-70 transition-all duration-300 cursor-pointer">
                   Kathmandu, Nepal
                 </p>
-              </div>
+              </AnimatedFade>
 
-              <div className="flex items-center gap-3">
+              <AnimatedFade className="flex items-center gap-3" delay={0.6}>
                 <Phone className="opacity-80 flex-shrink-0" size={20} strokeWidth={1.5} />
-                <p className="text-base hover:text-violet-500 opacity-60 transition-all duration-300 cursor-pointer">
+                <p className="text-base hover:text-violet-500 opacity-70 transition-all duration-300 cursor-pointer">
                   +9779784563120
                 </p>
-              </div>
+              </AnimatedFade>
             </div>
-          </div>
+          </AnimatedCard>
         </div>
 
-        {/* Footer bottom section */}
-        <div className="flex flex-col sm:flex-row justify-between items-center border-t pt-4 border-gray-400 gap-3 sm:gap-4 mt-8">
-          {/* Copyright text */}
+        {/* footer bottom section */}
+        <AnimatedFade className="flex flex-col sm:flex-row justify-between items-center border-t pt-4 border-gray-400 gap-3 sm:gap-4 mt-8" delay={0.7}>
+          {/* copyright text */}
           <p className="text-base opacity-80 text-center sm:text-left">
             © 2025 Vexon, Inc. All Rights Reserved.
           </p>
 
-          {/* Privacy policy and terms */}
+          {/* privacy policy and terms */}
           <div className="flex gap-2 sm:gap-4 text-base">
             <span className="hover:text-violet-500 opacity-80 transition-all duration-300 cursor-pointer">
               Privacy Policy
             </span>
+
             <span className="opacity-80">|</span>
+
             <span className="hover:text-violet-500 opacity-80 transition-all duration-300 cursor-pointer">
               Terms & Conditions
             </span>
           </div>
-        </div>
+        </AnimatedFade>
       </div>
     </div>
   );

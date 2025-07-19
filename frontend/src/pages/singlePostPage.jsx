@@ -14,8 +14,10 @@ export default function SinglePostPage() {
 
   // State to store single post data
   const [singlePost, setSinglePost] = useState();
+
   // Add loading state
   const [loading, setLoading] = useState(true);
+
   // Add error state
   const [error, setError] = useState(null);
 
@@ -23,13 +25,26 @@ export default function SinglePostPage() {
   const fetchSinglePost = async () => {
     try {
       setLoading(true);
+      const startTime = Date.now();
+
       const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/blogs/${blogs_id}`);
       setSinglePost(response.data.data);
       setError(null);
+
+      // ensure loading is shown for at least 1 seconds 
+      const elapsedTime = Date.now() - startTime;
+      const minLoadingTime = 1000;
+
+      if (elapsedTime < minLoadingTime) {
+        setTimeout(() => {
+          setLoading(false);
+        }, minLoadingTime - elapsedTime);
+      } else {
+        setLoading(false);
+      }
     } catch (error) {
       console.error("Error fetching single post:", error);
       setError("Failed to load blog post. Please try again later.");
-    } finally {
       setLoading(false);
     }
   };
@@ -39,7 +54,7 @@ export default function SinglePostPage() {
     fetchSinglePost();
   }, [blogs_id]);
 
-  // State variables for form inputs
+  // Rest of the component remains unchanged
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -118,7 +133,7 @@ export default function SinglePostPage() {
             </div>
           </div>
         ) : error ? (
-          // error message
+          // Error message
           <div className="text-center py-10">
             <p className="text-red-500 text-lg">{error}</p>
             <button

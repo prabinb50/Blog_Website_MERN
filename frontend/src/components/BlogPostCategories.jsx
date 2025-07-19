@@ -3,7 +3,7 @@ import { AnimatedText, AnimatedCard, AnimatedFade } from "./AnimatedComponent";
 
 export default function BlogPostCategories() {
   return (
-    <AnimatedFade className="w-11/12 mx-auto px-6 mt-12 mb-12 space-y-8" delay={0.1}>
+    <AnimatedFade className="w-11/12 mx-auto  mt-13 sm:mt-16 md:mt-20 mb-13 sm:mb-16 md:mb-20 space-y-8" delay={0.1}>
       {/* title of blog post category */}
       <div className="flex flex-col md:flex-row space-y-4 items-center justify-between">
         <AnimatedText
@@ -28,7 +28,7 @@ export default function BlogPostCategories() {
             <AnimatedCard
               key={index}
               delay={0.2 + index * 0.1}
-              className="flex flex-col justify-center gap-2 text-center hover:-translate-y-2 duration-500 w-full max-md:w-88 max-sm:h-100"
+              className="flex flex-col justify-center gap-2 text-center hover:-translate-y-2 duration-500 w-full max-md:w-90 max-sm:h-100"
             >
               <div className="overflow-hidden rounded-xl">
                 <img

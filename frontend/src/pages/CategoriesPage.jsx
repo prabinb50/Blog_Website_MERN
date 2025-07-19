@@ -19,18 +19,24 @@ export default function CategoriesPage() {
     const fetchCategories = async () => {
         try {
             setLoading(true);
+            const startTime = Date.now();
 
             const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/categories`);
-
-            // console.log("Fetched categories:", response.data.data);
             setCategories(response.data.data);
 
-            setLoading(false);
+            const elapsedTime = Date.now() - startTime;
+            const minLoadingTime = 1000;
+
+            if (elapsedTime < minLoadingTime) {
+                setTimeout(() => {
+                    setLoading(false);
+                }, minLoadingTime - elapsedTime);
+            } else {
+                setLoading(false);
+            }
         } catch (error) {
             console.error("Error fetching categories:", error);
-
             setError("Failed to load categories. Please try again later");
-
             setLoading(false);
         }
     };

@@ -10,8 +10,8 @@ import { AnimatedFade } from "../AnimatedComponent";
 
 export default function NewFeedSection() {
   return (
-    <AnimatedFade className="bg-gray-100 mt-24" delay={0.1}>
-      <div className="w-11/12 mx-auto px-6 flex flex-col lg:flex-row py-24 gap-12">
+    <AnimatedFade className="bg-gray-100 mt-13 sm:mt-16 md:mt-20" delay={0.1}>
+      <div className="w-11/12 mx-auto  flex flex-col lg:flex-row py-13 sm:py-16 md:py-20 gap-12">
         {/* left feed section - sticky */}
         <AnimatedFade className="lg:w-2/3 lg:sticky h-fit top-24 self-start" delay={0.2}>
           <SingleFeedSection />
@@ -28,7 +28,7 @@ export default function NewFeedSection() {
           <AnimatedFade delay={0.4}>
             <ProfileCard />
           </AnimatedFade>
-          
+
           {/* recent post */}
           <AnimatedFade delay={0.5}>
             <RecentPostCard />
