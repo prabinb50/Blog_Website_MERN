@@ -191,7 +191,7 @@ export default function SecondNavbar() {
               whileTap={{ scale: 0.95 }}
             >
               <Link
-                to={"/sign-up"}
+                to={"/"}
                 className="bg-purple-800 text-white font-semibold text-sm md:text-base px-3 sm:px-4 py-2 md:py-3 rounded-full hover:bg-black transition duration-300 ease-in-out cursor-pointer"
               >
                 Subscribe
