@@ -31,7 +31,7 @@ const AnimatedButton = styled(Button)(({ theme }) => ({
     },
 }));
 
-// define animation variants for form elements
+// animation variants for form elements
 const formContainerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -325,7 +325,12 @@ export default function SignUpPage() {
                         </motion.p>
 
                         {/* registration form  */}
-                        <form onSubmit={handleSubmit} noValidate>
+                        <form
+                            onSubmit={handleSubmit}
+                            noValidate
+                            aria-live='polite'
+                            aria-relevant='additions removals'
+                        >
                             {/* name input field */}
                             <motion.div
                                 className="mb-4"
