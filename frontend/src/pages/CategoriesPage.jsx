@@ -64,50 +64,61 @@ export default function CategoriesPage() {
             </div>
 
             {/* display categories */}
-            <div className="w-[90%] sm:w-11/12 mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 pt-13 sm:pt-16 md:pt-20 text-center pb-13 sm:pb-16 md:pb-20 space-y-0 md:space-y-4 ">
+            <div className="w-[90%] sm:w-11/12 mx-auto pt-13 sm:pt-16 md:pt-20 pb-13 sm:pb-16 md:pb-20">
                 {loading ? (
-                    // loading placeholders for better UX
-                    Array(6).fill().map((_, index) => (
-                        <AnimatedCard
-                            key={`placeholder-${index}`}
-                            className="bg-gray-100 rounded-md h-64 animate-pulse"
-                            delay={0.1 * (index % 3)}
-                        />
-                    ))
+                    // loading placeholders
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 text-center">
+                        {Array(6).fill().map((_, index) => (
+                            <div key={`placeholder-${index}`} className="animate-pulse space-y-3">
+                                <div className="bg-gray-200 rounded-md h-56 w-full"></div>
+                                <div className="h-6 bg-gray-200 rounded w-2/3 mx-auto"></div>
+                            </div>
+                        ))}
+                    </div>
                 ) : error ? (
-                    // error state
-                    <AnimatedText className="col-span-full text-center text-red-500">
-                        {error}
-                    </AnimatedText>
+                    // error state with retry button
+                    <div className="text-center py-10">
+                        <AnimatedText className="text-red-500 text-lg">
+                            {error}
+                        </AnimatedText>
+                        <button
+                            onClick={fetchCategories}
+                            className="mt-4 px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+                        >
+                            Try Again
+                        </button>
+                    </div>
                 ) : (
                     // category cards 
-                    categories?.map((category, index) => (
-                        <AnimatedCard
-                            key={category._id || index}
-                            className="space-y-2 hover:scale-105 transition-all duration-300"
-                            delay={0.1 + (index % 6) * 0.1} // stagger delay in groups of 6
-                        >
-                            <motion.div
-                                whileHover={{
-                                    scale: 1,
-                                    rotate: window.innerWidth > 768 ? 2 : 1,
-                                }}
-                                transition={{ type: "spring", stiffness: window.innerWidth > 768 ? 300 : 200, damping: 15 }}
-                                whileFocus={{ scale: 1.02 }}>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 text-center space-y-0 md:space-y-4">
+                        {categories?.map((category, index) => (
+                            <AnimatedCard
+                                key={category._id || index}
+                                className="space-y-2 hover:scale-105 transition-all duration-300"
+                                delay={0.1 + (index % 6) * 0.1}
+                            >
+                                <motion.div
+                                    whileHover={{
+                                        scale: 1,
+                                        rotate: window.innerWidth > 768 ? 2 : 1,
+                                    }}
+                                    transition={{ type: "spring", stiffness: window.innerWidth > 768 ? 300 : 200, damping: 15 }}
+                                    whileFocus={{ scale: 1.02 }}>
 
-                                {/* category image */}
-                                <img
-                                    src={category.image}
-                                    alt={`${category.name} category`}
-                                    className="rounded-md object-cover w-full"
-                                    loading="lazy"
-                                />
+                                    {/* category image */}
+                                    <img
+                                        src={category.image}
+                                        alt={`${category.name} category`}
+                                        className="rounded-md object-cover w-full"
+                                        loading="lazy"
+                                    />
 
-                                {/* category name */}
-                                <Link to={"/blog"} className="text-3xl font-semibold block hover:text-purple-700 transition-colors">{category.name}</Link>
-                            </motion.div>
-                        </AnimatedCard>
-                    ))
+                                    {/* category name */}
+                                    <Link to={"/blog"} className="text-3xl font-semibold block hover:text-purple-700 transition-colors">{category.name}</Link>
+                                </motion.div>
+                            </AnimatedCard>
+                        ))}
+                    </div>
                 )}
             </div>
         </div>

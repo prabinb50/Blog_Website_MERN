@@ -100,18 +100,15 @@ export default function DefaultSinglePostPage() {
           </h1>
 
           {/* post description */}
-          {/* <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
-            In today's digital age, building a strong personal brand on social
-            media is more crucial than ever. A compelling personal brand not
-            only establishes your credibility and trustworthiness but also opens doors to new opportunities, connects you with like-minded individuals,
-          </p> */}
-
-          <p className="text-sm sm:text-base text-gray-700 leading-relaxed text-center">
+          {/* <p className="text-sm sm:text-base text-gray-700 leading-relaxed text-center">
             <span className="inline sm:inline-block sm:w-full">In today's digital age, building a strong personal brand on social
               media is more crucial than ever. A compelling personal brand not
               only establishes your credibility and trustworthiness but also opens</span>
 
             <span className="inline sm:inline-block sm:w-full"> doors to new opportunities, connects you with like-minded individuals,</span>
+          </p> */}
+          <p className="text-sm sm:text-base text-gray-700 leading-relaxed text-center">
+            This post explores strategies to help create an authentic and memorable brand presence on social media that resonates with the audience.
           </p>
 
           {/* post image */}

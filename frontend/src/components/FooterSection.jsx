@@ -111,7 +111,7 @@ export default function FooterSection() {
               <div className="flex items-start sm:items-center gap-3">
                 <MapPin className="opacity-80 flex-shrink-0 mt-1 sm:mt-0" size={20} strokeWidth={1.5} />
                 <p className="text-base hover:text-violet-500 opacity-60 transition-all duration-300 cursor-pointer">
-                  Kathmandu, Nepal +0123, Bagmati Province N.O. : 3
+                  Kathmandu, Nepal
                 </p>
               </div>
 
