@@ -1,6 +1,6 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-router";
+import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-router-dom";
 import App from './App.jsx'
 import "./index.css";
 import FooterSection from "./components/FooterSection";
