@@ -37,7 +37,7 @@ export default function BlogPage() {
       });
       setBlogs(response.data.data);
 
-      // calculate elapsed time and enforce minimum loading duration
+      // calculate elapsed time & enforce minimum loading duration
       const elapsedTime = Date.now() - loadingStartTime;
       const minLoadingTime = 1000;
 
