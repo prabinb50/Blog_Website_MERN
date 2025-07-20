@@ -71,7 +71,7 @@ export default function SearchPage() {
 
             // calculate elapsed time and enforce minimum loading duration
             const elapsedTime = Date.now() - loadingStartTime;
-            const minLoadingTime = 2000; // 2 seconds minimum loading time
+            const minLoadingTime = 1000;
 
             if (elapsedTime < minLoadingTime) {
                 setTimeout(() => {
