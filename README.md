@@ -1,6 +1,6 @@
 ﻿# [Full Stack Blog Platform](https://blog-website-mern-gray.vercel.app/) 
 
-This is a full stack blog website built using the `MERN stack`, `Tailwind CSS` for styling, and `Framer Motion`, `GSAP`, `React Bits` for animations.
+This is a full stack blog website built using the `MERN Stack`, `Tailwind CSS` for styling, and `Framer Motion`, `GSAP`, `React Bits` for animations.
 
 ---
 
@@ -10,24 +10,36 @@ This is a full stack blog website built using the `MERN stack`, `Tailwind CSS` f
 - User registration and login with JWT authentication
 - Protected routes that redirect unauthenticated users
 - Password hashing for enhanced security
+- Password strength validation with visual feedback
 
 ### ✍️ Content Management
 - Create, read, update, and delete blog posts
 - Rich text editing with media support
 - Category management with image uploads
 - Author attribution for blog posts
+- Responsive image handling with fallbacks
 
 ### 🔎 Search & Discovery
 - Advanced search functionality with filters
 - Sort by newest, oldest, or title
 - Filter by author/username
 - Category-based browsing
+- URL parameter support for sharing search results
 
 ### 📱 Responsive Design
-- Fully responsive layout (mobile and desktop)
+- Fully responsive layout (mobile, tablet, and desktop)
 - Intuitive navigation with loading states
 - Toast notifications for user feedback
 - Smooth animations using **Framer Motion**
+- Back button support for mobile navigation
+
+### 🚀 Performance Optimizations
+- Skeleton loaders for content loading states
+- Lazy-loaded images for faster page loads
+- Minimum loading time to prevent UI flashes
+- Route-based scroll management for consistent user experience
+- Error recovery with retry mechanisms
+- API request timeout handling
 
 ---
 
@@ -38,7 +50,9 @@ This is a full stack blog website built using the `MERN stack`, `Tailwind CSS` f
 - React Router for client-side routing  
 - Tailwind CSS for styling  
 - Axios for API communication  
-- Framer Motion for animations  
+- Framer Motion, GSAP, and React Bits for animations 
+- React Toastify for notifications
+- Material UI components   
 
 ### ⚙️ Backend
 - Node.js with Express.js  
@@ -46,6 +60,7 @@ This is a full stack blog website built using the `MERN stack`, `Tailwind CSS` f
 - JWT for user authentication  
 - Multer + Cloudinary for file/image uploads  
 - RESTful API architecture  
+- CORS support for cross-origin requests
 
 ---
 
@@ -62,8 +77,8 @@ This is a full stack blog website built using the `MERN stack`, `Tailwind CSS` f
 
 ### 1. Clone the Repository
 
-git clone https://github.com/prabinb50/Blog_Website_MERN.git
-cd Blog_Website_MERN
+    - git clone https://github.com/prabinb50/Blog_Website_MERN.git
+    - cd Blog_Website_MERN
 
 ### 2. Backend Setup
 
