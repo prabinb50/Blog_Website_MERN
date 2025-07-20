@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import { Search, RefreshCw, AlertCircle } from 'lucide-react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Search, RefreshCw, AlertCircle, ChevronLeft } from 'lucide-react';
 import axios from 'axios';
 import SearchResults from '../components/SearchResults';
 import SearchFilters from '../components/SearchFilters';
@@ -9,6 +9,8 @@ import { AnimatedText, AnimatedCard, AnimatedFade } from '../components/Animated
 export default function SearchPage() {
     // get the current location object
     const location = useLocation();
+
+    const navigate = useNavigate();
 
     // parse the query parameters from the URL
     const queryParams = new URLSearchParams(location.search);
@@ -56,11 +58,15 @@ export default function SearchPage() {
             if (filters.sort) params.append('sort', filters.sort);
 
             // update URL with search query
-            window.history.pushState(
-                {},
-                '',
-                `${window.location.pathname}?${params.toString()}`
-            );
+            // window.history.pushState(
+            //     {},
+            //     '',
+            //     `${window.location.pathname}?${params.toString()}`
+            // );
+
+            if (params.toString()) {
+                navigate(`/search?${params.toString()}`, { replace: true });
+            }
 
             // make API call to fetch search results
             const response = await axios.get(
@@ -87,7 +93,7 @@ export default function SearchPage() {
 
             // even with errors, maintain minimum loading time
             const elapsedTime = Date.now() - loadingStartTime;
-            const minLoadingTime = 2000; // Use the same loading time for consistency
+            const minLoadingTime = 1000;
 
             if (elapsedTime < minLoadingTime) {
                 setTimeout(() => {
@@ -122,6 +128,12 @@ export default function SearchPage() {
         }
     }, []);
 
+    // handler for back button
+    const handleGoBack = () => {
+        navigate(-1); // go back to the previous page
+        setSearchQuery(''); // clear search query
+    };
+
     return (
         <div className="min-h-screen bg-gray-50">
             {/* header section */}
@@ -129,6 +141,16 @@ export default function SearchPage() {
                 {/* search input */}
                 <AnimatedCard className="max-w-2xl mx-auto px-5 md:px-4 pt-8" delay={0.2}>
                     <form onSubmit={handleSearch} className="flex items-center">
+                        {/* Back button - only shown on screens below lg breakpoint */}
+                        <button
+                            type="button"
+                            onClick={handleGoBack}
+                            className="lg:hidden mr-3 p-2 rounded-full bg-white border border-gray-300 text-gray-600 hover:text-purple-600 hover:border-purple-300 transition-colors"
+                            aria-label="Go back"
+                        >
+                            <ChevronLeft size={20} />
+                        </button>
+
                         <div className="relative flex-grow">
                             <input
                                 type="text"

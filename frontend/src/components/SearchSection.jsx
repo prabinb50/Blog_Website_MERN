@@ -2,7 +2,7 @@ import * as React from "react";
 import Box from "@mui/joy/Box";
 import Drawer from "@mui/joy/Drawer";
 import { Search, Loader } from "lucide-react";
-import { useNavigate } from "react-router"; 
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { AnimatedFade, AnimatedText } from './AnimatedComponent';
 

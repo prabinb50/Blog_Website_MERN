@@ -18,6 +18,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import SearchPage from "./pages/SearchPage.jsx";
 import LogoutPage from "./pages/LogoutPage.jsx";
 import DefaultSinglePostPage from "./pages/DefaultSinglePostPage.jsx";
+import RouteScrollReset from "./components/RouteScrollReset.jsx";
 
 function AppWrapper() {
   const location = useLocation(); // Get the current route
@@ -26,6 +27,9 @@ function AppWrapper() {
 
   return (
     <>
+      {/* Reset scroll position on route change */}
+      <RouteScrollReset />
+
       {/* Only show navbar if user is authenticated */}
       {isAuthenticated && <SecondNavbar />}
 

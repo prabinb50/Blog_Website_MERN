@@ -1,6 +1,6 @@
 import React from 'react';
 import { CalendarDays, Clock, RefreshCw } from "lucide-react";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import { AnimatedCard, AnimatedFade } from '../components/AnimatedComponent';
 
 export default function SearchResults({ results, loading, error }) {
