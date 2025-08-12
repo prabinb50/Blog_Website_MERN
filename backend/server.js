@@ -43,13 +43,13 @@ app.use("/categories", CategoryRoute);
 app.use("/posts", PostsRoute)
 
 // define the port
-app.listen(process.env.APP_PORT, () => {
-    console.log(`Server is running on port ${process.env.APP_PORT}`);
-});
-
-// app.listen(4000, () => {
-//     console.log(`Server is running on port 4000`);
+// app.listen(process.env.APP_PORT, () => {
+//     console.log(`Server is running on port ${process.env.APP_PORT}`);
 // });
+
+app.listen(4000, () => {
+    console.log(`Server is running on port 4000`);
+});
 
 app.get("/", (req, res) => {
     res.send("Server is working");

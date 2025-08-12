@@ -68,8 +68,8 @@ export const loginUser = async (req, res) => {
         }
 
         // 3. if password matches then create a token using jwt
-        const userToken = jwt.sign({ email: userExists.email, id: userExists._id }, process.env.JWT_SECRET, { expiresIn: "7d" });
-        // const userToken = jwt.sign({ email: userExists.email, id: userExists._id }, "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiIsImtpZCI6IjQ0YTU2Nzk4OTNiNDY4OWY3MDA1NDYzZjgzZDYwYWU3In0.e30.9Xa_DRa9G1dtHaVkxLIWAKSf-vyBAQBXaqK024u6xgcWkoApwFBjjCd3ZgtCDbcyRpq8C4_lf9A4JHy6XzSa8g", { expiresIn: "7d" });
+        // const userToken = jwt.sign({ email: userExists.email, id: userExists._id }, process.env.JWT_SECRET, { expiresIn: "7d" });
+        const userToken = jwt.sign({ email: userExists.email, id: userExists._id }, "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiIsImtpZCI6IjQ0YTU2Nzk4OTNiNDY4OWY3MDA1NDYzZjgzZDYwYWU3In0.e30.9Xa_DRa9G1dtHaVkxLIWAKSf-vyBAQBXaqK024u6xgcWkoApwFBjjCd3ZgtCDbcyRpq8C4_lf9A4JHy6XzSa8g", { expiresIn: "7d" });
 
         // if token is not generated
         if (!userToken) {
