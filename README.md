@@ -120,13 +120,15 @@ iii. Install additional dependencies:
 
 ### 🔁 Start the Backend Server
 
-    - cd backend
-    - npm run dev
+    cd backend
+    npm run dev
 
 ### 🌐 Start the Frontend Development Server
 
-    - cd frontend
-    - npm start
+    cd frontend
+    npm start
+
+
 
 
 
