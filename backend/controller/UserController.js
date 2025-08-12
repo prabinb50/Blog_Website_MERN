@@ -228,3 +228,31 @@ export const deleteUserById = async (req, res) => {
         });
     }
 }
+
+// Delete all users
+export const deleteAllUsers = async (req, res) => {
+    try {
+        // Delete all users from the database
+        const deletedUsers = await User.deleteMany();
+
+        // if no users deleted then return error
+        if (deletedUsers.deletedCount === 0) {
+            return res.status(404).json({
+                message: "No users found to delete"
+            });
+        }
+
+        // if users deleted then return the count
+        return res.status(200).json({
+            message: "All users deleted successfully",
+            data: {
+                count: deletedUsers.deletedCount
+            }
+        });
+    } catch (error) {
+        return res.status(500).json({
+            message: "Internal server error",
+            error: error.message
+        });
+    }
+}

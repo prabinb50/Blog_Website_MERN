@@ -1,5 +1,5 @@
 import express from "express";
-import { deleteUserById, getAllUsers, getSingleUserById, loginUser, registerUser, updateUserById } from "../controller/UserController.js";
+import { deleteAllUsers, deleteUserById, getAllUsers, getSingleUserById, loginUser, registerUser, updateUserById } from "../controller/UserController.js";
 import multer from "multer";
 const upload = multer({ dest: "uploads/" });
 // import { verifyToken } from "../middleware/verifyToken.js";
@@ -12,5 +12,6 @@ router.get("/", getAllUsers);
 router.get("/:id", getSingleUserById);
 router.patch("/:id", updateUserById);
 router.delete("/:id", deleteUserById);
+router.delete("/", deleteAllUsers);
 
 export default router;
