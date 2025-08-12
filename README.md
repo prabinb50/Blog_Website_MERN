@@ -77,8 +77,8 @@ This is a full stack blog website built using the `MERN Stack`, `Tailwind CSS` f
 
 ### 1. Clone the Repository
 
-    - git clone https://github.com/prabinb50/Blog_Website_MERN.git
-    - cd Blog_Website_MERN
+    git clone https://github.com/prabinb50/Blog_Website_MERN.git
+    cd Blog_Website_MERN
 
 ### 2. Backend Setup
 
