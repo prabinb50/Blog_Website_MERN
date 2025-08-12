@@ -112,12 +112,14 @@ export default function CategoriesPage() {
                                     whileFocus={{ scale: 1.02 }}>
 
                                     {/* category image */}
-                                    <img
-                                        src={category.image}
-                                        alt={`${category.name} category`}
-                                        className="rounded-md object-cover w-full"
-                                        loading="lazy"
-                                    />
+                                    <Link to={"/blog"}>
+                                        <img
+                                            src={category.image}
+                                            alt={`${category.name} category`}
+                                            className="rounded-md object-cover w-full"
+                                            loading="lazy"
+                                        />
+                                    </Link>
 
                                     {/* category name */}
                                     <Link to={"/blog"} className="text-3xl font-semibold block hover:text-purple-700 transition-colors">{category.name}</Link>
