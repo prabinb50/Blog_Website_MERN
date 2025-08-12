@@ -23,19 +23,19 @@ app.use(cors({
 }));
 
 // connect to the database
-try {
-    mongoose.connect(process.env.MONGO_URI);
-    console.log('Connected to MongoDB');
-} catch (error) {
-    console.error('Error connecting to MongoDB:', error.message);
-}
-
 // try {
-//     mongoose.connect("mongodb+srv://joshiprabin17:g0HV1i3Be2XrIYD8@cluster0.kpv00gt.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
+//     mongoose.connect(process.env.MONGO_URI);
 //     console.log('Connected to MongoDB');
 // } catch (error) {
 //     console.error('Error connecting to MongoDB:', error.message);
 // }
+
+try {
+    mongoose.connect("mongodb+srv://joshiprabin17:g0HV1i3Be2XrIYD8@cluster0.kpv00gt.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
+    console.log('Connected to MongoDB');
+} catch (error) {
+    console.error('Error connecting to MongoDB:', error.message);
+}
 
 app.use("/users", userRoute);
 app.use("/blogs", BlogRoute);
