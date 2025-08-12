@@ -58,7 +58,7 @@ This is a full stack blog website built using the `MERN Stack`, `Tailwind CSS` f
 
 ### ⚙️ Backend
 - Node.js with Express.js  
-- MongoDB (with Mongoose ODM)  
+- MongoDB for database
 - JWT for user authentication  
 - Multer + Cloudinary for file/image uploads  
 - RESTful API architecture  
@@ -127,6 +127,7 @@ iii. Install additional dependencies:
 
     cd frontend
     npm start
+
 
 
 
